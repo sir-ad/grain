@@ -6,7 +6,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/Version-1.0.0--alpha-red)](https://github.com/sir-ad/ai-semantics)
-[![Discord](https://img.shields.io/badge/Discord-Join-blue)](https://discord.gg/ai-semantics)
 
 ---
 
@@ -64,14 +63,11 @@ Renders consistently on web, CLI, WhatsApp, Telegram, MCP, agents, voice.
 # Web (npm)
 npm install @ai-semantics/web
 
-# Web (CDN)
-<script src="https://cdn.ai-semantics.dev/v1/web.js"></script>
-
 # CLI
 npm install -g @ai-semantics/cli
 
-# React
-npm install @ai-semantics/react
+# MCP
+npm install @ai-semantics/mcp
 ```
 
 ---
@@ -95,17 +91,7 @@ npm install @ai-semantics/react
 | `APPROVE` | Human-in-the-loop |
 | `BRANCH` | Conversation forks |
 
-### 2. State Machines
-
-Every primitive has explicit states:
-
-```
-STREAM: IDLE → GENERATING → COMPLETE
-TOOL: PENDING → RUNNING → COMPLETE
-APPROVE: PENDING → SHOWING → APPROVED/DENIED
-```
-
-### 3. G-Lang
+### 2. G-Lang
 
 XML-based syntax designed for:
 - AI models can output it
@@ -114,19 +100,14 @@ XML-based syntax designed for:
 
 ---
 
-## Platform Support
+## Packages
 
-| Platform | Package | Status |
-|----------|---------|--------|
-| Web | `@ai-semantics/web` | Alpha |
-| React | `@ai-semantics/react` | Planned |
-| Vue | `@ai-semantics/vue` | Planned |
-| CLI | `@ai-semantics/cli` | Alpha |
-| MCP | `@ai-semantics/mcp` | Alpha |
-| WhatsApp | `@ai-semantics/chat` | Planned |
-| Telegram | `@ai-semantics/chat` | Planned |
-| Agent | `@ai-semantics/agent` | Alpha |
-| Voice | `@ai-semantics/voice` | Planned |
+| Package | Description |
+|---------|-------------|
+| `@ai-semantics/core` | Parser, validator, state machine |
+| `@ai-semantics/web` | Web adapter with semantic HTML |
+| `@ai-semantics/cli` | Terminal adapter |
+| `@ai-semantics/mcp` | MCP protocol adapter |
 
 ---
 
@@ -134,42 +115,10 @@ XML-based syntax designed for:
 
 - [Specification](SPEC.md) — Core primitives and state machines
 - [G-Lang](G-LANG.md) — Syntax reference
-- [Quick Start](QUICK-START.md) — Get started fast
 - [Architecture](ARCHITECTURE.md) — System design
-
----
-
-## Why This Matters
-
-**The moat is not the code.**
-
-The moat is the vocabulary:
-
-- If AI models output G-Lang
-- If every platform renders G-Lang
-- If developers think in G-Lang primitives
-
-...then you have a standard.
-
-That's when any AI can say:
-> "Just output G-Lang. The interface handles itself."
-
----
-
-## Contributing
-
-Contributions welcome! Please read our [Contributing Guide](CONTRIBUTING.md).
 
 ---
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
-
----
-
-## Links
-
-- GitHub: https://github.com/sir-ad/ai-semantics
-- Discord: https://discord.gg/ai-semantics
-- Website: https://ai-semantics.dev
+MIT — see [LICENSE](LICENSE)
