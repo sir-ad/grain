@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/@changesets/cli@latest/schema.json",
+  "changelog": false,
+  "commit": false,
+  "fixed": [
+    "grain",
+    "@grain/web",
+    "@grain/cli",
+    "@grain/mcp",
+    "@grain/mcp-server"
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch"
+}

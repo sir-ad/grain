@@ -7,6 +7,11 @@
   "workspaces": [
     "packages/*"
   ],
+  "homepage": "https://sir-ad.github.io/grain/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sir-ad/grain.git"
+  },
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -37,12 +42,7 @@
     "grain"
   ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sir-ad/grain.git"
-  },
   "bugs": {
     "url": "https://github.com/sir-ad/grain/issues"
-  },
-  "homepage": "https://github.com/sir-ad/grain#readme"
+  }
 }

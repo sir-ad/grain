@@ -34,22 +34,9 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Create changeset
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          version: pnpm version
-          commit: "chore: release"
-          title: "Release"
-          publish: pnpm publish -r
+      - name: Version & Publish
+        run: |
+          pnpm changeset version
+          pnpm publish -r --no-git-checks
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Comment on PR
-        if: steps.changesets.outputs.published == 'false'
-        run: |
-          gh pr comment ${{ github.event.pull_request.number }} \
-            --body "No packages were released. This is normal if no changesets were committed."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
