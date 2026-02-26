@@ -1,124 +1,85 @@
 # AI Semantics
 
-> The universal interaction layer for the AI era.
-
-**AI Semantics** defines a standard vocabulary for every surface where AI interacts with humans or other AI.
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/Version-1.0.0--alpha-red)](https://github.com/sir-ad/ai-semantics)
+Universal interaction layer for AI interfaces.
 
 ---
 
-## The Problem
+### What
 
-Every AI tool reinvents its own interaction patterns:
+Standard vocabulary for every surface where AI meets humans — or AI meets AI.
 
-- ChatGPT, Claude, Perplexity all have different streaming behaviors
-- Each chatbot has unique artifact rendering
-- Tool calls display differently everywhere
-- No standard for "AI is thinking"
-- Each model outputs different JSON
+No more rebuilding chat UI, streaming text, tool calls, artifact rendering. Every AI tool invents this stuff. We're making it standard.
 
-**Users pay the learning tax every time.**
+### Size
 
----
+~15KB. Zero dependencies.
 
-## The Solution
+### Philosophy
 
-AI Semantics provides:
-
-1. **Universal Primitives** — 10 atomic interaction types
-2. **State Machines** — Explicit state definitions for consistent UX
-3. **G-Lang** — Declarative syntax AI can output, any frontend can render
-4. **Platform Adapters** — Web, CLI, Chat, MCP, Agent, Voice
-
----
-
-## Quick Example
+Like oat.ink, but for AI interfaces:
+- Semantic markup. No classes.
+- Drop in. Works.
+- Standards, not frameworks.
 
 ```grain
 <message role="assistant">
   <think model="chain-of-thought" visible="false">
-    User is asking about weather. I should call the weather tool.
+    User asks about weather. Call weather tool.
   </think>
-  <stream>Let me check the weather for you...</stream>
+  <stream>Checking weather...</stream>
   <tool name="get_weather" args='{"city": "Mumbai"}' status="running" />
 </message>
-
-<message role="assistant">
-  <tool name="get_weather" status="complete">
-    <result temperature="28" condition="sunny" />
-  </tool>
-  <stream>The weather in Mumbai is currently 28°C and sunny.</stream>
-</message>
 ```
 
-Renders consistently on web, CLI, WhatsApp, Telegram, MCP, agents, voice.
+Same syntax renders on web, CLI, WhatsApp, Telegram, MCP, agents, voice.
 
----
+### Primitives
 
-## Installation
+10 atomic types. Compose into anything:
+
+| | |
+|---|---|
+| stream | think |
+| tool | artifact |
+| input | context |
+| state | error |
+| approve | branch |
+
+Each has explicit states. Not just "loading" — but streaming, paused, error, retry.
+
+### Adapters
+
+| | |
+|---|---|
+| @ai-semantics/web | HTML + CSS |
+| @ai-semantics/cli | Terminal |
+| @ai-semantics/mcp | JSON ↔ G-Lang |
+
+More coming: React, Vue, WhatsApp, Telegram, Voice.
+
+### Why
+
+AI outputs raw text. Every frontend guesses how to render it. 
+
+If AI models output G-Lang — and every platform knows how to render G-Lang — the interface problem disappears.
+
+That's the play.
+
+### Install
 
 ```bash
-# Web (npm)
+npm install @ai-semantics/core
 npm install @ai-semantics/web
-
-# CLI
-npm install -g @ai-semantics/cli
-
-# MCP
-npm install @ai-semantics/mcp
 ```
 
----
+CDN: `https://cdn.ai-semantics.dev/v1/ai-semantics-web.js`
 
-## Core Concepts
+### Docs
 
-### 1. Universal Primitives
-
-10 atomic interaction types:
-
-| Primitive | Purpose |
-|-----------|---------|
-| `STREAM` | Real-time text streaming |
-| `THINK` | AI reasoning display |
-| `TOOL` | Function/tool execution |
-| `ARTIFACT` | Code, images, documents |
-| `INPUT` | User input collection |
-| `CONTEXT` | Files, URLs, memory |
-| `STATE` | Global AI status |
-| `ERROR` | Failure handling |
-| `APPROVE` | Human-in-the-loop |
-| `BRANCH` | Conversation forks |
-
-### 2. G-Lang
-
-XML-based syntax designed for:
-- AI models can output it
-- Developers can read/write it
-- Any platform can parse it
+- [Spec](SPEC.md)
+- [G-Lang](G-LANG.md)
+- [Architecture](ARCHITECTURE.md)
 
 ---
 
-## Packages
-
-| Package | Description |
-|---------|-------------|
-| `@ai-semantics/core` | Parser, validator, state machine |
-| `@ai-semantics/web` | Web adapter with semantic HTML |
-| `@ai-semantics/cli` | Terminal adapter |
-| `@ai-semantics/mcp` | MCP protocol adapter |
-
----
-
-## Documentation
-
-- [Specification](SPEC.md) — Core primitives and state machines
-- [G-Lang](G-LANG.md) — Syntax reference
-- [Architecture](ARCHITECTURE.md) — System design
-
----
-
-## License
-
-MIT — see [LICENSE](LICENSE)
+MIT. https://github.com/sir-ad/ai-semantics
