@@ -5,17 +5,17 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'AISemanticsWeb',
+      name: 'GrainWeb',
       formats: ['es', 'umd'],
-      fileName: 'ai-semantics-web'
+      fileName: 'grain-web'
     },
     rollupOptions: {
-      external: ['@ai-semantics/core'],
+      external: ['grain'],
       output: {
         globals: {
-          '@ai-semantics/core': 'AISemanticsCore'
+          grain: 'Grain'
         },
-        assetFileNames: 'ai-semantics-web.[ext]'
+        assetFileNames: 'grain-web.[ext]'
       }
     },
     cssCodeSplit: false,
@@ -24,7 +24,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
-      '@ai-semantics/core': resolve(__dirname, '../core/src')
+      'grain': resolve(__dirname, '../core/src')
     }
   }
 });

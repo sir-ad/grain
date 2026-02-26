@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
-    "lib": ["ES2020", "DOM"],
+    "lib": ["ES2020"],
     "moduleResolution": "bundler",
     "strict": true,
     "esModuleInterop": true,
@@ -16,12 +16,9 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@ai-semantics/core": ["./packages/core/src"],
-      "@ai-semantics/web": ["./packages/web/src"],
-      "@ai-semantics/cli": ["./packages/cli/src"],
-      "@ai-semantics/mcp": ["./packages/mcp/src"]
+      "grain": ["./packages/core/src"]
     }
   },
   "include": ["packages/*/src"],
-  "exclude": ["node_modules", "dist", "**/dist"]
+  "exclude": ["node_modules", "dist"]
 }
