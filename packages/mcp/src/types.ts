@@ -12,14 +12,8 @@ export interface MCPToolResponse {
   input?: Record<string, unknown>;
   output?: unknown;
   status: 'pending' | 'running' | 'complete' | 'error';
-  error?: {
-    code: string;
-    message: string;
-  };
-  metadata?: {
-    duration_ms?: number;
-    tokens_used?: number;
-  };
+  error?: { code: string; message: string };
+  metadata?: { duration_ms?: number; tokens_used?: number };
 }
 
 export interface MCPContextAttachment {
@@ -40,8 +34,5 @@ export interface MCPAgentMessage {
   task_id?: string;
   result?: MCPToolResponse | MCPContextAttachment;
   requires_approval?: boolean;
-  metadata?: {
-    duration_ms?: number;
-    tokens_used?: number;
-  };
+  metadata?: { duration_ms?: number; tokens_used?: number };
 }

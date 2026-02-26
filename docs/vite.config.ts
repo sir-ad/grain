@@ -1,14 +1,12 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'AI Semantics',
+  title: 'Grain',
   description: 'Universal interaction layer for AI interfaces',
   
   themeConfig: {
-    // Logo
     logo: '/logo.svg',
     
-    // Navigation
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/getting-started' },
@@ -17,7 +15,6 @@ export default defineConfig({
       { text: 'API', link: '/api/core' },
     ],
     
-    // Sidebar
     sidebar: {
       '/guide/': [
         {
@@ -37,7 +34,7 @@ export default defineConfig({
             { text: 'Stream', link: '/primitives/stream' },
             { text: 'Think', link: '/primitives/think' },
             { text: 'Tool', link: '/primitives/tool' },
-            { text: 'Artifactprimitives/artifact', link: '/' },
+            { text: 'Artifact', link: '/primitives/artifact' },
             { text: 'Input', link: '/primitives/input' },
             { text: 'Context', link: '/primitives/context' },
             { text: 'State', link: '/primitives/state' },
@@ -80,33 +77,27 @@ export default defineConfig({
       ],
     },
     
-    // Social links
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/sir-ad/ai-semantics' }
+      { icon: 'github', link: 'https://github.com/sir-ad/grain' }
     ],
     
-    // Footer
     footer: {
       message: 'Released under MIT License.',
-      copyright: 'Copyright © 2024 AI Semantics'
+      copyright: 'Copyright © 2024 Grain'
     },
     
-    // Search
     search: {
       provider: 'local'
     },
     
-    // Outline
     outline: 'deep',
     
-    // Edit link
     editLink: {
-      pattern: 'https://github.com/sir-ad/ai-semantics/edit/main/docs/:path',
+      pattern: 'https://github.com/sir-ad/grain/edit/main/docs/:path',
       text: 'Edit this page'
     }
   },
   
-  // SEO
   head: [
     ['link', { rel: 'icon', href: '/favicon.svg' }],
     ['meta', { name: 'theme-color', content: '#000000' }],

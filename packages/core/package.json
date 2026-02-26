@@ -1,7 +1,7 @@
 {
-  "name": "@ai-semantics/core",
+  "name": "grain",
   "version": "1.0.0-alpha.1",
-  "description": "Core runtime for AI Semantics",
+  "description": "Core runtime for Grain - Universal AI interaction layer",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -19,25 +19,22 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run",
-    "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
-    "vitest": "^1.2.0"
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
-    "ai-semantics",
-    "core",
+    "grain",
+    "g-lang",
+    "ai",
     "parser",
-    "g-lang"
+    "primitives"
   ],
   "license": "MIT",
   "peerDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/sir-ad/ai-semantics.git"
+    "url": "https://github.com/sir-ad/grain.git"
   }
 }

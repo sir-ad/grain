@@ -1,7 +1,7 @@
 {
-  "name": "@ai-semantics/mcp",
+  "name": "@grain/mcp",
   "version": "1.0.0-alpha.1",
-  "description": "MCP adapter for AI Semantics",
+  "description": "MCP adapter for Grain - Universal AI interaction layer",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,16 +14,14 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ai-semantics/core": "workspace:*"
+    "grain": "workspace:*"
   },
-  "devDependencies": {
-    "@types/node": "^20.11.0",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
-    "vitest": "^1.2.0"
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
-    "ai-semantics",
+    "grain",
+    "g-lang",
     "mcp",
     "model-context-protocol",
     "adapter"
@@ -31,6 +29,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sir-ad/ai-semantics.git"
+    "url": "https://github.com/sir-ad/grain.git"
   }
 }

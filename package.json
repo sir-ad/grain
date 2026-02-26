@@ -1,7 +1,7 @@
 {
-  "name": "ai-semantics",
+  "name": "grain",
   "version": "1.0.0-alpha.1",
-  "description": "The universal interaction layer for the AI era",
+  "description": "Universal interaction layer for AI interfaces",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -12,8 +12,6 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "clean": "turbo run clean",
     "release": "changeset version && git push --follow-tags"
   },
   "devDependencies": {
@@ -36,15 +34,15 @@
     "components",
     "chat",
     "g-lang",
-    "semantics"
+    "grain"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sir-ad/ai-semantics.git"
+    "url": "https://github.com/sir-ad/grain.git"
   },
   "bugs": {
-    "url": "https://github.com/sir-ad/ai-semantics/issues"
+    "url": "https://github.com/sir-ad/grain/issues"
   },
-  "homepage": "https://github.com/sir-ad/ai-semantics#readme"
+  "homepage": "https://github.com/sir-ad/grain#readme"
 }

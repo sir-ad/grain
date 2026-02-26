@@ -1,12 +1,11 @@
 {
-  "name": "@ai-semantics/mcp-server",
+  "name": "@grain/mcp-server",
   "version": "1.0.0-alpha.1",
-  "description": "MCP Server for AI Semantics",
+  "description": "MCP Server for Grain - Universal AI interaction layer",
   "type": "module",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "bin": {
-    "ai "./dist/index.js-sem-mcp":"
+    "grain-mcp": "./dist/index.js"
   },
   "files": [
     "dist"
@@ -17,24 +16,21 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@ai-semantics/core": "workspace:*",
-    "@ai-semantics/mcp": "workspace:*",
-    "mcp-sdk": "^1.0.0"
+    "grain": "workspace:*",
+    "@grain/mcp": "workspace:*"
   },
-  "devDependencies": {
-    "@types/node": "^20.11.0",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3"
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
-    "ai-semantics",
+    "grain",
+    "g-lang",
     "mcp",
-    "server",
-    "model-context-protocol"
+    "server"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sir-ad/ai-semantics.git"
+    "url": "https://github.com/sir-ad/grain.git"
   }
 }

@@ -1,4 +1,4 @@
-# AI Semantics
+# Grain
 
 Universal interaction layer for AI interfaces.
 
@@ -8,7 +8,7 @@ Universal interaction layer for AI interfaces.
 
 Standard vocabulary for every surface where AI meets humans — or AI meets AI.
 
-No more rebuilding chat UI, streaming text, tool calls, artifact rendering. Every AI tool invents this stuff. We're making it standard.
+No more rebuilding chat UI, streaming text, tool calls, artifact rendering. Every AI tool invents this. We're making it standard.
 
 ### Size
 
@@ -16,10 +16,7 @@ No more rebuilding chat UI, streaming text, tool calls, artifact rendering. Ever
 
 ### Philosophy
 
-Like oat.ink, but for AI interfaces:
-- Semantic markup. No classes.
-- Drop in. Works.
-- Standards, not frameworks.
+Semantic markup. No classes. Drop in. Works. Standards, not frameworks.
 
 ```grain
 <message role="assistant">
@@ -31,11 +28,11 @@ Like oat.ink, but for AI interfaces:
 </message>
 ```
 
-Same syntax renders on web, CLI, WhatsApp, Telegram, MCP, agents, voice.
+Same syntax renders on web, CLI, MCP, agents.
 
 ### Primitives
 
-10 atomic types. Compose into anything:
+10 atomic types:
 
 | | |
 |---|---|
@@ -45,34 +42,31 @@ Same syntax renders on web, CLI, WhatsApp, Telegram, MCP, agents, voice.
 | state | error |
 | approve | branch |
 
-Each has explicit states. Not just "loading" — but streaming, paused, error, retry.
+Each has explicit states.
 
-### Adapters
+### Packages
 
 | | |
 |---|---|
-| @ai-semantics/web | HTML + CSS |
-| @ai-semantics/cli | Terminal |
-| @ai-semantics/mcp | JSON ↔ G-Lang |
-
-More coming: React, Vue, WhatsApp, Telegram, Voice.
+| grain | Core: parser, validator, state machine |
+| @grain/web | HTML adapter |
+| @grain/cli | Terminal adapter |
+| @grain/mcp | MCP protocol |
 
 ### Why
 
-AI outputs raw text. Every frontend guesses how to render it. 
+AI outputs raw text. Every frontend guesses how to render it.
 
 If AI models output G-Lang — and every platform knows how to render G-Lang — the interface problem disappears.
-
-That's the play.
 
 ### Install
 
 ```bash
-npm install @ai-semantics/core
-npm install @ai-semantics/web
+npm install grain
+npm install @grain/web
 ```
 
-CDN: `https://cdn.ai-semantics.dev/v1/ai-semantics-web.js`
+CDN: `https://cdn.grain.dev/v1/grain-web.js`
 
 ### Docs
 
@@ -82,4 +76,4 @@ CDN: `https://cdn.ai-semantics.dev/v1/ai-semantics-web.js`
 
 ---
 
-MIT. https://github.com/sir-ad/ai-semantics
+MIT. https://github.com/sir-ad/grain

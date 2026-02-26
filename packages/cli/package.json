@@ -1,11 +1,11 @@
 {
-  "name": "@ai-semantics/cli",
+  "name": "@grain/cli",
   "version": "1.0.0-alpha.1",
-  "description": "CLI adapter for AI Semantics",
+  "description": "CLI adapter for Grain - Universal AI interaction layer",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
-    "ai-sem": "./dist/index.js"
+    "grain": "./dist/index.js"
   },
   "files": [
     "dist"
@@ -16,18 +16,16 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ai-semantics/core": "workspace:*",
+    "grain": "workspace:*",
     "chalk": "^5.3.0",
     "ora": "^7.0.1"
   },
-  "devDependencies": {
-    "@types/node": "^20.11.0",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
-    "vitest": "^1.2.0"
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
-    "ai-semantics",
+    "grain",
+    "g-lang",
     "cli",
     "terminal",
     "adapter"
@@ -35,6 +33,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sir-ad/ai-semantics.git"
+    "url": "https://github.com/sir-ad/grain.git"
   }
 }

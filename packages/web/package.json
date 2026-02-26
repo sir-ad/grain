@@ -1,10 +1,10 @@
 {
-  "name": "@ai-semantics/web",
+  "name": "@grain/web",
   "version": "1.0.0-alpha.1",
-  "description": "Web adapter for AI Semantics",
+  "description": "Web adapter for Grain - Universal AI interaction layer",
   "type": "module",
-  "main": "./dist/ai-semantics-web.js",
-  "module": "./dist/ai-semantics-web.js",
+  "main": "./dist/grain-web.js",
+  "module": "./dist/grain-web.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -13,19 +13,17 @@
     "build": "vite build && tsc",
     "dev": "vite",
     "test": "vitest run",
-    "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@ai-semantics/core": "workspace:*"
+    "grain": "workspace:*"
   },
-  "devDependencies": {
-    "typescript": "^5.3.3",
-    "vite": "^5.0.12",
-    "vitest": "^1.2.0"
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
-    "ai-semantics",
+    "grain",
+    "g-lang",
     "web",
     "adapter",
     "ui"
@@ -33,6 +31,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sir-ad/ai-semantics.git"
+    "url": "https://github.com/sir-ad/grain.git"
   }
 }
