@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Create changeset
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: pnpm version
+          commit: "chore: release"
+          title: "Release"
+          publish: pnpm publish -r
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on PR
+        if: steps.changesets.outputs.published == 'false'
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} \
+            --body "No packages were released. This is normal if no changesets were committed."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

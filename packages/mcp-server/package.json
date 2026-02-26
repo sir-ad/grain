@@ -1,0 +1,40 @@
+{
+  "name": "@ai-semantics/mcp-server",
+  "version": "1.0.0-alpha.1",
+  "description": "MCP Server for AI Semantics",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "ai "./dist/index.js-sem-mcp":"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@ai-semantics/core": "workspace:*",
+    "@ai-semantics/mcp": "workspace:*",
+    "mcp-sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "ai-semantics",
+    "mcp",
+    "server",
+    "model-context-protocol"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sir-ad/ai-semantics.git"
+  }
+}
