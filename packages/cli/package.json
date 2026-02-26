@@ -1,0 +1,40 @@
+{
+  "name": "@ai-semantics/cli",
+  "version": "1.0.0-alpha.1",
+  "description": "CLI adapter for AI Semantics",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "ai-sem": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ai-semantics/core": "workspace:*",
+    "chalk": "^5.3.0",
+    "ora": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "keywords": [
+    "ai-semantics",
+    "cli",
+    "terminal",
+    "adapter"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sir-ad/ai-semantics.git"
+  }
+}

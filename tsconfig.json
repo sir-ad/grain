@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM"],
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ai-semantics/core": ["./packages/core/src"],
+      "@ai-semantics/web": ["./packages/web/src"],
+      "@ai-semantics/cli": ["./packages/cli/src"],
+      "@ai-semantics/mcp": ["./packages/mcp/src"]
+    }
+  },
+  "include": ["packages/*/src"],
+  "exclude": ["node_modules", "dist", "**/dist"]
+}

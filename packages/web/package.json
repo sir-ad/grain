@@ -1,0 +1,38 @@
+{
+  "name": "@ai-semantics/web",
+  "version": "1.0.0-alpha.1",
+  "description": "Web adapter for AI Semantics",
+  "type": "module",
+  "main": "./dist/ai-semantics-web.js",
+  "module": "./dist/ai-semantics-web.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && tsc",
+    "dev": "vite",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ai-semantics/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12",
+    "vitest": "^1.2.0"
+  },
+  "keywords": [
+    "ai-semantics",
+    "web",
+    "adapter",
+    "ui"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sir-ad/ai-semantics.git"
+  }
+}

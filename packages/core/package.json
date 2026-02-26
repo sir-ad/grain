@@ -1,0 +1,43 @@
+{
+  "name": "@ai-semantics/core",
+  "version": "1.0.0-alpha.1",
+  "description": "Core runtime for AI Semantics",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "keywords": [
+    "ai-semantics",
+    "core",
+    "parser",
+    "g-lang"
+  ],
+  "license": "MIT",
+  "peerDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sir-ad/ai-semantics.git"
+  }
+}

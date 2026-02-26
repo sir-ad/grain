@@ -1,0 +1,50 @@
+{
+  "name": "ai-semantics",
+  "version": "1.0.0-alpha.1",
+  "description": "The universal interaction layer for the AI era",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "clean": "turbo run clean",
+    "release": "changeset version && git push --follow-tags"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.11.0",
+    "eslint": "^8.56.0",
+    "turbo": "^1.12.4",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.1",
+  "keywords": [
+    "ai",
+    "ui",
+    "interface",
+    "primitives",
+    "components",
+    "chat",
+    "g-lang",
+    "semantics"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sir-ad/ai-semantics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sir-ad/ai-semantics/issues"
+  },
+  "homepage": "https://github.com/sir-ad/ai-semantics#readme"
+}
