@@ -60,6 +60,10 @@ export class Validator {
     }
 
     // Check if primitive exists
+    if (node.type === 'text') {
+      return;
+    }
+
     const primitive = this.primitives.get(node.type);
     if (!primitive) {
       // Allow custom elements (they'll be handled by extensions)
@@ -125,12 +129,11 @@ export class Validator {
   }
 
   /**
-   * Validate G-Lang string directly
+   * Validate Grain Language string directly
+   * Note: This is a helper method. In browser, use parser then validate.
    */
-  validateString(grainString: string): ValidationResult {
-    // Import parser here to avoid circular dependency
-    const { GLangParser } = require('./parser');
-    const parser = new GLangParser({ validate: false });
+  validateString(grainString: string, parserInstance?: any): ValidationResult {
+    const parser = parserInstance || { parse: () => ({ ast: null, errors: [{ message: 'Parser required for string validation' }] }) };
     const result = parser.parse(grainString);
 
     if (!result.ast) {

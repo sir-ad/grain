@@ -12,6 +12,9 @@ const adapter = new WebAdapter({
   }
 });
 
+// @ts-ignore
+window.adapter = adapter;
+
 // Register custom elements for G-Lang primitives
 adapter.registerCustomElements();
 
