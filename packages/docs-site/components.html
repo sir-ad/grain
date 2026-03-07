@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Components | Grain</title>
+<meta name="description" content="Interactive component playground for Grain primitives. Try <stream>, <think>, <tool>, and more.">
+<link rel="icon" type="image/svg+xml" href="/grain/favicon.svg">
+<link rel="canonical" href="https://sir-ad.github.io/grain/components.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./src/style.css">
+<style>
+.components-container {
+  max-width: 1200px;
+  margin: 100px auto 60px;
+  padding: 0 24px;
+}
+.components-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.components-header h1 {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+.components-header p {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}
+.component-section {
+  margin-bottom: 64px;
+}
+.component-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--glass-border);
+}
+.playground {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  min-height: 300px;
+}
+@media (max-width: 768px) {
+  .playground {
+    grid-template-columns: 1fr;
+  }
+}
+.playground-editor, .playground-preview {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.playground-editor textarea {
+  width: 100%;
+  height: 250px;
+  background: transparent;
+  border: none;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  resize: none;
+  outline: none;
+}
+.playground-preview {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.playground-header {
+  padding: 8px 16px;
+  background: rgba(0,0,0,0.2);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+</style>
+</head>
+<body>
+<nav class="glass-nav">
+  <div class="nav-content">
+    <a href="index.html" class="logo" style="text-decoration: none;">Grain</a>
+    <div class="nav-links">
+      <a href="components.html" style="color: var(--text);">Components</a>
+      <a href="demo.html">Demo</a>
+      <a href="kb/index.html">Knowledgebase</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="/grain/guide/getting-started">Docs</a>
+      <a href="https://github.com/sir-ad/grain">GitHub</a>
+    </div>
+    <button id="theme-toggle" aria-label="Toggle theme">◑</button>
+  </div>
+</nav>
+<main class="components-container">
+  <div class="components-header">
+    <h1>Component Playground</h1>
+    <p>Try Grain primitives live. Edit the code, see the result.</p>
+  </div>
+
+  <!-- Stream Primitive -->
+  <section class="component-section">
+    <h2>&lt;stream&gt;</h2>
+    <p style="color: var(--text-muted); margin-bottom: 16px;">Streaming text content with typewriter effect.</p>
+    <div class="playground">
+      <div class="playground-editor">
+        <div class="playground-header">grain</div>
+        <textarea id="playground-stream" spellcheck="false">&lt;stream speed="fast"&gt;
+Hello, this is a streaming message.
+It renders character by character.
+&lt;/stream&gt;</textarea>
+      </div>
+      <div class="playground-preview" id="preview-stream"></div>
+    </div>
+  </section>
+
+  <!-- Think Primitive -->
+  <section class="component-section">
+    <h2>&lt;think&gt;</h2>
+    <p style="color: var(--text-muted); margin-bottom: 16px;">AI reasoning and chain-of-thought visibility.</p>
+    <div class="playground">
+      <div class="playground-editor">
+        <div class="playground-header">grain</div>
+        <textarea id="playground-think" spellcheck="false">&lt;think model="chain-of-thought" visible="true"&gt;
+Let me analyze this request:
+1. User wants X
+2. I should Y
+3. Then respond with Z
+&lt;/think&gt;</textarea>
+      </div>
+      <div class="playground-preview" id="preview-think"></div>
+    </div>
+  </section>
+
+  <!-- Tool Primitive -->
+  <section class="component-section">
+    <h2>&lt;tool&gt;</h2>
+    <p style="color: var(--text-muted); margin-bottom: 16px;">Tool/function calls with status indicators.</p>
+    <div class="playground">
+      <div class="playground-editor">
+        <div class="playground-header">grain</div>
+        <textarea id="playground-tool" spellcheck="false">&lt;tool name="search" args='{"q": "weather"}' status="running"&gt;
+&lt;progress&gt;Searching...&lt;/progress&gt;
+&lt;/tool&gt;</textarea>
+      </div>
+      <div class="playground-preview" id="preview-tool"></div>
+    </div>
+  </section>
+
+  <!-- Artifact Primitive -->
+  <section class="component-section">
+    <h2>&lt;artifact&gt;</h2>
+    <p style="color: var(--text-muted); margin-bottom: 16px;">Structured content display (code, images, charts).</p>
+    <div class="playground">
+      <div class="playground-editor">
+        <div class="playground-header">grain</div>
+        <textarea id="playground-artifact" spellcheck="false">&lt;artifact type="code" language="javascript" title="hello.js"&gt;
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+console.log(greet('World'));
+&lt;/artifact&gt;</textarea>
+      </div>
+      <div class="playground-preview" id="preview-artifact"></div>
+    </div>
+  </section>
+
+  <!-- Approve Primitive -->
+  <section class="component-section">
+    <h2>&lt;approve&gt;</h2>
+    <p style="color: var(--text-muted); margin-bottom: 16px;">Human-in-the-loop approval dialogs.</p>
+    <div class="playground">
+      <div class="playground-editor">
+        <div class="playground-header">grain</div>
+        <textarea id="playground-approve" spellcheck="false">&lt;approve type="action" action="Delete file"&gt;
+&lt;warning&gt;This cannot be undone.&lt;/warning&gt;
+&lt;option label="Cancel"&gt;&lt;/option&gt;
+&lt;option label="Delete" primary&gt;&lt;/option&gt;
+&lt;/approve&gt;</textarea>
+      </div>
+      <div class="playground-preview" id="preview-approve"></div>
+    </div>
+  </section>
+
+</main>
+<footer class="minimal-footer">
+  <p>© 2026 Grain Language. Built for the era of intelligence.</p>
+</footer>
+<script type="module" src="./src/main.ts"></script>
+<script type="module" src="./src/theme.ts"></script>
+<script type="module">
+import { WebAdapter } from '@grain.sh/web';
+
+const adapter = new WebAdapter();
+adapter.registerCustomElements();
+
+// Setup playgrounds
+const playgrounds = ['stream', 'think', 'tool', 'artifact', 'approve'];
+
+playgrounds.forEach(name => {
+  const editor = document.getElementById(`playground-${name}`);
+  const preview = document.getElementById(`preview-${name}`);
+
+  if (editor && preview) {
+    adapter.render(editor.value, { container: preview });
+
+    editor.addEventListener('input', () => {
+      adapter.render(editor.value, { container: preview });
+    });
+  }
+});
+</script>
+</body>
+</html>
