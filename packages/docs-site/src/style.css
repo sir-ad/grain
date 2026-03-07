@@ -456,3 +456,63 @@ grain-form::after {
   font-size: 0.8rem;
   letter-spacing: 0.05em;
 }
+
+/* Light Theme */
+[data-theme="light"] {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #666666;
+  --accent: #000000;
+  --glass: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .glass-nav {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .glass {
+  background: var(--glass);
+  border-color: var(--glass-border);
+}
+
+[data-theme="light"] .playground-container {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+}
+
+[data-theme="light"] #grain-editor {
+  color: #1a1a1a;
+}
+
+[data-theme="light"] #grain-editor::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+#theme-toggle:hover {
+  background: var(--glass);
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

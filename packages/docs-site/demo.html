@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo | Grain</title>
+<meta name="description" content="Live demo of Grain Language in action - Code Assistant, Research Agent, and Data Analysis scenarios.">
+<link rel="icon" type="image/svg+xml" href="/grain/favicon.svg">
+<link rel="canonical" href="https://sir-ad.github.io/grain/demo.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./src/style.css">
+<style>
+.demo-container {
+  max-width: 1000px;
+  margin: 100px auto 60px;
+  padding: 0 24px;
+}
+.demo-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.demo-header h1 {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 12px 24px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+.tab-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+.tab-btn.active {
+  background: var(--text);
+  color: var(--bg);
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+.demo-message {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+.demo-message pre {
+  background: #0d0d0d;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+</style>
+</head>
+<body>
+<nav class="glass-nav">
+  <div class="nav-content">
+    <a href="index.html" class="logo" style="text-decoration: none;">Grain</a>
+    <div class="nav-links">
+      <a href="components.html">Components</a>
+      <a href="demo.html" style="color: var(--text);">Demo</a>
+      <a href="kb/index.html">Knowledgebase</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="/grain/guide/getting-started">Docs</a>
+      <a href="https://github.com/sir-ad/grain">GitHub</a>
+    </div>
+    <button id="theme-toggle" aria-label="Toggle theme">◑</button>
+  </div>
+</nav>
+<main class="demo-container">
+  <div class="demo-header">
+    <h1>Live Demo</h1>
+    <p style="color: var(--text-muted);">See Grain Language in action with real-world scenarios.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="code">💻 Code Assistant</button>
+    <button class="tab-btn" data-tab="research">🔍 Research Agent</button>
+    <button class="tab-btn" data-tab="data">📊 Data Analysis</button>
+  </div>
+
+  <div id="tab-code" class="tab-content active">
+    <h2>Code Assistant Scenario</h2>
+    <p style="color: var(--text-muted); margin-bottom: 24px;">AI helps debug code, makes changes, and asks for approval before applying.</p>
+    <div class="demo-message" id="demo-code-render"></div>
+  </div>
+
+  <div id="tab-research" class="tab-content">
+    <h2>Research Agent Scenario</h2>
+    <p style="color: var(--text-muted); margin-bottom: 24px;">Agent searches web, analyzes multiple sources, presents findings with branches.</p>
+    <div class="demo-message" id="demo-research-render"></div>
+  </div>
+
+  <div id="tab-data" class="tab-content">
+    <h2>Data Analysis Scenario</h2>
+    <p style="color: var(--text-muted); margin-bottom: 24px;">Agent processes data, generates charts, shows progress indicators.</p>
+    <div class="demo-message" id="demo-data-render"></div>
+  </div>
+</main>
+<footer class="minimal-footer">
+  <p>© 2026 Grain Language. Built for the era of intelligence.</p>
+</footer>
+<script type="module" src="./src/main.ts"></script>
+<script type="module" src="./src/theme.ts"></script>
+<script type="module">
+import { WebAdapter } from '@grain.sh/web';
+
+const adapter = new WebAdapter();
+adapter.registerCustomElements();
+
+// Demo content
+const codeDemo = `
+<message role="assistant">
+  <think model="chain-of-thought" visible="true">
+    Analyzing the user's code for bugs...
+    Found: uninitialized variable on line 5
+    Found: potential null pointer on line 12
+  </think>
+
+  <stream speed="fast">I found 2 issues in your code:</stream>
+
+  <artifact type="code" language="typescript" title="fixed.ts">
+// Fixed version
+const data = initializeData();
+const result = process(data ?? []);
+  </artifact>
+
+  <approve type="action" action="Apply changes to file">
+    <warning>This will modify src/utils.ts</warning>
+    <option label="Cancel"></option>
+    <option label="Apply" primary></option>
+  </approve>
+</message>`;
+
+const researchDemo = `
+<message role="assistant">
+  <tool name="web_search" args='{"q": "quantum computing 2024"}' status="complete">
+    <result found="15"></result>
+  </tool>
+
+  <stream>Based on my research, here are the key findings:</stream>
+
+  <branch id="main" label="Summary" active="true">
+    <stream>Quantum computing has made significant progress in 2024...</stream>
+  </branch>
+
+  <branch id="tech" label="Technical Details">
+    <artifact type="code" language="python">
+# Qubit coherence improvements
+improved_qubits = new_architecture()
+    </artifact>
+  </branch>
+</message>`;
+
+const dataDemo = `
+<message role="assistant">
+  <state status="streaming" progress="65" message="Processing data..." />
+
+  <stream>Here's your data analysis:</stream>
+
+  <artifact type="chart" title="Monthly Revenue">
+    {"type": "bar", "data": [120, 150, 180, 220]}
+  </artifact>
+
+  <context type="file" id="data-1" name="analysis.csv" size="45000" />
+</message>`;
+
+// Render demos
+adapter.render(codeDemo, { container: document.getElementById('demo-code-render') });
+adapter.render(researchDemo, { container: document.getElementById('demo-research-render') });
+adapter.render(dataDemo, { container: document.getElementById('demo-data-render') });
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
