@@ -13,6 +13,7 @@ export default defineConfig({
         components: resolve(__dirname, 'components.html'),
         demo: resolve(__dirname, 'demo.html'),
         about: resolve(__dirname, 'about.html'),
+        privacy: resolve(__dirname, 'privacy.html'),
         kb: resolve(__dirname, 'kb/index.html'),
         stream: resolve(__dirname, 'kb/stream.html'),
         think: resolve(__dirname, 'kb/think.html'),
