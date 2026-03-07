@@ -19,9 +19,9 @@ adapter.registerCustomElements();
 const exampleGrain = `<message role="assistant">
   <think visible="true">Initializing Grain Preview for ${SITE_NAME}...</think>
   <stream speed="fast">Welcome to the future of interaction at ${SITE_URL}</stream>
-  <layout direction="row" gap="20px">
-    <chart type="bar" data='[10, 45, 30, 70]' label="Performance" />
-    <form schema='{"type": "object", "properties": {"email": {"type": "string"}}}' />
+  <layout type="grid" direction="row" gap="20px">
+    <chart type="bar" title="Performance" data="[10, 45, 30, 70]" />
+    <form action="/submit" schema='{"type": "object", "properties": {"email": {"type": "string"}}}' />
   </layout>
 </message>`;
 

@@ -82,19 +82,26 @@ export class Validator {
           continue;
         }
 
-        // Type check
+        // Type check with coercion for string-based attributes
         const expectedType = attrDef.type;
+        const value = attrValue;
 
-        if (expectedType === 'boolean' && typeof attrValue !== 'boolean') {
-          errors.push({
-            message: `Attribute ${attrName} must be boolean`,
-            path: `${path}.${node.type}.@${attrName}`
-          });
-        } else if (expectedType === 'number' && typeof attrValue !== 'number') {
-          errors.push({
-            message: `Attribute ${attrName} must be number`,
-            path: `${path}.${node.type}.@${attrName}`
-          });
+        if (expectedType === 'boolean') {
+          const isBool = typeof value === 'boolean' || value === 'true' || value === 'false';
+          if (!isBool) {
+            errors.push({
+              message: `Attribute ${attrName} must be boolean`,
+              path: `${path}.${node.type}.@${attrName}`
+            });
+          }
+        } else if (expectedType === 'number') {
+          const isNum = typeof value === 'number' || !isNaN(Number(value));
+          if (!isNum) {
+            errors.push({
+              message: `Attribute ${attrName} must be number`,
+              path: `${path}.${node.type}.@${attrName}`
+            });
+          }
         }
       }
 
