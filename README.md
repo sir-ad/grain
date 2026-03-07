@@ -85,9 +85,9 @@ Grain operates on the **Meridian Layer**, a standardized interaction plane betwe
 ```mermaid
 graph TD
     subgraph "Interface Layer (Subscribers)"
-        Web["@grain/web (DOM)"]
-        React["@grain/react"]
-        CLI["@grain/cli (ANSI)"]
+        Web["@grain.sh/web (DOM)"]
+        React["@grain.sh/react"]
+        CLI["@grain.sh/cli (ANSI)"]
         Native["Native Mobile"]
     end
 
@@ -125,11 +125,11 @@ graph TD
 | Package | Purpose |
 |---|---|
 | `grain` | Core parser, chunk-streaming engine, state machines |
-| `@grain/react` | Official React hooks & wrappers |
-| `@grain/web` | Native Custom HTML Web Components |
-| `@grain/cli` | Terminal adapter & ANSI rendering |
-| `@grain/mcp` | Model Context Protocol adapter |
-| `@grain/agent` | Agent-to-agent communication envelope |
+| `@grain.sh/react` | Official React hooks & wrappers |
+| `@grain.sh/web` | Native Custom HTML Web Components |
+| `@grain.sh/cli` | Terminal adapter & ANSI rendering |
+| `@grain.sh/mcp` | Model Context Protocol adapter |
+| `@grain.sh/agent` | Agent-to-agent communication envelope |
 
 ### Documentation
 

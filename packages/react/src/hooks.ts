@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { createWebAdapter, type WebAdapter } from '@grain/web';
+import { createWebAdapter, type WebAdapter } from '@grain.sh/web';
 
 export interface UseGrainOptions {
     theme?: Record<string, string>;

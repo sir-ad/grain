@@ -4,7 +4,7 @@
  */
 
 import { GLangParser } from 'grain';
-import '@grain/mcp';
+import '@grain.sh/mcp';
 
 const parser = new GLangParser();
 

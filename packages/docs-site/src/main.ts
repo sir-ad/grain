@@ -1,4 +1,4 @@
-import { WebAdapter } from '@grain/web';
+import { WebAdapter } from '@grain.sh/web';
 
 const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://sir-ad.github.io/grain';
 const SITE_NAME = 'Grain';
@@ -44,7 +44,7 @@ const typeCommand = async (elementId: string, text: string) => {
   }
 };
 
-typeCommand('typewriter-command', 'pnpm add @grain/web');
+typeCommand('typewriter-command', 'pnpm add @grain.sh/web');
 
 // Add subtle scroll reveal effect
 const observer = new IntersectionObserver((entries) => {

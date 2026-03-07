@@ -1,5 +1,5 @@
 {
-  "name": "@grain/mcp",
+  "name": "@grain.sh/mcp",
   "version": "1.0.0-alpha.1",
   "description": "MCP adapter for Grain - Universal AI interaction layer",
   "type": "module",

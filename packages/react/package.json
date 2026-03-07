@@ -1,5 +1,5 @@
 {
-    "name": "@grain/react",
+    "name": "@grain.sh/react",
     "version": "1.0.0-alpha.1",
     "description": "True Web Components for interactive Grain primitives in React",
     "type": "module",
@@ -26,7 +26,7 @@
     },
     "dependencies": {
         "grain": "workspace:*",
-        "@grain/web": "workspace:*"
+        "@grain.sh/web": "workspace:*"
     },
     "devDependencies": {
         "@types/react": "^18.3.3",

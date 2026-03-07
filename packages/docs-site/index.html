@@ -33,7 +33,7 @@
         <p class="subtitle">The universal interaction layer for AI interfaces.</p>
         <div class="cta-group">
           <span class="prompt-symbol">❯</span>
-          <code class="one-line-command" id="typewriter-command">pnpm add @grain/web</code>
+          <code class="one-line-command" id="typewriter-command">pnpm add @grain.sh/web</code>
           <button class="primary-btn" onclick="copyCommand()">Copy</button>
         </div>
       </div>
@@ -104,7 +104,7 @@
   <script type="module" src="./src/main.ts"></script>
   <script>
     function copyCommand() {
-      navigator.clipboard.writeText('pnpm add @grain/web');
+      navigator.clipboard.writeText('pnpm add @grain.sh/web');
       const btn = document.querySelector('.primary-btn');
       btn.textContent = 'Copied';
       setTimeout(() => btn.textContent = 'Copy', 2000);

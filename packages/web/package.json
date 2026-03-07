@@ -1,5 +1,5 @@
 {
-  "name": "@grain/web",
+  "name": "@grain.sh/web",
   "version": "1.0.0-alpha.1",
   "description": "Web adapter for Grain - Universal AI interaction layer",
   "type": "module",

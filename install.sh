@@ -7,8 +7,8 @@ echo "\033[36mInstalling Grain CLI... \033[0m"
 # In a real environment, this would fetch from a CDN or GitHub Releases
 # e.g., curl -L https://github.com/sir-ad/grain/releases/latest/download/grain-${OS}-${ARCH}.tar.gz
 
-echo "Using npm to install @grain/cli globally as a fallback for the alpha..."
-npm install -g @grain/cli
+echo "Using npm to install @grain.sh/cli globally as a fallback for the alpha..."
+npm install -g @grain.sh/cli
 
 echo ""
 echo "\033[32m✔ Grain installed successfully!\033[0m"

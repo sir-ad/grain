@@ -70,8 +70,8 @@ program
                     private: true,
                     dependencies: {
                         grain: "latest",
-                        "@grain/web": "latest",
-                        ...(template === 'nextjs' ? { "next": "latest", "react": "latest", "react-dom": "latest", "@grain/react": "latest" } : {})
+                        "@grain.sh/web": "latest",
+                        ...(template === 'nextjs' ? { "next": "latest", "react": "latest", "react-dom": "latest", "@grain.sh/react": "latest" } : {})
                     }
                 }, { spaces: 2 });
             }

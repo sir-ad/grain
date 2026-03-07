@@ -1,5 +1,5 @@
 {
-    "name": "@grain/docs-site",
+    "name": "@grain.sh/docs-site",
     "version": "1.0.0-alpha.1",
     "private": true,
     "description": "Premium documentation site for Grain",
@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "grain": "workspace:*",
-        "@grain/web": "workspace:*"
+        "@grain.sh/web": "workspace:*"
     },
     "devDependencies": {
         "vite": "^5.4.0",

@@ -4,10 +4,10 @@
   "commit": false,
   "fixed": [
     "grain",
-    "@grain/web",
-    "@grain/cli",
-    "@grain/mcp",
-    "@grain/mcp-server"
+    "@grain.sh/web",
+    "@grain.sh/cli",
+    "@grain.sh/mcp",
+    "@grain.sh/mcp-server"
   ],
   "linked": [],
   "access": "public",

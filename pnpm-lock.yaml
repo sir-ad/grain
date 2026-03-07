@@ -98,7 +98,7 @@ importers:
 
   packages/docs-site:
     dependencies:
-      '@grain/web':
+      '@grain.sh/web':
         specifier: workspace:*
         version: link:../web
       grain:
@@ -127,7 +127,7 @@ importers:
 
   packages/mcp-server:
     dependencies:
-      '@grain/mcp':
+      '@grain.sh/mcp':
         specifier: workspace:*
         version: link:../mcp
       grain:
@@ -143,7 +143,7 @@ importers:
 
   packages/react:
     dependencies:
-      '@grain/web':
+      '@grain.sh/web':
         specifier: workspace:*
         version: link:../web
       grain:
