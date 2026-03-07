@@ -2,17 +2,28 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grain | The Universal Interaction Layer</title>
-  <meta name="description"
-    content="The standard vocabulary for every surface where AI meets humans. Minimalist, precise, and universal Grain Language primitives.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="./src/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grain | The Universal Interaction Layer</title>
+<meta name="description" content="Grain is the universal interaction layer for AI interfaces. A standard vocabulary for every surface where AI meets humans or AI meets AI. Zero dependencies, ~15KB core, 15+ atomic primitives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+rel="stylesheet">
+<link rel="stylesheet" href="./src/style.css">
+<link rel="icon" type="image/svg+xml" href="/grain/favicon.svg">
+<link rel="canonical" href="https://sir-ad.github.io/grain/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sir-ad.github.io/grain/">
+<meta property="og:title" content="Grain - The Universal Interaction Layer for AI">
+<meta property="og:description" content="The standard vocabulary for every surface where AI meets humans. Minimalist, precise, and universal Grain Language primitives.">
+<meta property="og:image" content="https://sir-ad.github.io/grain/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://sir-ad.github.io/grain/">
+<meta name="twitter:title" content="Grain - The Universal Interaction Layer for AI">
+<meta name="twitter:description" content="The standard vocabulary for every surface where AI meets humans. Minimalist, precise, and universal Grain Language primitives.">
+<meta name="twitter:image" content="https://sir-ad.github.io/grain/og-image.svg">
 </head>
 
 <body>
@@ -46,7 +57,7 @@
               <span class="dot green"></span>
               <span class="pane-title">grain-source.gl</span>
             </div>
-            <textarea id="grain-editor" spellcheck="false" placeholder="Type Grain primitives here..."></textarea>
+            <textarea id="grain-editor" spellcheck="false" placeholder="Type Grain primitives here..." aria-label="Code Editor"></textarea>
           </div>
           <div class="playground-divider"></div>
           <div class="playground-pane render-pane">
@@ -57,9 +68,11 @@
           </div>
         </div>
       </div>
-    </section>
+</section>
 
-    <section id="features" class="features">
+<h2 class="sr-only">Main Content</h2>
+
+<section id="features" class="features">
       <div class="feature-grid">
         <div class="feature-item glass">
           <div class="feature-icon">✦</div>
@@ -83,12 +96,16 @@
     <section id="docs" class="docs-section">
       <div class="docs-content">
         <h2>Grain Specification</h2>
-        <div class="doc-card glass">
-          <h3>The Meridian Architecture</h3>
-          <p>Grain lives at the Meridian—the threshold where machine intelligence manifests as human experience. By
-            formalizing this layer, we create interfaces that are not just reactive, but truly representative of the
-            underlying reasoning.</p>
-        </div>
+<div class="doc-card glass">
+<h3>The Meridian Architecture</h3>
+<p>Grain lives at the Meridian—the threshold where machine intelligence manifests as human experience. By formalizing this layer, we create interfaces that are not just reactive, but truly representative of the underlying reasoning. This architecture enables seamless translation between AI thought processes and human-readable outputs, creating a universal language for intelligent systems.</p>
+</div>
+
+<div class="doc-card glass">
+<h3>Why Grain Exists</h3>
+<p>As AI systems become increasingly sophisticated, the gap between machine reasoning and human understanding grows wider. Grain bridges this divide by providing a standardized vocabulary that works across all surfaces—web interfaces, command-line tools, and agent-to-agent communication. Whether you're building a chatbot, an autonomous agent, or a collaborative AI tool, Grain ensures your interactions are precise, predictable, and universally understood.</p>
+<p>Grain was designed with three core principles in mind: minimalism (zero dependencies, tiny footprint), precision (atomic primitives that do one thing well), and universality (works everywhere AI meets humans). This foundation enables developers to build complex AI interfaces without reinventing the interaction layer for every new application.</p>
+</div>
 
         <div class="doc-grid">
           <div class="doc-item glass">
@@ -112,9 +129,14 @@
     </section>
   </main>
 
-  <footer class="minimal-footer">
-    <p>&copy; 2026 Grain Language. Built for the era of intelligence.</p>
-  </footer>
+<footer class="minimal-footer">
+<p>
+<a href="privacy.html" style="color: var(--text-muted);">Privacy</a> ·
+<a href="about.html" style="color: var(--text-muted);">About</a> ·
+<a href="https://github.com/sir-ad/grain" style="color: var(--text-muted);">GitHub</a>
+</p>
+<p>© 2026 Grain Language. Built for the era of intelligence.</p>
+</footer>
 
   <script type="module" src="./src/main.ts"></script>
   <script>

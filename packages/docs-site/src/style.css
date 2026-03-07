@@ -449,6 +449,17 @@ grain-form::after {
   opacity: 0.5;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 .minimal-footer {
   padding: 100px 32px 64px;
   text-align: center;
