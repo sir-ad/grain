@@ -12,6 +12,10 @@ const adapter = new WebAdapter({
   }
 });
 
+// Register custom elements for G-Lang primitives
+adapter.registerCustomElements();
+
+
 const exampleGrain = `<message role="assistant">
   <think visible="true">Initializing Grain Preview for ${SITE_NAME}...</think>
   <stream speed="fast">Welcome to the future of interaction at ${SITE_URL}</stream>

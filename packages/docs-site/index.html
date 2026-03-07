@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grain | The Universal Interaction Layer</title>
-  <meta name="description" content="The standard vocabulary for every surface where AI meets humans. Minimalist, precise, and universal G-Lang primitives.">
+  <meta name="description"
+    content="The standard vocabulary for every surface where AI meets humans. Minimalist, precise, and universal G-Lang primitives.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="./src/style.css">
 </head>
+
 <body>
   <nav class="glass-nav">
     <div class="nav-content">
       <span class="logo">Grain</span>
       <div class="nav-links">
-        <a href="#spec">Spec</a>
-        <a href="#github">GitHub</a>
+        <a href="https://sir-ad.github.io/grain#docs">Docs</a>
+        <a href="https://github.com/sir-ad/grain">GitHub</a>
       </div>
     </div>
   </nav>
@@ -53,7 +58,38 @@
           <p>Built on standards. Extensible by design.</p>
         </div>
       </div>
-    </section>
+      <section id="docs" class="docs-section">
+        <div class="docs-content">
+          <h2>The Grain Specification (Alpha)</h2>
+          <div class="doc-card glass">
+            <h3>Meridian Layer Architecture</h3>
+            <p>Grain operates at the Meridian Layer—the intersection of model output and interface rendering. It
+              decouples <em>what</em> an agent wants to do from <em>how</em> it is presented.</p>
+          </div>
+
+          <div class="doc-grid">
+            <div class="doc-item">
+              <h4><code class="tag">&lt;stream&gt;</code></h4>
+              <p>Handles partial content and streaming states. Supports <code>speed</code>, <code>mode</code>, and
+                <code>cursor</code> attributes.</p>
+            </div>
+            <div class="doc-item">
+              <h4><code class="tag">&lt;think&gt;</code></h4>
+              <p>Encapsulates internal reasoning steps. Can be made <code>visible="true|false"</code> based on UI
+                preference.</p>
+            </div>
+            <div class="doc-item">
+              <h4><code class="tag">&lt;tool&gt;</code></h4>
+              <p>Formalizes tool execution. Attributes: <code>name</code>, <code>args</code>, <code>status</code>
+                (pending, running, success, error).</p>
+            </div>
+            <div class="doc-item">
+              <h4><code class="tag">&lt;artifact&gt;</code></h4>
+              <p>Persistent document blocks. Ideal for code, markdown, or rich data visualizations.</p>
+            </div>
+          </div>
+        </div>
+      </section>
   </main>
 
   <footer class="minimal-footer">
@@ -70,4 +106,5 @@
     }
   </script>
 </body>
+
 </html>

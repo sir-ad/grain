@@ -61,7 +61,7 @@ brew install sir-ad/tap/grain
 
 **cURL / bash:**
 ```bash
-curl -fsSL https://grain.dev/install.sh | sh
+curl -fsSL https://sir-ad.github.io/grain/install.sh | sh
 ```
 
 ### Philosophy
@@ -76,6 +76,48 @@ Semantic markup. No arbitrary classes. Drop in. Works. Standards, not frameworks
   <stream speed="fast">Checking weather for you...</stream>
   <tool name="get_weather" args='{"city": "Mumbai"}' status="running" />
 </message>
+```
+
+### Architecture: The Meridian Protocol
+
+Grain operates on the **Meridian Layer**, a standardized interaction plane between diverse AI models and heterogenous interfaces.
+
+```mermaid
+graph TD
+    subgraph "Interface Layer (Subscribers)"
+        Web["@grain/web (DOM)"]
+        React["@grain/react"]
+        CLI["@grain/cli (ANSI)"]
+        Native["Native Mobile"]
+    end
+
+    subgraph "The Meridian Engine"
+        Core["Grain Core (Parser/AST)"]
+        State["State Machine"]
+        Stream["Stream Chunking"]
+    end
+
+    subgraph "Producer Layer (Model Output)"
+        LLM["Large Language Models"]
+        MultiAgent["Agent Swarms"]
+        MCP["Model Context Protocol"]
+    end
+
+    LLM -->|G-Lang| Core
+    MultiAgent -->|G-Lang| Core
+    MCP -->|G-Lang| Core
+
+    Core --> State
+    State --> Stream
+    
+    Stream --> Web
+    Stream --> React
+    Stream --> CLI
+    Stream --> Native
+
+    style Core fill:#f9f,stroke:#333,stroke-width:4px
+    style Web fill:#bbf,stroke:#333,stroke-width:2px
+    style CLI fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
 ### Packages Architecture

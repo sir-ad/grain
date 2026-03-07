@@ -179,3 +179,123 @@ h1 {
   opacity: 0.4;
   font-size: 0.8rem;
 }
+
+/* Docs Section */
+.docs-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 24px;
+  text-align: left;
+}
+
+.docs-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 48px;
+  letter-spacing: -0.03em;
+}
+
+.doc-card {
+  padding: 40px;
+  margin-bottom: 60px;
+}
+
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.doc-item {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.doc-item h4 {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag {
+  background: var(--text);
+  color: var(--bg);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+/* Grain Components Style System */
+grain-message {
+  display: block;
+  padding: 24px;
+  background: var(--border);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+}
+
+grain-think {
+  display: block;
+  font-style: italic;
+  opacity: 0.5;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+grain-think::before {
+  content: "✦ ";
+}
+
+grain-stream {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+grain-layout {
+  display: flex;
+  width: 100%;
+}
+
+grain-chart {
+  display: block;
+  flex: 1;
+  height: 150px;
+  background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+  opacity: 0.2;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+grain-chart::after {
+  content: "Chart Primitive";
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  opacity: 0.5;
+}
+
+grain-form {
+  display: block;
+  flex: 1;
+  padding: 20px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  position: relative;
+}
+
+grain-form::after {
+  content: "Dynamic Form Primitive";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  opacity: 0.3;
+}
