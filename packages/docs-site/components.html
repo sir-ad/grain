@@ -7,6 +7,15 @@
 <meta name="description" content="Interactive component playground for Grain primitives. Try <stream>, <think>, <tool>, and more.">
 <link rel="icon" type="image/svg+xml" href="/grain/favicon.svg">
 <link rel="canonical" href="https://sir-ad.github.io/grain/components.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sir-ad.github.io/grain/components.html">
+<meta property="og:title" content="Grain Components - Interactive Playground">
+<meta property="og:description" content="Try Grain primitives live with interactive examples and live rendering.">
+<meta property="og:image" content="https://sir-ad.github.io/grain/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Grain Components - Interactive Playground">
+<meta name="twitter:description" content="Try Grain primitives live with interactive examples.">
+<meta name="twitter:image" content="https://sir-ad.github.io/grain/og-image.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -91,10 +100,10 @@
       <a href="demo.html">Demo</a>
       <a href="kb/index.html">Knowledgebase</a>
       <a href="whitepaper.html">Whitepaper</a>
-      <a href="/grain/guide/getting-started">Docs</a>
+      <a href="https://github.com/sir-ad/grain#documentation">Docs</a>
       <a href="https://github.com/sir-ad/grain">GitHub</a>
     </div>
-    <button id="theme-toggle" aria-label="Toggle theme">◑</button>
+    <button id="theme-toggle" aria-label="Toggle theme"><span aria-hidden="true">◑</span></button>
   </div>
 </nav>
 <main class="components-container">
@@ -110,7 +119,8 @@
     <div class="playground">
       <div class="playground-editor">
         <div class="playground-header">grain</div>
-        <textarea id="playground-stream" spellcheck="false">&lt;stream speed="fast"&gt;
+        <label for="playground-stream" class="sr-only">Stream code</label>
+          <textarea id="playground-stream" spellcheck="false">&lt;stream speed="fast"&gt;
 Hello, this is a streaming message.
 It renders character by character.
 &lt;/stream&gt;</textarea>
@@ -126,7 +136,8 @@ It renders character by character.
     <div class="playground">
       <div class="playground-editor">
         <div class="playground-header">grain</div>
-        <textarea id="playground-think" spellcheck="false">&lt;think model="chain-of-thought" visible="true"&gt;
+        <label for="playground-think" class="sr-only">Think code</label>
+          <textarea id="playground-think" spellcheck="false">&lt;think model="chain-of-thought" visible="true"&gt;
 Let me analyze this request:
 1. User wants X
 2. I should Y
@@ -144,7 +155,8 @@ Let me analyze this request:
     <div class="playground">
       <div class="playground-editor">
         <div class="playground-header">grain</div>
-        <textarea id="playground-tool" spellcheck="false">&lt;tool name="search" args='{"q": "weather"}' status="running"&gt;
+        <label for="playground-tool" class="sr-only">Tool code</label>
+          <textarea id="playground-tool" spellcheck="false">&lt;tool name="search" args='{"q": "weather"}' status="running"&gt;
 &lt;progress&gt;Searching...&lt;/progress&gt;
 &lt;/tool&gt;</textarea>
       </div>
@@ -159,7 +171,8 @@ Let me analyze this request:
     <div class="playground">
       <div class="playground-editor">
         <div class="playground-header">grain</div>
-        <textarea id="playground-artifact" spellcheck="false">&lt;artifact type="code" language="javascript" title="hello.js"&gt;
+        <label for="playground-artifact" class="sr-only">Artifact code</label>
+          <textarea id="playground-artifact" spellcheck="false">&lt;artifact type="code" language="javascript" title="hello.js"&gt;
 function greet(name) {
   return `Hello, ${name}!`;
 }
@@ -177,7 +190,8 @@ console.log(greet('World'));
     <div class="playground">
       <div class="playground-editor">
         <div class="playground-header">grain</div>
-        <textarea id="playground-approve" spellcheck="false">&lt;approve type="action" action="Delete file"&gt;
+        <label for="playground-approve" class="sr-only">Approve code</label>
+          <textarea id="playground-approve" spellcheck="false">&lt;approve type="action" action="Delete file"&gt;
 &lt;warning&gt;This cannot be undone.&lt;/warning&gt;
 &lt;option label="Cancel"&gt;&lt;/option&gt;
 &lt;option label="Delete" primary&gt;&lt;/option&gt;
