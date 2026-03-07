@@ -16,7 +16,7 @@ Every AI tool rebuilds the same wheel: chat UI, streaming text, tool calls, arti
 
 ### The Solution
 
-**Grain** makes it standard. If AI models output G-Lang — and every platform knows how to render G-Lang — the interface problem disappears. 
+**Grain** makes it standard. If AI models output Grain Language — and every platform knows how to render Grain Language — the interface problem disappears. 
 
 It is the **HTML for AI.**
 
@@ -24,7 +24,7 @@ It is the **HTML for AI.**
 
 - **Pico Sized:** ~15KB core. Zero dependencies.
 - **Universal Primitives:** 15+ atomic types including `<stream>`, `<tool>`, `<artifact>`, `<approve>`, `<think>`, `<form>`, `<chart>`, `<table>`, `<layout>`, and `<memory>`.
-- **Platform Agnostic:** The exact same G-Lang syntax renders perfectly on Web, CLI, MCP (Model Context Protocol), and between Autonomous Agents.
+- **Platform Agnostic:** The exact same Grain Language syntax renders perfectly on Web, CLI, MCP (Model Context Protocol), and between Autonomous Agents.
 - **Agent-to-Agent Protocol:** Standardized handoffs and state persistence between multi-agent swarms using Grain Context chunks.
 - **Developer First:** Built for ease of use. Grab what you need and own your code.
 
@@ -103,9 +103,9 @@ graph TD
         MCP["Model Context Protocol"]
     end
 
-    LLM -->|G-Lang| Core
-    MultiAgent -->|G-Lang| Core
-    MCP -->|G-Lang| Core
+    LLM -->|Grain Language| Core
+    MultiAgent -->|Grain Language| Core
+    MCP -->|Grain Language| Core
 
     Core --> State
     State --> Stream
@@ -134,8 +134,8 @@ graph TD
 ### Documentation
 
 - [Introduction & Quick Start](QUICK-START.md)
-- [The G-Lang Spec](SPEC.md)
-- [G-Lang Syntax Reference](G-LANG.md)
+- [The Grain Language Spec](SPEC.md)
+- [Grain Language Syntax Reference](GRAIN-LANGUAGE.md)
 - [System Architecture](ARCHITECTURE.md)
 
 ---

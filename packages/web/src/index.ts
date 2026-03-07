@@ -1,6 +1,6 @@
 /**
  * Web Adapter for Grain
- * Renders G-Lang to semantic HTML
+ * Renders Grain Language to semantic HTML
  */
 
 import { GLangParser, EventBus, type ASTNode } from 'grain';
@@ -41,7 +41,7 @@ export class WebAdapter {
   }
 
   /**
-   * Render G-Lang to HTML
+   * Render Grain Language to HTML
    */
   render(grain: string, options: RenderOptions = {}): HTMLElement | null {
     const result = this.parser.parse(grain);
@@ -80,7 +80,7 @@ export class WebAdapter {
   }
 
   /**
-   * Render G-Lang AST to HTML DOM Elements
+   * Render Grain Language AST to HTML DOM Elements
    */
   private renderAST(node: ASTNode, documentParent: DocumentFragment | HTMLElement): void {
     if (!node) return;

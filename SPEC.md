@@ -12,7 +12,7 @@ AI Semantics solves this by defining:
 
 1. **Universal Primitives** — The 10 atomic interaction types that compose every AI experience
 2. **State Machines** — How each primitive behaves, what events occur, what states are valid
-3. **G-Lang** — A declarative syntax that AI models can output and any frontend can render
+3. **Grain Language** — A declarative syntax that AI models can output and any frontend can render
 4. **Platform Adapters** — Implementations for web, CLI, chat platforms, MCP, agents, voice
 
 ---
@@ -25,7 +25,7 @@ AI Semantics solves this by defining:
 | Each chatbot has unique artifact rendering | Standard `<artifact>` primitive |
 | Tool calls display differently everywhere | Standard `<tool>` primitive |
 | No standard for "AI is thinking" | Standard `<think>` primitive |
-| Each model outputs different JSON | Standard G-Lang output |
+| Each model outputs different JSON | Standard Grain Language output |
 
 ---
 
@@ -41,9 +41,9 @@ Every primitive has explicit states. Not just "loading" and "done" — but "stre
 
 ### 3. AI-Readable, Human-Writable
 
-G-Lang syntax is designed for two audiences:
-- AI models can generate valid G-Lang
-- Developers can read and write G-Lang directly
+Grain Language syntax is designed for two audiences:
+- AI models can generate valid Grain Language
+- Developers can read and write Grain Language directly
 
 ### 4. Platform Agnostic
 
@@ -59,7 +59,7 @@ New primitives can be added. Enterprises can define domain-specific extensions. 
 
 This specification is versioned using Semantic Versioning.
 
-- **Major**: Breaking changes to primitives, states, or G-Lang syntax
+- **Major**: Breaking changes to primitives, states, or Grain Language syntax
 - **Minor**: New primitives, new states, backward-compatible features
 - **Patch**: Documentation fixes, clarifications
 
@@ -71,7 +71,7 @@ Current version: **1.0.0-alpha**
 
 1. [Universal Primitives](#universal-primitives)
 2. [State Machines](#state-machines)
-3. [G-Lang Syntax](#g-lang-syntax)
+3. [Grain Language Syntax](#g-lang-syntax)
 4. [Platform Adapters](#platform-adapters)
 5. [Extension System](#extension-system)
 
@@ -649,14 +649,14 @@ Each primitive has a defined state machine.
 
 ---
 
-# G-Lang Syntax
+# Grain Language Syntax
 
-G-Lang is a declarative XML-based syntax for describing AI interactions.
+Grain Language is a declarative XML-based syntax for describing AI interactions.
 
 ## Design Goals
 
-1. **AI-Generatable** — AI models can output valid G-Lang
-2. **Human-Readable** — Developers can write and debug G-Lang
+1. **AI-Generatable** — AI models can output valid Grain Language
+2. **Human-Readable** — Developers can write and debug Grain Language
 3. **Parseable** — Simple regex or XML parser can handle it
 4. **Extensible** — Custom elements can be added
 5. **Platform-Adaptable** — Same syntax renders everywhere
@@ -894,11 +894,11 @@ function factorial(n) {
 
 # Platform Adapters
 
-Each platform renders G-Lang according to its constraints.
+Each platform renders Grain Language according to its constraints.
 
 ## Web Adapter
 
-Renders G-Lang to semantic HTML with CSS classes.
+Renders Grain Language to semantic HTML with CSS classes.
 
 ### Output
 
@@ -944,7 +944,7 @@ Renders G-Lang to semantic HTML with CSS classes.
 
 ## CLI Adapter
 
-Renders G-Lang to terminal output.
+Renders Grain Language to terminal output.
 
 ### Example Output
 
@@ -978,7 +978,7 @@ Renders G-Lang to terminal output.
 
 ## Chat Adapter
 
-Renders G-Lang to messaging platforms.
+Renders Grain Language to messaging platforms.
 
 ### Platform Mapping
 
@@ -993,7 +993,7 @@ Renders G-Lang to messaging platforms.
 
 ## MCP Adapter
 
-Tools return G-Lang in JSON format.
+Tools return Grain Language in JSON format.
 
 ### Tool Response
 

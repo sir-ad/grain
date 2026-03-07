@@ -1,10 +1,10 @@
-# G-Lang — AI Semantics Language
+# Grain Language — AI Semantics Language
 
 > The declarative syntax for AI interactions.
 
 ## Overview
 
-G-Lang is an XML-based declarative language designed for:
+Grain Language is an XML-based declarative language designed for:
 1. AI models to output valid, renderable AI interactions
 2. Developers to write and debug AI interfaces
 3. Any platform to parse and render consistently

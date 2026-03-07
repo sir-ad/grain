@@ -1,6 +1,6 @@
 /**
- * G-Lang Parser
- * Parses G-Lang syntax into an AST
+ * Grain Language Parser
+ * Parses Grain Language syntax into an AST
  */
 
 import { Validator } from './validator';
@@ -18,7 +18,7 @@ export class GLangParser {
   }
 
   /**
-   * Parse complete G-Lang string into AST
+   * Parse complete Grain Language string into AST
    */
   parse(input: string): ParseResult {
     this.reset();
@@ -26,7 +26,7 @@ export class GLangParser {
   }
 
   /**
-   * Parse an incoming chunk of G-Lang stream
+   * Parse an incoming chunk of Grain Language stream
    */
   parseChunk(chunk: string, isDone: boolean = false): ParseResult {
     if (!chunk && !isDone) {
