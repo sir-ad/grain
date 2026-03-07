@@ -1,6 +1,6 @@
 # Grain
 
-[![NPM Version](https://img.shields.io/npm/v/grain?color=000&labelColor=333&style=flat-square)](https://www.npmjs.com/package/grain)
+[![NPM Version](https://img.shields.io/npm/v/@grain.sh/core?color=000&labelColor=333&style=flat-square)](https://www.npmjs.com/package/@grain.sh/core)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/sir-ad/grain/deploy.yml?branch=main&style=flat-square)](https://github.com/sir-ad/grain/actions)
 [![License](https://img.shields.io/github/license/sir-ad/grain?style=flat-square)](https://github.com/sir-ad/grain/blob/main/LICENSE)
 [![AI / LLMs](https://img.shields.io/badge/AI%20%2F%20LLMs-Compatible-000000?style=flat-square&logo=openai&logoColor=white)](https://github.com/sir-ad/grain)
@@ -121,6 +121,87 @@ graph TD
     style Core fill:#f9f,stroke:#333,stroke-width:4px
     style Web fill:#bbf,stroke:#333,stroke-width:2px
     style CLI fill:#bbf,stroke:#333,stroke-width:2px
+```
+
+### What is Grain? The Full AI & Agent Ecosystem
+
+Grain is not just a markup language; it is the **universal interaction layer** for the modern AI stack.
+
+```mermaid
+graph TD
+    classDef human fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px,color:#000
+    classDef agent fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px,color:#000
+    classDef tool fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#000
+    classDef grain fill:#fff3e0,stroke:#ff9800,stroke-width:4px,color:#000
+
+    User(("👤 Human User")):::human
+    
+    subgraph "Application Interface (Frontend)"
+        ChatUI["React / Web UI (#64;grain.sh/web)"]:::human
+        CLI["Terminal CLI (#64;grain.sh/cli)"]:::human
+    end
+
+    subgraph "The Grain Interaction Layer"
+        GrainDoc{{"📝 Grain Context Document"}}:::grain
+    end
+
+    subgraph "Autonomous Ecosystem"
+        ChiefAgent["🧠 Chief Orchestrator Agent"]:::agent
+        Researcher["🔍 Research Sub-Agent"]:::agent
+        Coder["💻 Coder Sub-Agent"]:::agent
+        
+        Tool1["🔧 Web Search Tool"]:::tool
+        Tool2["📂 File System Tool"]:::tool
+    end
+
+    User <-->|Types/Clicks| ChatUI
+    User <-->|Commands| CLI
+    
+    ChatUI <-->|Renders & Submits <form>, <approve>| GrainDoc
+    CLI <-->|Renders & Submits| GrainDoc
+    
+    GrainDoc <-->|Parses & Appends <message>, <think>| ChiefAgent
+    
+    ChiefAgent <-->|Delegates via <agent> tags| Researcher
+    ChiefAgent <-->|Delegates via <agent> tags| Coder
+    
+    Researcher <-->|Executes <tool> tags| Tool1
+    Coder <-->|Executes <tool> tags| Tool2
+
+    Tool1 -.->|Returns <artifact>| GrainDoc
+    Tool2 -.->|Returns <artifact>| GrainDoc
+```
+
+### The MCP & Agent Interaction Layer
+
+How does Grain connect Model Context Protocol (MCP) servers and Autonomous Agents seamlessly in runtime?
+
+```mermaid
+sequenceDiagram
+    participant User as 👤 Human
+    participant UI as 💻 @grain.sh/web
+    participant Agent as 🤖 Autonomous Agent
+    participant MCP as 🔌 MCP Server
+
+    User->>UI: "Research quantum computing"
+    UI->>Agent: <message role="user">Research...</message>
+    
+    Note over Agent: Agent decides to use an MCP Tool
+    Agent-->>UI: <stream>Connecting to knowledgebase...</stream>
+    Agent->>MCP: <tool name="mcp_search" args='{"q": "quantum"}'/>
+    
+    Note over MCP: MCP executes search
+    MCP-->>Agent: <artifact type="research_data">...</artifact>
+    
+    Note over Agent: Agent analyzes the artifact
+    Agent-->>UI: <think>Found 5 papers. Summarizing...</think>
+    Agent-->>UI: <stream>Here is the summary...</stream>
+    
+    Note over Agent: Agent needs explicit permission
+    Agent-->>UI: <approve action="save_to_db">Save results?</approve>
+    
+    User->>UI: Clicks [Approve]
+    UI->>Agent: <tool_result status="approved" />
 ```
 
 ### Packages Architecture
