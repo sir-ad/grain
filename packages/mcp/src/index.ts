@@ -3,7 +3,7 @@
  * Tools return G-Lang in JSON format
  */
 
-import { GLangParser, EventBus, type ASTNode } from 'grain';
+import { GLangParser, EventBus, type ASTNode } from '@grain.sh/core';
 import type { MCPAdapterConfig } from './types';
 
 export interface MCPToolResponse {

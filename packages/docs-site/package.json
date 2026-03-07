@@ -9,7 +9,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "grain": "workspace:*",
+        "@grain.sh/core": "workspace:*",
         "@grain.sh/web": "workspace:*"
     },
     "devDependencies": {

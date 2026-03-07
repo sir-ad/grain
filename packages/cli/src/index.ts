@@ -5,7 +5,7 @@
  * Renders G-Lang to terminal output
  */
 
-import { GLangParser } from 'grain';
+import { GLangParser } from '@grain.sh/core';
 import chalk from 'chalk';
 import ora from 'ora';
 import { readFileSync, watch } from 'fs';

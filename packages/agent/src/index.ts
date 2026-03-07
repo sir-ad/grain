@@ -3,7 +3,7 @@
  * Defines the envelope for agent handoffs and message exchange
  */
 
-import { type ASTNode, GLangParser } from 'grain';
+import { type ASTNode, GLangParser } from '@grain.sh/core';
 
 export interface AgentEnvelope {
     id: string;

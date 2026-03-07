@@ -3,7 +3,7 @@
  * Renders Grain Language to semantic HTML
  */
 
-import { GLangParser, EventBus, type ASTNode } from 'grain';
+import { GLangParser, EventBus, type ASTNode } from '@grain.sh/core';
 import type { WebAdapterConfig, RenderOptions } from './types';
 
 export class WebAdapter {

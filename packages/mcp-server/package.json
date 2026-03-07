@@ -17,13 +17,13 @@
   },
   "dependencies": {
     "@grain.sh/mcp": "workspace:*",
-    "grain": "workspace:*"
+    "@grain.sh/core": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
-    "grain",
+    "@grain.sh/core",
     "g-lang",
     "mcp",
     "server"

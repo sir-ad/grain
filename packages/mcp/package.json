@@ -22,13 +22,13 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "grain": "workspace:*"
+    "@grain.sh/core": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
-    "grain",
+    "@grain.sh/core",
     "g-lang",
     "mcp",
     "model-context-protocol",

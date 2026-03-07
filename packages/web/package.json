@@ -20,13 +20,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "grain": "workspace:*"
+    "@grain.sh/core": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
-    "grain",
+    "@grain.sh/core",
     "g-lang",
     "web",
     "adapter",

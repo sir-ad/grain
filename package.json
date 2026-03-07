@@ -1,5 +1,5 @@
 {
-  "name": "grain",
+  "name": "grain-monorepo",
   "version": "1.1.9",
   "description": "Universal interaction layer for AI interfaces",
   "private": true,
@@ -39,7 +39,7 @@
     "components",
     "chat",
     "g-lang",
-    "grain"
+    "@grain.sh/core"
   ],
   "license": "MIT",
   "bugs": {

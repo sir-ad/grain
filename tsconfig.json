@@ -16,7 +16,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "grain": ["./packages/core/src"]
+      "@grain.sh/core": ["./packages/core/src"]
     }
   },
   "include": ["packages/*/src"],

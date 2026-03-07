@@ -3,7 +3,7 @@
  * Provides tools that return G-Lang formatted responses.
  */
 
-import { GLangParser } from 'grain';
+import { GLangParser } from '@grain.sh/core';
 import '@grain.sh/mcp';
 
 const parser = new GLangParser();

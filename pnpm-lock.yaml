@@ -26,7 +26,7 @@ importers:
 
   packages/agent:
     dependencies:
-      grain:
+      '@grain.sh/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -39,12 +39,12 @@ importers:
 
   packages/cli:
     dependencies:
+      '@grain.sh/core':
+        specifier: workspace:*
+        version: link:../core
       chalk:
         specifier: ^5.3.0
         version: 5.6.2
-      grain:
-        specifier: workspace:*
-        version: link:../core
       ora:
         specifier: ^7.0.1
         version: 7.0.1
@@ -98,12 +98,12 @@ importers:
 
   packages/docs-site:
     dependencies:
+      '@grain.sh/core':
+        specifier: workspace:*
+        version: link:../core
       '@grain.sh/web':
         specifier: workspace:*
         version: link:../web
-      grain:
-        specifier: workspace:*
-        version: link:../core
     devDependencies:
       typescript:
         specifier: ^5.6.2
@@ -114,7 +114,7 @@ importers:
 
   packages/mcp:
     dependencies:
-      grain:
+      '@grain.sh/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -127,12 +127,12 @@ importers:
 
   packages/mcp-server:
     dependencies:
+      '@grain.sh/core':
+        specifier: workspace:*
+        version: link:../core
       '@grain.sh/mcp':
         specifier: workspace:*
         version: link:../mcp
-      grain:
-        specifier: workspace:*
-        version: link:../core
     devDependencies:
       tsup:
         specifier: ^8.0.1
@@ -143,12 +143,12 @@ importers:
 
   packages/react:
     dependencies:
+      '@grain.sh/core':
+        specifier: workspace:*
+        version: link:../core
       '@grain.sh/web':
         specifier: workspace:*
         version: link:../web
-      grain:
-        specifier: workspace:*
-        version: link:../core
       react:
         specifier: ^18.0.0 || ^19.0.0
         version: 19.2.4
@@ -171,7 +171,7 @@ importers:
 
   packages/web:
     dependencies:
-      grain:
+      '@grain.sh/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

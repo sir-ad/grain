@@ -6,7 +6,7 @@ export default defineConfig({
     dts: true,
     clean: true,
     globalName: 'GrainWeb',
-    external: ['grain'],
+    external: ['@grain.sh/core'],
     minify: true,
     sourcemap: true,
 });

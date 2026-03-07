@@ -3,7 +3,7 @@
   "changelog": false,
   "commit": false,
   "fixed": [
-    "grain",
+    "@grain.sh/core",
     "@grain.sh/web",
     "@grain.sh/cli",
     "@grain.sh/mcp",

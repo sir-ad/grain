@@ -30,7 +30,7 @@
         "access": "public"
     },
     "keywords": [
-        "grain",
+        "@grain.sh/core",
         "create-grain",
         "scaffold",
         "ai",

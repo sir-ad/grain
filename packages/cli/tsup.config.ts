@@ -8,5 +8,5 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   platform: 'node',
-  external: ['grain', 'chalk', 'ora', 'fs', 'path']
+  external: ['@grain.sh/core', 'chalk', 'ora', 'fs', 'path']
 });

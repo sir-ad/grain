@@ -8,5 +8,5 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   platform: 'node',
-  external: ['grain', '@grain.sh/mcp']
+  external: ['@grain.sh/core', '@grain.sh/mcp']
 });

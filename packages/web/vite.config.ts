@@ -10,7 +10,7 @@ export default defineConfig({
       fileName: 'grain-web'
     },
     rollupOptions: {
-      external: ['grain'],
+      external: ['@grain.sh/core'],
       output: {
         globals: {
           grain: 'Grain'
@@ -24,7 +24,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
-      'grain': resolve(__dirname, '../core/src')
+      '@grain.sh/core': resolve(__dirname, '../core/src')
     }
   }
 });
