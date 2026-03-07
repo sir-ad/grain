@@ -3,6 +3,9 @@
 [![NPM Version](https://img.shields.io/npm/v/grain?color=000&labelColor=333&style=flat-square)](https://www.npmjs.com/package/grain)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/sir-ad/grain/deploy.yml?branch=main&style=flat-square)](https://github.com/sir-ad/grain/actions)
 [![License](https://img.shields.io/github/license/sir-ad/grain?style=flat-square)](https://github.com/sir-ad/grain/blob/main/LICENSE)
+[![AI / LLMs](https://img.shields.io/badge/AI%20%2F%20LLMs-Compatible-000000?style=flat-square&logo=openai&logoColor=white)](https://github.com/sir-ad/grain)
+[![Agentic](https://img.shields.io/badge/Agentic-Native-000000?style=flat-square&logo=robot&logoColor=white)](https://github.com/sir-ad/grain)
+[![Model Context Protocol](https://img.shields.io/badge/MCP-Ready-000000?style=flat-square)](https://github.com/sir-ad/grain)
 
 **The Universal Interaction Layer for AI Interfaces.**
 
