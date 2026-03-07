@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledgebase | Grain Language</title>
+    <meta name="description" content="Exhaustive knowledgebase and runtime granular guides for Grain Language.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../src/style.css">
+    <style>
+        .kb-container {
+            max-width: 1000px;
+            margin: 120px auto 60px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .kb-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kb-sidebar {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .kb-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .kb-sidebar li {
+            margin-bottom: 12px;
+        }
+
+        .kb-sidebar a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: block;
+            padding: 4px 0;
+        }
+
+        .kb-sidebar a:hover,
+        .kb-sidebar a.active {
+            color: var(--text);
+        }
+
+        .kb-sidebar h4 {
+            font-family: var(--font-display);
+            color: var(--text);
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 8px;
+        }
+
+        .kb-content {
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .kb-content h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 32px;
+        }
+
+        .kb-content h2 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--text);
+            margin-top: 64px;
+            margin-bottom: 24px;
+        }
+
+        .kb-content h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-top: 48px;
+            margin-bottom: 16px;
+        }
+
+        .kb-content p {
+            margin-bottom: 20px;
+        }
+
+        .kb-content code:not(pre code) {
+            font-family: var(--font-mono);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        pre {
+            background: #0d0d0d !important;
+            border: 1px solid var(--glass-border);
+            padding: 24px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 24px;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        pre code {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .kb-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .kb-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            padding: 24px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .kb-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .kb-card h3 {
+            margin-top: 0;
+            color: var(--text);
+            font-size: 1.2rem;
+        }
+
+        .kb-card p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Syntax Highlighting Fake Colors */
+        .token-keyword {
+            color: #ff5f56;
+        }
+
+        .token-string {
+            color: #27c93f;
+        }
+
+        .token-tag {
+            color: #3b82f6;
+        }
+
+        .token-attr {
+            color: #a855f7;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo" style="text-decoration: none;">Grain</a>
+            <div class="nav-links">
+                <a href="../index.html#docs">Docs</a>
+                <a href="index.html" style="color: var(--text);">Knowledgebase</a>
+                <a href="../whitepaper.html">Whitepaper</a>
+                <a href="https://github.com/sir-ad/grain">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="kb-container">
+        <aside class="kb-sidebar">
+            <h4>Primitives (Tags)</h4>
+            <ul>
+                <li><a href="stream.html">&lt;stream&gt;</a></li>
+                <li><a href="think.html">&lt;think&gt;</a></li>
+                <li><a href="tool.html">&lt;tool&gt;</a></li>
+                <li><a href="form.html">&lt;form&gt;</a></li>
+            </ul>
+            <h4 style="margin-top: 32px;">Runtime Guides</h4>
+            <ul>
+                <li><a href="#intro" class="active">Introduction to Runtime</a></li>
+                <li><a href="#web-runtime">DOM / Web Adapter</a></li>
+                <li><a href="#agent-runtime">Agent-to-Agent Swarms</a></li>
+                <li><a href="#mcp-runtime">MCP Tool Execution</a></li>
+                <li><a href="#streaming">Iterative Streaming</a></li>
+            </ul>
+            <h4 style="margin-top: 32px;">Specifications</h4>
+            <ul>
+                <li><a href="https://github.com/sir-ad/grain/blob/main/GRAIN-LANGUAGE.md" target="_blank">Grain Syntax
+                        Spec ↗</a></li>
+                <li><a href="https://github.com/sir-ad/grain/blob/main/ARCHITECTURE.md" target="_blank">Architecture
+                        Spec ↗</a></li>
+                <li><a href="https://github.com/sir-ad/grain/blob/main/QUICK-START.md" target="_blank">Quick Start Guide
+                        ↗</a></li>
+            </ul>
+        </aside>
+
+        <main class="kb-content">
+            <h1 id="intro">Grain Knowledgebase & Runtime Guides</h1>
+            <p>Welcome to the exhaustive knowledgebase for Grain Language. This document focuses explicitly on
+                <strong>runtime implementation</strong>—how to execute, parse, and utilize Grain within active
+                production environments including the Web DOM, Agentic Swarms, and Model Context Protocol integrations.
+            </p>
+
+            <div class="kb-card-grid">
+                <a href="https://github.com/sir-ad/grain/blob/main/GRAIN-LANGUAGE.md" target="_blank" class="kb-card">
+                    <h3>Syntax Spec ↗</h3>
+                    <p>Complete documentation of all 15+ atomic Grain Language primitives.</p>
+                </a>
+                <a href="https://github.com/sir-ad/grain/blob/main/ARCHITECTURE.md" target="_blank" class="kb-card">
+                    <h3>Meridian Architecture ↗</h3>
+                    <p>Deep dive into the parsing state machine and core protocols.</p>
+                </a>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--glass-border); margin: 64px 0;">
+
+            <h2 id="web-runtime">1. Web & DOM Runtime Adapter</h2>
+            <p>Grain isn't just a parser; it is a live rendering engine. The <code>@grain.sh/web</code> package includes
+                the <strong>WebAdapter</strong>, which observes Grain strings and reactively updates the DOM tree. This
+                is highly valuable because it converts raw LLM text streams directly into safe, encapsulated UI
+                components without React reconciliation overhead.</p>
+
+            <h3>Why it's valuable</h3>
+            <ul>
+                <li><strong>XSS Safety:</strong> Grain's lexical parser sanitizes input at the AST level. It is vastly
+                    safer than injecting Markdown <code>innerHTML</code>.</li>
+                <li><strong>Partial Stream Rendering:</strong> It gracefully handles unclosed tags (e.g.,
+                    <code>&lt;stream speed="fast"&gt;Hel...</code>) by holding them in partial state, allowing smooth
+                    typewriter effects.
+                </li>
+            </ul>
+
+            <h3>Implementation</h3>
+            <pre><code><span class="token-keyword">import</span> { WebAdapter } <span class="token-keyword">from</span> <span class="token-string">'@grain.sh/web'</span>;
+
+<span class="token-keyword">const</span> adapter = <span class="token-keyword">new</span> WebAdapter();
+<span class="token-keyword">const</span> container = document.getElementById(<span class="token-string">'chat-window'</span>);
+
+<span class="token-keyword">const</span> incomingStream = <span class="token-string">'&lt;think&gt;Searching...&lt;/think&gt;&lt;stream&gt;Found it!&lt;/stream&gt;'</span>;
+
+<span class="token-keyword">await</span> adapter.render(incomingStream, { container });</code></pre>
+
+            <h2 id="agent-runtime">2. Agent-to-Agent Swarms</h2>
+            <p>In multi-agent architectures (e.g., LangGraph, AutoGen), agents often struggle to pass strict state using
+                arbitrary JSON envelopes. Grain solves this by acting as the universal envelope.</p>
+
+            <h3>Why it's valuable</h3>
+            <p>A "Chief" agent can emit a <code>&lt;context&gt;</code> block containing the exact state, and delegate to
+                a "Sub-Agent" via the <code>&lt;agent&gt;</code> primitive. The sub-agent inherently parses the context
+                without needing a custom proprietary schema definition.</p>
+
+            <h3>Implementation</h3>
+            <pre><code><span class="token-keyword">const</span> chiefOutput = <span class="token-string">`
+  &lt;agent name="researcher" priority="high"&gt;
+    &lt;context&gt;
+      User wants to know the latest news on Quantum Computing.
+    &lt;/context&gt;
+    &lt;instruction&gt;Execute web search and return a summary.&lt;/instruction&gt;
+  &lt;/agent&gt;
+`</span>;
+
+<span class="token-keyword">import</span> { parseAgentTags } <span class="token-keyword">from</span> <span class="token-string">'@grain.sh/agent'</span>;
+<span class="token-keyword">const</span> delegations = parseAgentTags(chiefOutput);
+delegations.forEach(worker => orchestrator.spawn(worker.name, worker.context));
+</code></pre>
+
+            <h2 id="mcp-runtime">3. Model Context Protocol (MCP) Runtime</h2>
+            <p>MCP standardizes tool definitions, but how does the LLM actually <strong>call</strong> those tools in a
+                unified way? Instead of using proprietary OpenAI tool formats or Anthropic XML formats, models can be
+                instructed to output standard Grain <code>&lt;tool&gt;</code> tags.</p>
+
+            <h3>Why it's valuable</h3>
+            <p>You can hot-swap the underlying LLM (e.g., moving from GPT-4 to Claude 3.5) without changing your
+                application's tool execution harness. The <code>@grain.sh/mcp</code> adapter standardizes the
+                extraction.</p>
+
+            <h3>Implementation</h3>
+            <pre><code><span class="token-keyword">import</span> { MCPAdapter } <span class="token-keyword">from</span> <span class="token-string">'@grain.sh/mcp'</span>;
+<span class="token-keyword">import</span> { executeLocalTool } <span class="token-keyword">from</span> <span class="token-string">'./my-tools'</span>;
+
+<span class="token-keyword">const</span> parser = <span class="token-keyword">new</span> MCPAdapter();
+<span class="token-keyword">const</span> llmResponse = <span class="token-string">'&lt;tool name="read_file" args=\'{"path":"/tmp/log"}\'&gt;'</span>;
+
+<span class="token-keyword">const</span> pendingTools = parser.extractTools(llmResponse);
+
+<span class="token-keyword">for</span> (<span class="token-keyword">const</span> tool <span class="token-keyword">of</span> pendingTools) {
+    <span class="token-keyword">const</span> rawResult = <span class="token-keyword">await</span> executeLocalTool(tool.name, tool.args);
+    
+    <span class="token-comment">// Feed the result back to the LLM via Grain standard</span>
+    <span class="token-keyword">const</span> reply = <span class="token-string">`&lt;tool_result name="${tool.name}" status="success"&gt;${rawResult}&lt;/tool_result&gt;`</span>;
+    llm.send(reply);
+}</code></pre>
+
+            <h2 id="streaming">4. Iterative Chunk Streaming</h2>
+            <p>Grain's core parser is an iterative state machine. This means you do not need to buffer the entire LLM
+                response before parsing it.</p>
+
+            <h3>Implementation</h3>
+            <pre><code><span class="token-keyword">import</span> { GrainParser } <span class="token-keyword">from</span> <span class="token-string">'@grain.sh/core'</span>;
+
+<span class="token-keyword">const</span> parser = <span class="token-keyword">new</span> GrainParser();
+
+<span class="token-comment">// Assuming 'stream' is a standard async iterable from an LLM API</span>
+<span class="token-keyword">for</span> <span class="token-keyword">await</span> (<span class="token-keyword">const</span> chunk <span class="token-keyword">of</span> stream) {
+    <span class="token-keyword">const</span> parsedASTNodes = parser.append(chunk);
+    
+    <span class="token-comment">// Immediately act on new nodes as they arrive</span>
+    <span class="token-keyword">for</span> (<span class="token-keyword">const</span> node <span class="token-keyword">of</span> parsedASTNodes) {
+        <span class="token-keyword">if</span> (node.type === <span class="token-string">'think'</span>) {
+            console.log(<span class="token-string">'Agent is reasoning: '</span>, node.content);
+        }
+    }
+}</code></pre>
+
+            <p
+                style="margin-top: 48px; border-top: 1px solid var(--glass-border); padding-top: 24px; font-size: 0.9rem; color: var(--text-muted);">
+                For deeper conceptual reading, returning to the <a
+                    href="https://github.com/sir-ad/grain/blob/main/SPEC.md" style="color: #fff">Official
+                    Specification</a> is recommended.
+            </p>
+
+        </main>
+    </div>
+
+    <footer class="minimal-footer"
+        style="padding: 48px 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--glass-border);">
+        <p>&copy; 2026 Grain Language. Built for the era of intelligence.</p>
+    </footer>
+</body>
+
+</html>
