@@ -1,3 +1,7 @@
+---
+title: Tool
+description: Function/tool execution.
+---
 # Tool
 
 Function/tool execution.
@@ -7,6 +11,28 @@ Function/tool execution.
 ## Purpose
 
 Display AI calling a function — search, API call, calculation — and its result.
+
+---
+
+## Try it Live
+
+<Playground defaultCode='
+&lt;message role="assistant"&gt;
+  &lt;stream&gt;Let me check the weather for you...&lt;/stream&gt;
+&lt;/message&gt;
+
+&lt;tool name="get_weather" args=\'{"city": "Mumbai"}\' status="running"&gt;
+  &lt;input&gt;City: Mumbai&lt;/input&gt;
+&lt;/tool&gt;
+
+&lt;tool name="get_weather" status="complete"&gt;
+  &lt;result temperature="28" condition="sunny" humidity="65" /&gt;
+&lt;/tool&gt;
+
+&lt;message role="assistant"&gt;
+  &lt;stream speed="fast"&gt;The weather in Mumbai is 28°C and sunny!&lt;/stream&gt;
+&lt;/message&gt;
+' />
 
 ---
 
@@ -40,10 +66,10 @@ Display AI calling a function — search, API call, calculation — and its resu
 
 ```
 PENDING → RUNNING → COMPLETE
-    ↓         ↓
-  SKIPPED   ERROR
-    ↓         ↓
-  CANCELLED RETRY
+   ↓         ↓
+SKIPPED   ERROR
+   ↓         ↓
+CANCELLED  RETRY
 ```
 
 ---
@@ -51,21 +77,25 @@ PENDING → RUNNING → COMPLETE
 ## Nested Elements
 
 ### `<input>` — Tool input
+
 ```grain
 <input>City: Mumbai</input>
 ```
 
 ### `<result>` — Tool output
+
 ```grain
 <result temperature="28" condition="sunny" />
 ```
 
 ### `<progress>` — Progress indicator
+
 ```grain
 <progress value="45" max="100">45%</progress>
 ```
 
 ### `<error>` — Error state
+
 ```grain
 <error code="API_ERROR">Failed to fetch</error>
 ```
@@ -80,3 +110,54 @@ PENDING → RUNNING → COMPLETE
 | `tool.progress` | Progress update |
 | `tool.complete` | Tool finished |
 | `tool.error` | Tool failed |
+
+---
+
+## Examples
+
+### Running state
+
+```grain
+<tool name="search" args='{"q": "quantum computing"}' status="running">
+  <input>Query: quantum computing</input>
+</tool>
+```
+
+### Complete with result
+
+```grain
+<tool name="calculate" status="complete">
+  <result value="42" />
+</tool>
+```
+
+### Error state
+
+```grain
+<tool name="fetch_data" status="error">
+  <error code="TIMEOUT">Request timed out after 30s</error>
+</tool>
+```
+
+### Manual approval required
+
+```grain
+<tool name="send_email" status="pending" mode="manual">
+  <input>To: user@example.com</input>
+  <input>Subject: Hello</input>
+</tool>
+
+<approve type="tool_call" action="Send email">
+  <warning>This will send an email</warning>
+  <option label="Cancel"></option>
+  <option label="Send"></option>
+</approve>
+```
+
+---
+
+## Related
+
+- [Approve](/primitives/approve) — Human approval
+- [Artifact](/primitives/artifact) — Display results
+- [Playground](/playground) — Try it live

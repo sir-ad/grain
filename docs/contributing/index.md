@@ -1,10 +1,17 @@
+---
+title: Contributing | Grain
+description: How to contribute to Grain - setup, coding standards, and pull request guidelines.
+---
+
 # Contributing to Grain
 
 > Thank you for your interest in contributing!
 
+---
+
 ## Code of Conduct
 
-By participating in this project, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
+By participating in this project, you agree to abide by our Code of Conduct.
 
 ---
 
@@ -19,8 +26,8 @@ By participating in this project, you agree to abide by our [Code of Conduct](CO
 
 ```bash
 # Clone the repository
-git clone https://github.com/sir-ad/ai-semantics.git
-cd ai-semantics
+git clone https://github.com/sir-ad/grain.git
+cd grain
 
 # Install dependencies
 pnpm install
@@ -37,21 +44,21 @@ pnpm test
 ## Project Structure
 
 ```
-ai-semantics/
+grain/
 ├── packages/
-│   ├── core/          # Core runtime (parser, state machine, etc.)
-│   ├── web/           # Web adapter
-│   ├── cli/           # CLI adapter
-│   └── mcp/           # MCP adapter
-├── docs/              # Documentation
-└── tools/            # Build tools
+│   ├── core/        # Core runtime (parser, state machine, etc.)
+│   ├── web/         # Web adapter
+│   ├── cli/         # CLI adapter
+│   └── mcp/         # MCP adapter
+├── docs/            # Documentation
+└── tools/           # Build tools
 ```
 
 ---
 
 ## Making Changes
 
-### 1. Create a branch
+### 1. Create a Branch
 
 ```bash
 git checkout -b feature/your-feature-name
@@ -59,7 +66,7 @@ git checkout -b feature/your-feature-name
 git checkout -b fix/bug-description
 ```
 
-### 2. Make your changes
+### 2. Make Your Changes
 
 Follow these guidelines:
 
@@ -68,7 +75,7 @@ Follow these guidelines:
 - **Tests**: Add tests for new functionality
 - **Commits**: Use conventional commits
 
-### 3. Commit format
+### 3. Commit Format
 
 ```
 <type>(<scope>): <description>
@@ -88,6 +95,7 @@ Types:
 - `chore`: Maintenance
 
 Example:
+
 ```
 feat(core): add new state machine for branch primitive
 
@@ -182,7 +190,7 @@ describe('GLangParser', () => {
   it('should parse a simple message', () => {
     const parser = new GLangParser();
     const result = parser.parse('<message role="assistant">Hello</message>');
-    
+
     expect(result.errors).toHaveLength(0);
     expect(result.ast).not.toBeNull();
   });
@@ -202,7 +210,7 @@ describe('GLangParser', () => {
 ### Building Docs
 
 ```bash
-pnpm --filter @grain.sh/docs build
+pnpm --filter docs build
 ```
 
 ---
@@ -227,15 +235,15 @@ pnpm release
 
 ## Getting Help
 
-- **Discord**: https://discord.gg/ai-semantics
-- **Issues**: https://github.com/sir-ad/ai-semantics/issues
-- **Discussions**: https://github.com/sir-ad/ai-semantics/discussions
+- **GitHub Issues**: [github.com/sir-ad/grain/issues](https://github.com/sir-ad/grain/issues)
+- **Discussions**: [github.com/sir-ad/grain/discussions](https://github.com/sir-ad/grain/discussions)
 
 ---
 
 ## Recognition
 
 Contributors will be recognized in:
+
 - README.md contributors section
 - Release notes
 - GitHub contributors page

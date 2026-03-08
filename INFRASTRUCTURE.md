@@ -11,12 +11,12 @@
 ```
 ai-semantics/
 ├── packages/
-│   ├── core/              # @ai-semantics/core
-│   ├── web/               # @ai-semantics/web
-│   ├── cli/               # @ai-semantics/cli
-│   ├── mcp/               # @ai-semantics/mcp
-│   ├── agent/              # @ai-semantics/agent
-│   └── react/              # @ai-semantics/react (planned)
+│   ├── core/              # @grain.sh/core
+│   ├── web/               # @grain.sh/web
+│   ├── cli/               # @grain.sh/cli
+│   ├── mcp/               # @grain.sh/mcp
+│   ├── agent/              # @grain.sh/agent
+│   └── react/              # @grain.sh/react (planned)
 ├── tools/                  # Build tools
 ├── docs/                   # Documentation site
 └── package.json           # Workspace root
@@ -34,7 +34,7 @@ npm install -g pnpm
 pnpm install
 
 # Add a dependency to a package
-pnpm add @ai-semantics/core --filter @ai-semantics/web
+pnpm add @grain.sh/core --filter @grain.sh/web
 ```
 
 ---
@@ -67,8 +67,8 @@ export default defineConfig({
   external: [],
   banner: {
     js: `/**
- * @ai-semantics/core ${require('./package.json').version}
- * AI Semantics - Universal interaction layer for AI
+ * @grain.sh/core ${require('./package.json').version}
+ * Grain - Universal interaction layer for AI
  */`
   }
 });
@@ -90,10 +90,10 @@ export default defineConfig({
       fileName: 'ai-semantics-web'
     },
     rollupOptions: {
-      external: ['@ai-semantics/core'],
+      external: ['@grain.sh/core'],
       output: {
         globals: {
-          '@ai-semantics/core': 'AISemanticsCore'
+          '@grain.sh/core': 'AISemanticsCore'
         }
       }
     }
@@ -284,15 +284,15 @@ pnpm publish -r
 ### Unpkg
 
 ```
-https://unpkg.com/@ai-semantics/web@1.0.0/dist/ai-semantics-web.js
-https://unpkg.com/@ai-semantics/web@1.0.0/dist/ai-semantics-web.css
+https://unpkg.com/@grain.sh/web@1.0.0/dist/ai-semantics-web.js
+https://unpkg.com/@grain.sh/web@1.0.0/dist/ai-semantics-web.css
 ```
 
 ### jsDelivr
 
 ```
-https://cdn.jsdelivr.net/npm/@ai-semantics/web@1.0.0/dist/ai-semantics-web.js
-https://cdn.jsdelivr.net/npm/@ai-semantics/web@1.0.0/dist/ai-semantics-web.css
+https://cdn.jsdelivr.net/npm/@grain.sh/web@1.0.0/dist/ai-semantics-web.js
+https://cdn.jsdelivr.net/npm/@grain.sh/web@1.0.0/dist/ai-semantics-web.css
 ```
 
 ### Cloudflare Pages (Docs)
@@ -325,7 +325,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       
       - name: Build docs
-        run: pnpm --filter @ai-semantics/docs build
+        run: pnpm --filter @grain.sh/docs build
       
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
@@ -361,10 +361,10 @@ pnpm dev
 
 ```bash
 # Web example
-pnpm --filter @ai-semantics/example-web dev
+pnpm --filter @grain.sh/example-web dev
 
 # CLI example
-pnpm --filter @ai-semantics/example-cli dev
+pnpm --filter @grain.sh/example-cli dev
 ```
 
 ### Testing
@@ -471,7 +471,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Build
-        run: pnpm build && pnpm --filter @ai-semantics/example-web build
+        run: pnpm build && pnpm --filter @grain.sh/example-web build
       
       - name: Run Lighthouse
         uses: treosh/lighthouse-ci-action@v9

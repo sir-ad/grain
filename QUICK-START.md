@@ -1,6 +1,6 @@
 # Quick Start
 
-> Get up and running with AI Semantics in 5 minutes.
+> Get up and running with Grain in 5 minutes.
 
 ---
 
@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Semantics Demo</title>
+  <title>Grain Demo</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@grain.sh/web@1.0.0/dist/grain-web.css">
 </head>
 <body>

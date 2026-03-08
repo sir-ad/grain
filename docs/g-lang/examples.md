@@ -1,3 +1,7 @@
+---
+title: G-Lang Examples
+description: Real-world examples.
+---
 # G-Lang Examples
 
 Real-world examples.

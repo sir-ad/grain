@@ -1,3 +1,7 @@
+---
+title: MCP Adapter
+description: Model Context Protocol integration.
+---
 # MCP Adapter
 
 Model Context Protocol integration.
@@ -7,7 +11,7 @@ Model Context Protocol integration.
 ## Installation
 
 ```bash
-npm install @ai-semantics/mcp
+npm install @grain/mcp
 ```
 
 ---
@@ -23,7 +27,7 @@ Tools return G-Lang in JSON format. MCP Adapter converts between:
 ## G-Lang to MCP
 
 ```javascript
-import { MCPAdapter } from '@ai-semantics/mcp';
+import { MCPAdapter } from '@grain/mcp';
 
 const adapter = new MCPAdapter();
 

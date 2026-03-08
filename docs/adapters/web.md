@@ -1,3 +1,7 @@
+---
+title: Web Adapter
+description: Renders G-Lang to semantic HTML.
+---
 # Web Adapter
 
 Renders G-Lang to semantic HTML.
@@ -7,7 +11,7 @@ Renders G-Lang to semantic HTML.
 ## Installation
 
 ```bash
-npm install @ai-semantics/web
+npm install @grain/web
 ```
 
 ---
@@ -15,8 +19,8 @@ npm install @ai-semantics/web
 ## Quick Start
 
 ```javascript
-import { AISemantics } from '@ai-semantics/web';
-import '@ai-semantics/web/dist/ai-semantics-web.css';
+import { AISemantics } from '@grain/web';
+import '@grain/web/dist/grain-web.css';
 
 const adapter = new AISemantics.WebAdapter();
 
@@ -31,8 +35,8 @@ adapter.render(`<message role="assistant">
 ## CDN
 
 ```html
-<script src="https://cdn.ai-semantics.dev/v1/ai-semantics-web.js"></script>
-<link rel="stylesheet" href="https://cdn.ai-semantics.dev/v1/ai-semantics-web.css">
+<script src="https://cdn.grain.dev/v1/grain-web.js"></script>
+<link rel="stylesheet" href="https://cdn.grain.dev/v1/grain-web.css">
 ```
 
 ---
@@ -126,12 +130,12 @@ Renders as:
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.ai-semantics.dev/v1/ai-semantics-web.css">
+  <link rel="stylesheet" href="https://cdn.grain.dev/v1/grain-web.css">
 </head>
 <body>
   <div id="chat"></div>
   
-  <script src="https://cdn.ai-semantics.dev/v1/ai-semantics-web.js"></script>
+  <script src="https://cdn.grain.dev/v1/grain-web.js"></script>
   <script>
     const adapter = new AISemantics.WebAdapter({
       theme: { '--ai-primary': '#6366f1' }

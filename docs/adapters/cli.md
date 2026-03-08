@@ -1,3 +1,7 @@
+---
+title: CLI Adapter
+description: Terminal rendering.
+---
 # CLI Adapter
 
 Terminal rendering.
@@ -7,7 +11,7 @@ Terminal rendering.
 ## Installation
 
 ```bash
-npm install -g @ai-semantics/cli
+npm install -g @grain/cli
 ```
 
 ---
@@ -30,7 +34,7 @@ ai-sem render --input chat.glang --output output.txt
 ## Programmatic
 
 ```javascript
-import { CLIAdapter } from '@ai-semantics/cli';
+import { CLIAdapter } from '@grain/cli';
 
 const adapter = new CLIAdapter();
 

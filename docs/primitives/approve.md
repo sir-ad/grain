@@ -1,3 +1,7 @@
+---
+title: Approve
+description: Human-in-the-loop confirmation.
+---
 # Approve
 
 Human-in-the-loop confirmation.
@@ -10,11 +14,27 @@ Require user approval for sensitive actions — tool execution, content generati
 
 ---
 
+## Try it Live
+
+<Playground defaultCode='
+&lt;message role="assistant"&gt;
+  &lt;stream&gt;I&apos;m ready to delete the configuration file. Please confirm:&lt;/stream&gt;
+&lt;/message&gt;
+
+&lt;approve type="delete" action="Delete file: config.yaml"
+  warning="This action cannot be undone"&gt;
+  &lt;option label="Keep File"&gt;&lt;/option&gt;
+  &lt;option label="Delete Forever" primary&gt;&lt;/option&gt;
+&lt;/approve&gt;
+' />
+
+---
+
 ## G-Lang
 
 ```grain
-<approve type="tool_call" action="Send email to user@example.com" 
-         warning="This will send an external email">
+<approve type="tool_call" action="Send email to user@example.com"
+  warning="This will send an external email">
   <option label="Cancel"></option>
   <option label="Send Email"></option>
 </approve>
@@ -34,13 +54,14 @@ Require user approval for sensitive actions — tool execution, content generati
 
 ---
 
-## Nested
+## Nested Elements
 
 ### `<option>` — Approval options
 
 ```grain
 <option label="Cancel"></option>
 <option label="Confirm"></option>
+<option label="Confirm" primary></option>
 ```
 
 ---
@@ -49,8 +70,8 @@ Require user approval for sensitive actions — tool execution, content generati
 
 ```
 PENDING → SHOWING → APPROVED
-    ↓         ↓        ↓
-  EXPIRED   DENIED   EXECUTING → COMPLETE
+   ↓        ↓         ↓
+EXPIRED  DENIED   EXECUTING → COMPLETE
 ```
 
 ---
@@ -64,3 +85,58 @@ PENDING → SHOWING → APPROVED
 | `approve.approve` | User approved |
 | `approve.deny` | User denied |
 | `approve.expire` | Request timed out |
+
+---
+
+## Examples
+
+### Tool call approval
+
+```grain
+<tool name="send_email" status="pending" mode="manual">
+  <input>To: user@example.com</input>
+</tool>
+
+<approve type="tool_call" action="Send email to user@example.com"
+  warning="This will send an email to an external address">
+  <option label="Cancel"></option>
+  <option label="Send Email"></option>
+</approve>
+```
+
+### Delete confirmation
+
+```grain
+<approve type="delete" action="Delete file: config.yaml"
+  warning="This action cannot be undone">
+  <option label="Keep File"></option>
+  <option label="Delete Forever"></option>
+</approve>
+```
+
+### Consent request
+
+```grain
+<approve type="consent" action="Share data with third party"
+  warning="Your data will be shared with our analytics partner">
+  <option label="Decline"></option>
+  <option label="Agree"></option>
+</approve>
+```
+
+### With timeout
+
+```grain
+<approve type="action" action="Apply changes" timeout="30000">
+  <option label="Cancel"></option>
+  <option label="Apply"></option>
+</approve>
+```
+
+---
+
+## Related
+
+- [Tool](/primitives/tool) — Tool execution
+- [Error](/primitives/error) — Error handling
+- [Playground](/playground) — Try it live

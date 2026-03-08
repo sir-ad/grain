@@ -1,4 +1,4 @@
-# Grain Language — AI Semantics Language
+# Grain Language — Grain Language
 
 > The declarative syntax for AI interactions.
 

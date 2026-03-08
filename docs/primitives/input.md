@@ -1,3 +1,7 @@
+---
+title: Input
+description: User input collection.
+---
 # Input
 
 User input collection.

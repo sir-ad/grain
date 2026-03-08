@@ -1,3 +1,7 @@
+---
+title: Stream
+description: Real-time text streaming.
+---
 # Stream
 
 Real-time text streaming.
@@ -7,6 +11,18 @@ Real-time text streaming.
 ## Purpose
 
 Display AI output as it generates — character by character or chunk by chunk.
+
+---
+
+## Try it Live
+
+<Playground defaultCode='
+&lt;message role="assistant"&gt;
+  &lt;stream speed="fast" cursor="true"&gt;
+    Hello! This is a streaming message. Watch the text appear character by character.
+  &lt;/stream&gt;
+&lt;/message&gt;
+' />
 
 ---
 
@@ -34,12 +50,12 @@ Display AI output as it generates — character by character or chunk by chunk.
 
 ```
 IDLE → GENERATING → COMPLETE
-              ↓
-           PAUSED
-              ↓
-         RESUMING
-              ↓
-            ERROR
+  ↓
+PAUSED
+  ↓
+RESUMING
+  ↓
+ERROR
 ```
 
 ---
@@ -70,20 +86,40 @@ IDLE → GENERATING → COMPLETE
 <stream cursor="true">Typing...</stream>
 ```
 
-### Markdown
+### Fast streaming
+
+```grain
+<stream speed="fast">This appears instantly.</stream>
+```
+
+### Markdown content
 
 ```grain
 <stream markdown="true">
-# Hello
+  # Hello
 
-This is **bold** and *italic*.
+  This is **bold** and *italic*.
+
+  ```javascript
+  console.log('Hello');
+  ```
 </stream>
 ```
 
-### Web output
+---
+
+## Web Output
 
 ```html
-<ai-stream class="normal" cursor="true" data-speed="normal">
+<grain-stream class="normal" cursor="true" data-speed="normal">
   Hello world
-</ai-stream>
+</grain-stream>
 ```
+
+---
+
+## Related
+
+- [Think](/primitives/think) — Show AI reasoning
+- [Message](/primitives/overview) — Container for stream
+- [Playground](/playground) — Try it live
