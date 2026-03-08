@@ -33,6 +33,8 @@ It is the **HTML for AI.**
 
 ---
 
+*Unified documentation site is now available at https://sir-ad.github.io/grain/ (under the `/grain/` base path).*
+
 ### Quick Start (Web & React)
 
 Create a fully configured Grain application instantly:
