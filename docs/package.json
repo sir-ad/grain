@@ -5,10 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview"
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
   },
   "dependencies": {
-    "vitepress": "^1.0.0"
+    "@grain.sh/web": "workspace:*",
+    "@grain.sh/core": "workspace:*",
+    "vitepress": "^1.6.0",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
   }
 }
