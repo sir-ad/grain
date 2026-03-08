@@ -1,14 +1,14 @@
-# AI Semantics — Specification
+# Grain — Specification
 
 > The universal interaction layer for the AI era.
 
-## What is AI Semantics?
+## What is Grain?
 
-**AI Semantics** defines a standard vocabulary for every surface where AI interacts with humans or other AI.
+**Grain** defines a standard vocabulary for every surface where AI interacts with humans or other AI.
 
 Every AI tool reinvents its own interaction patterns. Users pay the learning tax every time. Developers rebuild the same UI components. AI models output inconsistent formats.
 
-AI Semantics solves this by defining:
+Grain solves this by defining:
 
 1. **Universal Primitives** — The 10 atomic interaction types that compose every AI experience
 2. **State Machines** — How each primitive behaves, what events occur, what states are valid
@@ -19,7 +19,7 @@ AI Semantics solves this by defining:
 
 ## The Core Problem
 
-| Current State | With AI Semantics |
+| Current State | With Grain |
 |---------------|-------------------|
 | Every AI tool has different streaming behavior | Standard `<stream>` primitive |
 | Each chatbot has unique artifact rendering | Standard `<artifact>` primitive |
@@ -1059,7 +1059,7 @@ For phone/voice AI interactions.
 
 # Extension System
 
-AI Semantics is designed to be extended.
+Grain is designed to be extended.
 
 ## Custom Primitives
 
@@ -1088,7 +1088,7 @@ export const customAnalytics = {
 ## Loading Extensions
 
 ```javascript
-import { registerExtension } from '@ai-semantics/core';
+import { registerExtension } from '@grain.sh/core';
 import customAnalytics from './my-extension';
 
 registerExtension(customAnalytics);

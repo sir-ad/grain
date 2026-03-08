@@ -1,3 +1,7 @@
+---
+title: State
+description: Global AI status indicator.
+---
 # State
 
 Global AI status indicator.

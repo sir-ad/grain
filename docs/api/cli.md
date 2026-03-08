@@ -1,3 +1,7 @@
+---
+title: CLI API
+description: CLI adapter API reference.
+---
 # CLI API
 
 CLI adapter API reference.
@@ -7,7 +11,7 @@ CLI adapter API reference.
 ## CLIAdapter
 
 ```typescript
-import { CLIAdapter } from '@ai-semantics/cli';
+import { CLIAdapter } from '@grain/cli';
 
 const adapter = new CLIAdapter(options);
 ```

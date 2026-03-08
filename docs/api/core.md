@@ -1,13 +1,17 @@
+---
+title: Core API
+description: Core runtime for Grain.
+---
 # Core API
 
-Core runtime for AI Semantics.
+Core runtime for Grain.
 
 ---
 
 ## Installation
 
 ```bash
-npm install @ai-semantics/core
+npm install @grain/core
 ```
 
 ---
@@ -17,7 +21,7 @@ npm install @ai-semantics/core
 Parse G-Lang into AST.
 
 ```javascript
-import { GLangParser } from '@ai-semantics/core';
+import { GLangParser } from '@grain/core';
 
 const parser = new GLangParser();
 
@@ -52,7 +56,7 @@ const parser = new GLangParser({
 Validate AST against specification.
 
 ```javascript
-import { Validator } from '@ai-semantics/core';
+import { Validator } from '@grain/core';
 
 const validator = new Validator();
 
@@ -70,7 +74,7 @@ if (!result.valid) {
 State transitions for primitives.
 
 ```javascript
-import { StateMachine, STATE_MACHINES } from '@ai-semantics/core';
+import { StateMachine, STATE_MACHINES } from '@grain/core';
 
 // Use pre-built stream state machine
 const stream = new StateMachine(STATE_MACHINES.stream);
@@ -89,7 +93,7 @@ console.log(stream.getState()); // 'complete'
 Simple event emitter.
 
 ```javascript
-import { EventBus } from '@ai-semantics/core';
+import { EventBus } from '@grain/core';
 
 const bus = new EventBus();
 
@@ -112,7 +116,7 @@ unsubscribe();
 Register custom primitives.
 
 ```javascript
-import { ExtensionRegistry } from '@ai-semantics/core';
+import { ExtensionRegistry } from '@grain/core';
 
 const registry = new ExtensionRegistry();
 
@@ -139,7 +143,7 @@ registry.register({
 Factory function.
 
 ```javascript
-import { createParser } from '@ai-semantics/core';
+import { createParser } from '@grain/core';
 
 const parser = createParser({ validate: true });
 ```

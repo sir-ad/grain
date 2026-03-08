@@ -1,3 +1,7 @@
+---
+title: Error
+description: Error display with recovery.
+---
 # Error
 
 Error display with recovery.

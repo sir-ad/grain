@@ -1,3 +1,7 @@
+---
+title: Docs Configuration
+description: Setup guide for Grain documentation site.
+---
 # Docs Configuration
 
 ## GitHub Pages Setup

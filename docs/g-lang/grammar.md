@@ -1,3 +1,7 @@
+---
+title: G-Lang Grammar
+description: Complete EBNF specification.
+---
 # G-Lang Grammar
 
 Complete EBNF specification.

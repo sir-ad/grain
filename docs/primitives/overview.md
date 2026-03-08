@@ -1,6 +1,10 @@
+---
+title: Primitives Overview
+description: Grain defines 10 atomic primitives.
+---
 # Primitives Overview
 
-AI Semantics defines **10 atomic primitives**. Every AI interaction composes from these.
+Grain defines **10 atomic primitives**. Every AI interaction composes from these.
 
 ---
 

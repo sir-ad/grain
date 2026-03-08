@@ -1,6 +1,10 @@
+---
+title: Examples
+description: Real-world examples of Grain in action.
+---
 # Examples
 
-Real-world examples of AI Semantics in action.
+Real-world examples of Grain in action.
 
 ---
 
@@ -10,11 +14,11 @@ Real-world examples of AI Semantics in action.
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.ai-semantics.dev/v1/ai-semantics-web.css">
+  <link rel="stylesheet" href="https://cdn.grain.dev/v1/grain-web.css">
 </head>
 <body>
   <div id="chat"></div>
-  <script src="https://cdn.ai-semantics.dev/v1/ai-semantics-web.js"></script>
+  <script src="https://cdn.grain.dev/v1/grain-web.js"></script>
   <script>
     const adapter = new AISemantics.WebAdapter();
     

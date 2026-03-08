@@ -1,8 +1,12 @@
+---
+title: Getting Started
+description: Intro to Grain.
+---
 # Getting Started
 
-## What is AI Semantics?
+## What is Grain?
 
-AI Semantics defines a **standard vocabulary** for every surface where AI interacts with humans or other AI.
+Grain defines a **standard vocabulary** for every surface where AI interacts with humans or other AI.
 
 Every AI tool reinvents:
 - How streaming text appears
@@ -12,7 +16,7 @@ Every AI tool reinvents:
 
 **Users pay the learning tax every time.**
 
-AI Semantics makes it standard.
+Grain makes it standard.
 
 ---
 
@@ -21,26 +25,26 @@ AI Semantics makes it standard.
 ### Web (CDN)
 
 ```html
-<script src="https://cdn.ai-semantics.dev/v1/ai-semantics-web.js"></script>
-<link rel="stylesheet" href="https://cdn.ai-semantics.dev/v1/ai-semantics-web.css">
+<script src="https://cdn.grain.dev/v1/grain-web.js"></script>
+<link rel="stylesheet" href="https://cdn.grain.dev/v1/grain-web.css">
 ```
 
 ### Web (npm)
 
 ```bash
-npm install @ai-semantics/web
+npm install @grain/web
 ```
 
 ### CLI
 
 ```bash
-npm install -g @ai-semantics/cli
+npm install -g @grain/cli
 ```
 
 ### MCP
 
 ```bash
-npm install @ai-semantics/mcp
+npm install @grain/mcp
 ```
 
 ---
@@ -66,7 +70,7 @@ Renders as:
 
 ## Why This Matters
 
-| Without AI Semantics | With AI Semantics |
+| Without Grain | With Grain |
 |---------------------|-------------------|
 | Every AI tool different | Standard primitives |
 | Rebuild same UI | Drop in adapters |

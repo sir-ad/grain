@@ -1,3 +1,7 @@
+---
+title: MCP API
+description: MCP adapter API reference.
+---
 # MCP API
 
 MCP adapter API reference.
@@ -7,7 +11,7 @@ MCP adapter API reference.
 ## MCPAdapter
 
 ```typescript
-import { MCPAdapter } from '@ai-semantics/mcp';
+import { MCPAdapter } from '@grain/mcp';
 
 const adapter = new MCPAdapter(options);
 ```

@@ -1,3 +1,7 @@
+---
+title: Web API
+description: Web adapter API reference.
+---
 # Web API
 
 Web adapter API reference.
@@ -7,7 +11,7 @@ Web adapter API reference.
 ## WebAdapter
 
 ```typescript
-import { WebAdapter } from '@ai-semantics/web';
+import { WebAdapter } from '@grain/web';
 
 const adapter = new WebAdapter(config);
 ```

@@ -1,3 +1,7 @@
+---
+title: G-Lang Syntax
+description: Declarative syntax for AI interactions.
+---
 # G-Lang Syntax
 
 The declarative syntax for AI interactions.
