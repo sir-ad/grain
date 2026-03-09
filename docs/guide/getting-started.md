@@ -49,7 +49,7 @@ npm install @grain.sh/mcp
 ### MCP Server
 
 ```bash
-npm install -g grain-mcp
+npm install -g @grain.sh/mcp-server
 ```
 
 ---

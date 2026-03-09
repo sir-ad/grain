@@ -1,6 +1,6 @@
 {
     "name": "@grain.sh/agent",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "description": "Agent-to-agent communication protocol for G-Lang",
     "type": "module",
     "main": "dist/index.cjs",

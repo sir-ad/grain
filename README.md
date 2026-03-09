@@ -40,7 +40,7 @@ It is the **HTML for AI.**
 Create a fully configured Grain application instantly:
 
 ```bash
-npx create-grain-app@latest my-ai-app
+npx @grain.sh/create-grain-app@latest my-ai-app
 ```
 
 ### Quick Install (CLI & Core)
@@ -50,7 +50,7 @@ Use the core parser locally and install the distributables that expose runtime b
 ```bash
 npm install @grain.sh/core @grain.sh/web
 npm install -g @grain.sh/cli
-npm install -g grain-mcp
+npm install -g @grain.sh/mcp-server
 ```
 
 Or use the bootstrap script:
@@ -204,7 +204,7 @@ sequenceDiagram
 | `@grain.sh/web` | Native Custom HTML Web Components |
 | `@grain.sh/cli` | Terminal adapter with the `grain` executable |
 | `@grain.sh/mcp` | Model Context Protocol adapter |
-| `grain-mcp` | Stdio MCP server for Grain tooling |
+| `@grain.sh/mcp-server` | Stdio MCP server for Grain tooling |
 | `@grain.sh/agent` | Agent-to-agent communication envelope |
 
 ### Documentation

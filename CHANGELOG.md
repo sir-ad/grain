@@ -2,6 +2,14 @@
 
 All notable changes to this repository are documented in this file.
 
+## 1.3.1 - 2026-03-09
+
+### Fixed
+
+- Restored the Grain npm scope for the MCP server package by publishing it as `@grain.sh/mcp-server` instead of `grain-mcp`.
+- Restored the Grain npm scope for the app scaffolder by publishing it as `@grain.sh/create-grain-app` instead of `create-grain-app`.
+- Corrected public install commands, release notes, and package tables to point to the scoped package names.
+
 ## 1.3.0 - 2026-03-09
 
 ### Added
