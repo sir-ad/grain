@@ -6,9 +6,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -20,19 +24,14 @@ jobs:
           version: 8.15.1
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      - name: Build Monorepo
-        run: pnpm build
-
-      - name: Build Docs Site
-        run: |
-          cd packages/docs-site
-          VITE_BASE_PATH=/grain/ pnpm build
+      - name: Validate workspace
+        run: pnpm check
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -40,7 +39,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './packages/docs-site/dist'
+          path: './docs/.vitepress/dist'
 
   deploy:
     environment:

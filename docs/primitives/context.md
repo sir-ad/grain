@@ -1,6 +1,6 @@
 ---
 title: Context
-description: Files, URLs, memory.
+description: Pass files, URLs, snippets, and prior memory into a Grain interaction as structured context.
 ---
 # Context
 

@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, computed } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { WebAdapter } from '@grain.sh/web'
+import { DEFAULT_PLAYGROUND_CODE } from '../playground-sample'
 
-const code = ref(`message {
-  think { Analyzing request... }
-  stream { I can help you with that! }
-  
-  tool name="search" {
-    Search for relevant information
-  }
-  
-  artifact type="code" lang="typescript" {
-    const greeting = "Hello, Grain!"
-    console.log(greeting)
-  }
-}`)
+const props = withDefaults(defineProps<{
+  defaultCode?: string
+}>(), {
+  defaultCode: ''
+})
+
+function decodeEntities(value: string): string {
+  return value
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#39;', "'")
+    .replaceAll('&apos;', "'")
+    .replaceAll('&amp;', '&')
+}
+
+const code = ref(props.defaultCode ? decodeEntities(props.defaultCode) : DEFAULT_PLAYGROUND_CODE)
 
 const previewKey = ref(0)
 const output = ref<HTMLElement | null>(null)
@@ -48,6 +53,10 @@ watch(code, () => {
   }
 })
 
+watch(() => props.defaultCode, (value) => {
+  code.value = value ? decodeEntities(value) : DEFAULT_PLAYGROUND_CODE
+})
+
 function renderPreview() {
   if (!adapter.value) return
   
@@ -62,6 +71,8 @@ function renderPreview() {
     if (result) {
       output.value = result
       previewKey.value++
+    } else {
+      error.value = 'The current Grain document could not be rendered.'
     }
   } catch (e) {
     error.value = e instanceof Error ? e.message : 'Failed to render'

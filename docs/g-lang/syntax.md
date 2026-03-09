@@ -1,6 +1,6 @@
 ---
 title: G-Lang Syntax
-description: Declarative syntax for AI interactions.
+description: Learn the XML-like Grain Language syntax, attribute rules, streaming model, and document structure.
 ---
 # G-Lang Syntax
 

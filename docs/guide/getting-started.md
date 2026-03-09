@@ -1,6 +1,6 @@
 ---
 title: Getting Started
-description: Intro to Grain.
+description: Install Grain packages, understand the core primitives, and render your first Grain documents across web, CLI, and MCP surfaces.
 ---
 # Getting Started
 
@@ -25,26 +25,31 @@ Grain makes it standard.
 ### Web (CDN)
 
 ```html
-<script src="https://cdn.grain.dev/v1/grain-web.js"></script>
-<link rel="stylesheet" href="https://cdn.grain.dev/v1/grain-web.css">
+<script src="https://cdn.jsdelivr.net/npm/@grain.sh/web@latest/dist/index.global.js"></script>
 ```
 
 ### Web (npm)
 
 ```bash
-npm install @grain/web
+npm install @grain.sh/web
 ```
 
 ### CLI
 
 ```bash
-npm install -g @grain/cli
+npm install -g @grain.sh/cli
 ```
 
-### MCP
+### MCP Adapter
 
 ```bash
-npm install @grain/mcp
+npm install @grain.sh/mcp
+```
+
+### MCP Server
+
+```bash
+npm install -g grain-mcp
 ```
 
 ---
@@ -96,7 +101,7 @@ That's when any AI can say:
 ## Next Steps
 
 1. [Quick Start Guide](/guide/quick-start) — Build your first AI interface
-2. [Primitives](/primitives/overview) — Explore the 10 primitives
+2. [Primitives](/primitives/overview) — Explore the core primitives and companion elements
 3. [G-Lang](/g-lang/syntax) — Learn the syntax
 
 ---

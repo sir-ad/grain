@@ -1,6 +1,6 @@
 ---
 title: CLI API
-description: CLI adapter API reference.
+description: Reference the `@grain.sh/cli` adapter API, renderer options, and behavior of the `grain` executable.
 ---
 # CLI API
 
@@ -11,7 +11,7 @@ CLI adapter API reference.
 ## CLIAdapter
 
 ```typescript
-import { CLIAdapter } from '@grain/cli';
+import { CLIAdapter } from '@grain.sh/cli';
 
 const adapter = new CLIAdapter(options);
 ```
@@ -41,14 +41,8 @@ adapter.render(grain: string): string
 ## CLI Binary
 
 ```bash
-ai-sem [command] [options]
+grain [options]
 ```
-
-### Commands
-
-| Command | Description |
-|---------|-------------|
-| `render` | Render G-Lang file |
 
 ### Options
 

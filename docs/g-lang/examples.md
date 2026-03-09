@@ -1,6 +1,6 @@
 ---
 title: G-Lang Examples
-description: Real-world examples.
+description: Real Grain Language examples covering messages, tool calls, approvals, artifacts, and branching interactions.
 ---
 # G-Lang Examples
 

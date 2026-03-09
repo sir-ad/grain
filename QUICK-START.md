@@ -13,14 +13,13 @@
 <html>
 <head>
   <title>Grain Demo</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@grain.sh/web@1.0.0/dist/grain-web.css">
 </head>
 <body>
   <div id="app"></div>
   
-  <script src="https://cdn.jsdelivr.net/npm/@grain.sh/web@1.0.0/dist/grain-web.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@grain.sh/web@latest/dist/index.global.js"></script>
   <script>
-    const adapter = new GrainAdapter.WebAdapter();
+    const adapter = new GrainWeb.WebAdapter();
     
     // Render a simple message
     adapter.render(`<message role="assistant">
@@ -40,10 +39,9 @@ npm install @grain.sh/core @grain.sh/web
 ```
 
 ```javascript
-import { GrainAdapter } from '@grain.sh/web';
-import '@grain.sh/web/dist/grain-web.css';
+import { WebAdapter } from '@grain.sh/web';
 
-const adapter = new GrainAdapter.WebAdapter();
+const adapter = new WebAdapter();
 
 // Simple message
 adapter.render(`<message role="assistant">
@@ -57,7 +55,7 @@ adapter.render(`<message role="assistant">
 npm install -g @grain.sh/cli
 
 # Render G-Lang in terminal
-ai-sem render --input chat.glang
+grain --input chat.glang
 ```
 
 ### React
@@ -95,9 +93,9 @@ function App() {
 **Web Output:**
 
 ```html
-<ai-message role="assistant">
-  <ai-stream speed="normal" cursor="true">Hello! How can I help you today?</ai-stream>
-</ai-message>
+<grain-message role="assistant">
+  <grain-stream speed="normal" cursor="true">Hello! How can I help you today?</grain-stream>
+</grain-message>
 ```
 
 ---
@@ -209,7 +207,6 @@ function quickSort(arr) {
 <html>
 <head>
   <title>AI Chat</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@grain.sh/web@1.0.0/dist/grain-web.css">
   <style>
     #chat {
       max-width: 600px;
@@ -220,20 +217,20 @@ function quickSort(arr) {
       text-align: right;
     }
     .user-message ai-message {
-      --ai-background: #007bff;
-      --ai-text: #ffffff;
+      --grain-background: #007bff;
+      --grain-text: #ffffff;
     }
   </style>
 </head>
 <body>
   <div id="chat"></div>
   
-  <script src="https://cdn.jsdelivr.net/npm/@grain.sh/web@1.0.0/dist/grain-web.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@grain.sh/web@latest/dist/index.global.js"></script>
   <script>
-    const adapter = new GrainAdapter.WebAdapter({
+    const adapter = new GrainWeb.WebAdapter({
       theme: {
-        '--ai-primary': '#007bff',
-        '--ai-radius': '8px'
+        '--grain-primary': '#007bff',
+        '--grain-radius': '8px'
       }
     });
     
@@ -302,13 +299,13 @@ npm install -g @grain.sh/cli
 
 ```bash
 # Render to terminal
-ai-sem render --input example.glang
+grain --input example.glang
 
 # Watch mode
-ai-sem render --input example.glang --watch
+grain --input example.glang --watch
 
 # Output to file
-ai-sem render --input example.glang --output output.txt
+grain --input example.glang --output output.txt
 ```
 
 ### Example G-Lang File
@@ -404,16 +401,16 @@ function Chat() {
 ### Theme Customization
 
 ```javascript
-const adapter = new GrainAdapter.WebAdapter({
+const adapter = new WebAdapter({
   theme: {
-    '--ai-primary': '#6366f1',
-    '--ai-secondary': '#8b5cf6',
-    '--ai-background': '#ffffff',
-    '--ai-surface': '#f8fafc',
-    '--ai-border': '#e2e8f0',
-    '--ai-radius': '8px',
-    '--ai-font-family': 'Inter, sans-serif',
-    '--ai-font-mono': 'Fira Code, monospace'
+    '--grain-primary': '#6366f1',
+    '--grain-secondary': '#8b5cf6',
+    '--grain-background': '#ffffff',
+    '--grain-surface': '#f8fafc',
+    '--grain-border': '#e2e8f0',
+    '--grain-radius': '8px',
+    '--grain-font-family': 'Inter, sans-serif',
+    '--grain-font-mono': 'Fira Code, monospace'
   }
 });
 ```

@@ -1,5 +1,5 @@
 /**
- * Types for AI Semantics Core
+ * Types for Grain Core.
  */
 
 // Primitive Types
@@ -16,11 +16,19 @@ export type PrimitiveType =
   | 'branch'
   | 'message'
   | 'action'
+  | 'actions'
+  | 'option'
+  | 'suggestion'
+  | 'item'
   | 'form'
   | 'chart'
   | 'memory'
   | 'layout'
-  | 'table';
+  | 'table'
+  | 'result'
+  | 'progress'
+  | 'warning'
+  | (string & {});
 
 export type PrimitiveStatus =
   | 'idle'
@@ -79,6 +87,9 @@ export interface PrimitiveDefinition {
   attributes: Record<string, AttributeDefinition>;
   states: string[];
   events: EventDefinition[];
+  allowedChildren?: string[];
+  allowText?: boolean;
+  allowUnknownAttributes?: boolean;
 }
 
 export interface AttributeDefinition {

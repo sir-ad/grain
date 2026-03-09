@@ -29,9 +29,9 @@ This site loads fonts from Google Fonts. Google may collect information accordin
 
 ---
 
-## GitHub Pages
+## Documentation Hosting
 
-This site is hosted on GitHub Pages. GitHub may collect usage analytics according to their privacy policy.
+The documentation site is currently hosted on GitHub Pages. GitHub may collect usage analytics according to their privacy policy.
 
 - [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement)
 

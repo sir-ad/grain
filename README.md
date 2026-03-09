@@ -43,30 +43,19 @@ Create a fully configured Grain application instantly:
 npx create-grain-app@latest my-ai-app
 ```
 
-Or, add specific primitives inline (shadcn/ui style) so you maintain full control over the code:
-
-```bash
-npx grain add stream
-npx grain add tool-call
-```
-
 ### Quick Install (CLI & Core)
 
-To use the Grain Core parser or Terminal adapters globally:
+Use the core parser locally and install the distributables that expose runtime binaries:
 
-**npm:**
 ```bash
-npm install -g grain
+npm install @grain.sh/core @grain.sh/web
+npm install -g @grain.sh/cli
+npm install -g grain-mcp
 ```
 
-**Homebrew (macOS/Linux):**
+Or use the bootstrap script:
 ```bash
-brew install sir-ad/tap/grain
-```
-
-**cURL / bash:**
-```bash
-curl -fsSL https://sir-ad.github.io/grain/install.sh | sh
+curl -fsSL https://cdn.jsdelivr.net/gh/sir-ad/grain@main/install.sh | sh
 ```
 
 ### Philosophy
@@ -203,18 +192,19 @@ sequenceDiagram
     Agent-->>UI: <approve action="save_to_db">Save results?</approve>
     
     User->>UI: Clicks [Approve]
-    UI->>Agent: <tool_result status="approved" />
+    UI->>Agent: <approve type="tool_call" action="save_to_db" status="approved" />
 ```
 
 ### Packages Architecture
 
 | Package | Purpose |
 |---|---|
-| `grain` | Core parser, chunk-streaming engine, state machines |
+| `@grain.sh/core` | Core parser, chunk-streaming engine, state machines |
 | `@grain.sh/react` | Official React hooks & wrappers |
 | `@grain.sh/web` | Native Custom HTML Web Components |
-| `@grain.sh/cli` | Terminal adapter & ANSI rendering |
+| `@grain.sh/cli` | Terminal adapter with the `grain` executable |
 | `@grain.sh/mcp` | Model Context Protocol adapter |
+| `grain-mcp` | Stdio MCP server for Grain tooling |
 | `@grain.sh/agent` | Agent-to-agent communication envelope |
 
 ### Documentation

@@ -122,9 +122,9 @@ Streaming text content.
 
 This is **bold** and *italic*.
 
-```javascript
-console.log('Hello');
-```
+  ~~~javascript
+  console.log('Hello');
+  ~~~
 </stream>
 ```
 
@@ -656,12 +656,13 @@ for (const msg of messages) {
 
 ## 1. Always Close Tags
 ```grain
-<!-- Good -->
 <message role="assistant">
   <stream>Hello</stream>
 </message>
+```
 
-<!-- Bad -->
+```txt
+Invalid:
 <message role="assistant">
   <stream>Hello
 </message>
@@ -669,10 +670,11 @@ for (const msg of messages) {
 
 ## 2. Quote Attributes
 ```grain
-<!-- Good -->
 <tool name="search" status="running" />
+```
 
-<!-- Bad -->
+```txt
+Invalid:
 <tool name=search status=running />
 ```
 

@@ -1,6 +1,6 @@
 ---
 title: Approve
-description: Human-in-the-loop confirmation.
+description: Capture human approval checkpoints for sensitive actions, gated tools, and policy-controlled workflows.
 ---
 # Approve
 
@@ -16,17 +16,7 @@ Require user approval for sensitive actions — tool execution, content generati
 
 ## Try it Live
 
-<Playground defaultCode='
-&lt;message role="assistant"&gt;
-  &lt;stream&gt;I&apos;m ready to delete the configuration file. Please confirm:&lt;/stream&gt;
-&lt;/message&gt;
-
-&lt;approve type="delete" action="Delete file: config.yaml"
-  warning="This action cannot be undone"&gt;
-  &lt;option label="Keep File"&gt;&lt;/option&gt;
-  &lt;option label="Delete Forever" primary&gt;&lt;/option&gt;
-&lt;/approve&gt;
-' />
+<Playground />
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Artifact
-description: Code, images, documents.
+description: Attach code, images, files, and rich generated outputs as first-class artifacts in Grain.
 ---
 # Artifact
 
@@ -16,20 +16,7 @@ Display structured content — syntax-highlighted code, AI-generated images, doc
 
 ## Try it Live
 
-<Playground defaultCode='
-&lt;message role="assistant"&gt;
-  &lt;stream&gt;Here is the JavaScript code you requested:&lt;/stream&gt;
-  
-  &lt;artifact type="code" language="javascript" title="hello.js" 
-    copyable="true" downloadable="true"&gt;
-    function greet(name) {
-      return `Hello, ${name}!`;
-    }
-    
-    console.log(greet("World"));
-  &lt;/artifact&gt;
-&lt;/message&gt;
-' />
+<Playground />
 
 ---
 

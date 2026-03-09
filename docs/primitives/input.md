@@ -1,6 +1,6 @@
 ---
 title: Input
-description: User input collection.
+description: Request user input, attachments, and focused follow-up data from the active interface surface.
 ---
 # Input
 

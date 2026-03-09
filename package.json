@@ -5,7 +5,8 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "homepage": "https://sir-ad.github.io/grain/",
   "repository": {
@@ -14,17 +15,23 @@
   },
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build",
-    "test": "turbo run test",
+    "build": "pnpm -r --if-present build",
+    "test": "pnpm -r --if-present test",
     "lint": "eslint .",
-    "release": "changeset version && git push --follow-tags"
+    "check": "pnpm lint && pnpm build && pnpm test",
+    "release": "pnpm check && changeset version"
   },
   "devDependencies": {
+    "@eslint/js": "^8.57.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
     "@changesets/cli": "^2.27.1",
     "@types/node": "^20.11.0",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.1",
+    "globals": "^15.15.0",
     "turbo": "^1.12.4",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">=18.0.0",

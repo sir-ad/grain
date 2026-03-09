@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-description: Build your first AI interface in 5 minutes.
+description: Create a Grain app, parse Grain documents, and ship your first interactive AI interface in minutes.
 ---
 # Quick Start
 
@@ -17,14 +17,13 @@ The fastest way to start:
 <html>
 <head>
   <title>AI Chat</title>
-  <link rel="stylesheet" href="https://cdn.grain.dev/v1/grain-web.css">
 </head>
 <body>
   <div id="app"></div>
   
-  <script src="https://cdn.grain.dev/v1/grain-web.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@grain.sh/web@latest/dist/index.global.js"></script>
   <script>
-    const adapter = new AISemantics.WebAdapter();
+    const adapter = new GrainWeb.WebAdapter();
     
     // Render a message
     adapter.render(`<message role="assistant">
@@ -42,14 +41,13 @@ The fastest way to start:
 ## With npm
 
 ```bash
-npm install @grain/core @grain/web
+npm install @grain.sh/core @grain.sh/web
 ```
 
 ```javascript
-import { AISemantics } from '@grain/web';
-import '@grain/web/dist/grain-web.css';
+import { WebAdapter } from '@grain.sh/web';
 
-const adapter = new AISemantics.WebAdapter();
+const adapter = new WebAdapter();
 
 // Simple message
 adapter.render(`<message role="assistant">
@@ -66,10 +64,10 @@ adapter.render(`<tool name="search" args='{"q": "weather"}' status="running" />`
 
 ```bash
 # Render a G-Lang file
-ai-sem render --input chat.glang
+grain --input chat.glang
 
 # Watch mode
-ai-sem render --input chat.glang --watch
+grain --input chat.glang --watch
 ```
 
 ---
@@ -120,33 +118,33 @@ function hello() {
 ## Theme Customization
 
 ```javascript
-const adapter = new AISemantics.WebAdapter({
+const adapter = new WebAdapter({
   theme: {
-    '--ai-primary': '#6366f1',
-    '--ai-secondary': '#8b5cf6',
-    '--ai-radius': '12px'
+    '--grain-primary': '#6366f1',
+    '--grain-secondary': '#8b5cf6',
+    '--grain-radius': '12px'
   }
 });
 ```
 
 CSS variables available:
 
-- `--ai-primary`
-- `--ai-secondary`
-- `--ai-background`
-- `--ai-surface`
-- `--ai-border`
-- `--ai-error`
-- `--ai-success`
-- `--ai-warning`
-- `--ai-font-family`
-- `--ai-font-mono`
-- `--ai-radius`
+- `--grain-primary`
+- `--grain-secondary`
+- `--grain-background`
+- `--grain-surface`
+- `--grain-border`
+- `--grain-error`
+- `--grain-success`
+- `--grain-warning`
+- `--grain-font-family`
+- `--grain-font-mono`
+- `--grain-radius`
 
 ---
 
 ## Next
 
-- [Primitives](/primitives/overview) — All 10 primitives
+- [Primitives](/primitives/overview) — Core primitives and companion elements
 - [G-Lang Syntax](/g-lang/syntax) — Full syntax reference
 - [API Reference](/api/core) — Programmatic usage

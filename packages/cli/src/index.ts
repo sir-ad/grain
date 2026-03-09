@@ -2,14 +2,18 @@
 
 /**
  * CLI Adapter for Grain
- * Renders G-Lang to terminal output
+ * Renders Grain Language to terminal output.
  */
 
-import { GLangParser } from '@grain.sh/core';
+import { readFileSync, watch, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { resolve } from 'node:path';
+
+import { GLangParser, type ASTNode } from '@grain.sh/core';
 import chalk from 'chalk';
-import ora from 'ora';
-import { readFileSync, watch } from 'fs';
-import { resolve } from 'path';
+
+const require = createRequire(import.meta.url);
+const packageJson = require('../package.json') as { version: string };
 
 interface CLIOptions {
   input?: string;
@@ -18,29 +22,16 @@ interface CLIOptions {
   theme?: 'light' | 'dark';
 }
 
-const ANSI = {
-  RESET: '\x1b[0m',
-  BOLD: '\x1b[1m',
-  DIM: '\x1b[2m',
-  BLACK: '\x1b[30m',
-  RED: '\x1b[31m',
-  GREEN: '\x1b[32m',
-  YELLOW: '\x1b[33m',
-  CYAN: '\x1b[36m',
-  WHITE: '\x1b[37m',
-  TOP_LEFT: '┌',
-  TOP_RIGHT: '┐',
-  BOTTOM_LEFT: '└',
-  BOTTOM_RIGHT: '┘',
-  HORIZONTAL: '─',
-  VERTICAL: '│',
-  CLEAR_SCREEN: '\x1b[2J',
-  MOVE_HOME: '\x1b[H'
-};
+const HELP_TEXT = `
+Usage:
+  grain --input <file> [--watch] [--output <file>]
+  grain --help
+  grain --version
+`.trim();
 
 export class CLIAdapter {
-  private parser: GLangParser;
-  private theme: 'light' | 'dark';
+  private readonly parser: GLangParser;
+  private readonly theme: 'light' | 'dark';
 
   constructor(options: { theme?: 'light' | 'dark' } = {}) {
     this.parser = new GLangParser();
@@ -52,109 +43,229 @@ export class CLIAdapter {
     if (!result.ast || result.errors.length > 0) {
       return chalk.red(`Parse error: ${result.errors[0]?.message}`);
     }
-    return this.renderAST(result.ast);
+
+    return this.renderAST(result.ast).trim();
   }
 
-  private renderAST(node: any): string {
-    if (!node) return '';
+  private renderAST(node: ASTNode): string {
     if (node.type === 'document') {
-      return node.children?.map((c: any) => this.renderAST(c)).join('\n') || '';
+      return node.children?.map((child) => this.renderAST(child)).filter(Boolean).join('\n') ?? '';
     }
-    if (node.type === 'text') return node.value || '';
+
+    if (node.type === 'text') {
+      return node.value ?? '';
+    }
 
     switch (node.type) {
-      case 'message': return this.renderMessage(node);
-      case 'stream': return this.renderStream(node);
-      case 'think': return this.renderThink(node);
-      case 'tool': return this.renderTool(node);
-      case 'artifact': return this.renderArtifact(node);
-      case 'error': return this.renderError(node);
-      case 'approve': return this.renderApprove(node);
-      case 'state': return this.renderState(node);
-      default: return node.children?.map((c: any) => this.renderAST(c)).join('') || '';
+      case 'message':
+        return this.renderMessage(node);
+      case 'stream':
+        return this.renderChildren(node, '');
+      case 'think':
+        return this.renderThink(node);
+      case 'tool':
+        return this.renderTool(node);
+      case 'artifact':
+        return this.renderArtifact(node);
+      case 'error':
+        return this.renderError(node);
+      case 'approve':
+        return this.renderApprove(node);
+      case 'state':
+        return this.renderState(node);
+      case 'result':
+        return this.renderResult(node);
+      case 'progress':
+        return this.renderProgress(node);
+      case 'warning':
+        return `${chalk.yellow('!')} ${this.renderChildren(node, ' ').trim()}`;
+      case 'actions':
+        return this.renderChildren(node, '\n');
+      case 'action':
+      case 'option':
+      case 'suggestion':
+      case 'item':
+        return this.renderChoice(node);
+      default:
+        return this.renderChildren(node, '');
     }
   }
 
-  private renderMessage(node: any): string {
+  private renderMessage(node: ASTNode): string {
     const role = node.attributes?.role || 'assistant';
-    const content = node.children?.map((c: any) => this.renderAST(c)).join(' ');
-    return `${chalk.bold(role === 'user' ? 'You' : 'AI')}: ${content}`;
+    const label = role === 'user' ? 'You' : 'AI';
+    const content = this.renderChildren(node, '\n').trim();
+    return `${chalk.bold(label)}: ${content}`;
   }
 
-  private renderStream(node: any): string {
-    return node.children?.map((c: any) => this.renderAST(c)).join('') || '';
-  }
-
-  private renderThink(node: any): string {
+  private renderThink(node: ASTNode): string {
     const visible = node.attributes?.visible === 'true';
-    if (!visible) return chalk.dim('○ Thinking...');
-    const content = node.children?.map((c: any) => this.renderAST(c)).join('\n');
-    return `${chalk.dim('│')} ${chalk.dim(content)}`;
+    if (!visible) {
+      return chalk.dim('○ Thinking...');
+    }
+
+    return `${chalk.dim('│')} ${this.renderChildren(node, '\n').trim()}`;
   }
 
-  private renderTool(node: any): string {
+  private renderTool(node: ASTNode): string {
     const name = node.attributes?.name || 'unknown';
     const status = node.attributes?.status || 'pending';
-    const icons: Record<string, string> = { pending: '○', running: '◐', complete: '✓', error: '✗' };
-    const colors: Record<string, any> = { pending: chalk.dim, running: chalk.yellow, complete: chalk.green, error: chalk.red };
-    return `${colors[status](icons[status])} Tool: ${chalk.bold(name)}`;
+    const icons: Record<string, string> = {
+      pending: '○',
+      running: '◐',
+      complete: '✓',
+      error: '✗'
+    };
+    const colors: Record<string, typeof chalk> = {
+      pending: chalk,
+      running: chalk.yellow,
+      complete: chalk.green,
+      error: chalk.red
+    };
+
+    const children = this.renderChildren(node, '\n').trim();
+    const header = `${colors[status] ? colors[status](icons[status] || '○') : chalk.dim('○')} Tool: ${chalk.bold(name)}`;
+    return children ? `${header}\n${children}` : header;
   }
 
-  private renderArtifact(node: any): string {
+  private renderArtifact(node: ASTNode): string {
     const type = node.attributes?.type || 'text';
-    const content = node.children?.map((c: any) => this.renderAST(c)).join('\n') || '';
+    const content = this.renderChildren(node, '\n').trim();
     return chalk.cyan(`[${type.toUpperCase()}]\n${content}`);
   }
 
-  private renderError(node: any): string {
+  private renderError(node: ASTNode): string {
     const code = node.attributes?.code || 'ERROR';
-    const content = node.children?.map((c: any) => this.renderAST(c)).join(' ') || '';
-    return `${chalk.red('✗')} ${chalk.red.bold(code)}: ${chalk.red(content)}`;
+    const message = node.attributes?.message || this.renderChildren(node, ' ').trim();
+    return `${chalk.red('✗')} ${chalk.red.bold(code)}: ${chalk.red(message)}`;
   }
 
-  private renderApprove(node: any): string {
+  private renderApprove(node: ASTNode): string {
     const action = node.attributes?.action || '';
-    return `${chalk.yellow('?')} Confirm: ${action}`;
+    const warning = node.attributes?.warning ? `\n${chalk.yellow('!')} ${node.attributes.warning}` : '';
+    const choices = node.children
+      ?.filter((child) => child.type === 'option' || child.type === 'action')
+      .map((child) => this.renderChoice(child))
+      .join('\n') ?? '';
+
+    return `${chalk.yellow('?')} Confirm: ${action}${warning}${choices ? `\n${choices}` : ''}`;
   }
 
-  private renderState(node: any): string {
+  private renderState(node: ASTNode): string {
     const status = node.attributes?.status || 'idle';
     const message = node.attributes?.message || status;
     return chalk.dim(`○ ${message}`);
   }
 
-  private stripAnsi(str: string): string {
-    return str.replace(/\x1b\[[0-9;]*m/g, '');
+  private renderResult(node: ASTNode): string {
+    const attributes = node.attributes
+      ? Object.entries(node.attributes).map(([key, value]) => `${key}: ${value}`).join(', ')
+      : '';
+    const content = this.renderChildren(node, ' ').trim();
+    const value = [attributes, content].filter(Boolean).join(' ');
+    return value ? chalk.green(`Result: ${value}`) : chalk.green('Result ready');
+  }
+
+  private renderProgress(node: ASTNode): string {
+    const value = node.attributes?.value;
+    const max = node.attributes?.max;
+    const text = this.renderChildren(node, ' ').trim();
+    if (value && max) {
+      return chalk.yellow(`Progress: ${value}/${max}${text ? ` ${text}` : ''}`);
+    }
+
+    return chalk.yellow(`Progress: ${text || 'running'}`);
+  }
+
+  private renderChoice(node: ASTNode): string {
+    const label = node.attributes?.label || node.attributes?.name || this.renderChildren(node, ' ').trim();
+    const primary = node.attributes?.primary === 'true';
+    return primary ? chalk.bold(`[${label}]`) : `[${label}]`;
+  }
+
+  private renderChildren(node: ASTNode, separator: string): string {
+    return node.children?.map((child) => this.renderAST(child)).filter(Boolean).join(separator) ?? '';
   }
 }
 
-async function main() {
-  const args = process.argv.slice(2);
+function renderFile(adapter: CLIAdapter, options: CLIOptions): void {
+  if (!options.input) {
+    console.error(HELP_TEXT);
+    process.exitCode = 1;
+    return;
+  }
+
+  const content = readFileSync(resolve(options.input), 'utf8');
+  const rendered = adapter.render(content);
+
+  if (options.output) {
+    writeFileSync(resolve(options.output), `${rendered}\n`, 'utf8');
+    return;
+  }
+
+  console.clear();
+  console.log(rendered);
+}
+
+function parseArgs(argv: string[]): CLIOptions {
   const options: CLIOptions = {};
 
-  for (let i = 0; i < args.length; i++) {
-    if (args[i] === '--input' || args[i] === '-i') options.input = args[++i];
-    else if (args[i] === '--watch' || args[i] === '-w') options.watch = true;
-    else if (args[i] === '--theme') options.theme = args[++i] as 'light' | 'dark';
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+
+    if (arg === '--input' || arg === '-i') {
+      options.input = argv[index + 1];
+      index += 1;
+      continue;
+    }
+
+    if (arg === '--output' || arg === '-o') {
+      options.output = argv[index + 1];
+      index += 1;
+      continue;
+    }
+
+    if (arg === '--watch' || arg === '-w') {
+      options.watch = true;
+      continue;
+    }
+
+    if (arg === '--theme') {
+      options.theme = argv[index + 1] as 'light' | 'dark';
+      index += 1;
+    }
   }
 
-  const adapter = new CLIAdapter({ theme: options.theme });
+  return options;
+}
 
-  if (options.input) {
-    const content = readFileSync(resolve(options.input), 'utf-8');
-    console.clear();
-    console.log(adapter.render(content));
-    if (options.watch) {
-      watch(options.input, () => {
-        console.clear();
-        console.log(adapter.render(content));
-      });
-    }
+async function main(): Promise<void> {
+  const args = process.argv.slice(2);
+
+  if (args.includes('--help') || args.includes('-h')) {
+    console.log(HELP_TEXT);
+    return;
+  }
+
+  if (args.includes('--version') || args.includes('-v')) {
+    console.log(packageJson.version);
+    return;
+  }
+
+  const options = parseArgs(args);
+  const adapter = new CLIAdapter({ theme: options.theme });
+  renderFile(adapter, options);
+
+  if (options.watch && options.input) {
+    watch(resolve(options.input), { persistent: true }, () => {
+      renderFile(adapter, options);
+    });
   }
 }
 
-
-
 if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch(console.error);
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exitCode = 1;
+  });
 }

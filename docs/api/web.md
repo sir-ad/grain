@@ -1,6 +1,6 @@
 ---
 title: Web API
-description: Web adapter API reference.
+description: Reference the `@grain.sh/web` adapter API, custom elements, rendering methods, and theming surface.
 ---
 # Web API
 
@@ -11,7 +11,7 @@ Web adapter API reference.
 ## WebAdapter
 
 ```typescript
-import { WebAdapter } from '@grain/web';
+import { WebAdapter } from '@grain.sh/web';
 
 const adapter = new WebAdapter(config);
 ```
@@ -68,6 +68,6 @@ adapter.on(event: string, callback: (payload: any) => void): () => void
 ```typescript
 const css = adapter.getThemeCSS();
 console.log(css);
-// --ai-primary: #000000;
-// --ai-secondary: #666666;
+// --grain-primary: #000000;
+// --grain-secondary: #666666;
 ```

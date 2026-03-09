@@ -1,5 +1,7 @@
 ---
 layout: home
+title: Grain Documentation
+description: Grain is the universal interaction layer for AI interfaces across web, CLI, MCP, and agent runtimes.
 
 hero:
   name: Grain
@@ -8,14 +10,14 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /grain/guide/getting-started
+      link: /guide/getting-started
     - theme: alt
       text: View on GitHub
       link: https://github.com/sir-ad/grain
 
 features:
-  - title: 10 Primitives
-    details: Atomic interaction types that compose every AI experience.
+  - title: 10 Core Primitives
+    details: Core interaction types with companion elements for results, warnings, actions, and progress.
     icon: ⚛️
   - title: G-Lang
     details: Declarative syntax AI can output, any frontend can render.

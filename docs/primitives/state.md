@@ -1,6 +1,6 @@
 ---
 title: State
-description: Global AI status indicator.
+description: Model global assistant state, progress, ETA, and runtime phase changes across long interactions.
 ---
 # State
 

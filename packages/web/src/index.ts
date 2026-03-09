@@ -6,6 +6,33 @@
 import { GLangParser, EventBus, type ASTNode } from '@grain.sh/core';
 import type { WebAdapterConfig, RenderOptions } from './types';
 
+const KNOWN_PRIMITIVES = [
+  'message',
+  'stream',
+  'think',
+  'tool',
+  'artifact',
+  'context',
+  'approve',
+  'error',
+  'input',
+  'action',
+  'actions',
+  'option',
+  'suggestion',
+  'item',
+  'branch',
+  'state',
+  'form',
+  'chart',
+  'memory',
+  'layout',
+  'table',
+  'result',
+  'progress',
+  'warning'
+] as const;
+
 export class WebAdapter {
   private parser: GLangParser;
   private eventBus: EventBus;
@@ -95,11 +122,9 @@ export class WebAdapter {
       return;
     }
 
-    // Map known primitives to Web Components (Prefix with 'grain-')
     let tagName = 'div';
-    const knownPrimitives = ['message', 'stream', 'think', 'tool', 'artifact', 'context', 'approve', 'error', 'input', 'action', 'branch', 'state', 'form', 'chart', 'memory', 'layout', 'table'];
 
-    if (knownPrimitives.includes(node.type)) {
+    if (KNOWN_PRIMITIVES.includes(node.type as typeof KNOWN_PRIMITIVES[number])) {
       tagName = `grain-${node.type}`;
     }
 
@@ -113,9 +138,9 @@ export class WebAdapter {
     }
 
     // Attach specific behaviors based on type
-    if (node.type === 'action') {
+    if (node.type === 'action' || node.type === 'option') {
       el.classList.add('grain-action');
-      const actionName = node.attributes?.name || '';
+      const actionName = node.attributes?.name || node.attributes?.label || '';
       el.addEventListener('click', () => {
         this.eventBus.emit('action', { action: actionName });
       });
@@ -133,9 +158,7 @@ export class WebAdapter {
   public registerCustomElements() {
     if (typeof customElements === 'undefined') return;
 
-    const primitives = ['message', 'stream', 'think', 'tool', 'artifact', 'context', 'approve', 'error', 'input', 'action', 'branch', 'state', 'form', 'chart', 'memory', 'layout', 'table'];
-
-    primitives.forEach(prim => {
+    KNOWN_PRIMITIVES.forEach((prim) => {
       const name = `grain-${prim}`;
       if (!customElements.get(name)) {
         customElements.define(name, class extends HTMLElement {

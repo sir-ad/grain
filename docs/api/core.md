@@ -1,6 +1,6 @@
 ---
 title: Core API
-description: Core runtime for Grain.
+description: Reference the parser, validator, state machine, and helper utilities exposed by `@grain.sh/core`.
 ---
 # Core API
 
@@ -11,7 +11,7 @@ Core runtime for Grain.
 ## Installation
 
 ```bash
-npm install @grain/core
+npm install @grain.sh/core
 ```
 
 ---
@@ -21,7 +21,7 @@ npm install @grain/core
 Parse G-Lang into AST.
 
 ```javascript
-import { GLangParser } from '@grain/core';
+import { GLangParser } from '@grain.sh/core';
 
 const parser = new GLangParser();
 
@@ -56,7 +56,7 @@ const parser = new GLangParser({
 Validate AST against specification.
 
 ```javascript
-import { Validator } from '@grain/core';
+import { Validator } from '@grain.sh/core';
 
 const validator = new Validator();
 
@@ -74,7 +74,7 @@ if (!result.valid) {
 State transitions for primitives.
 
 ```javascript
-import { StateMachine, STATE_MACHINES } from '@grain/core';
+import { StateMachine, STATE_MACHINES } from '@grain.sh/core';
 
 // Use pre-built stream state machine
 const stream = new StateMachine(STATE_MACHINES.stream);
@@ -93,7 +93,7 @@ console.log(stream.getState()); // 'complete'
 Simple event emitter.
 
 ```javascript
-import { EventBus } from '@grain/core';
+import { EventBus } from '@grain.sh/core';
 
 const bus = new EventBus();
 
@@ -116,7 +116,7 @@ unsubscribe();
 Register custom primitives.
 
 ```javascript
-import { ExtensionRegistry } from '@grain/core';
+import { ExtensionRegistry } from '@grain.sh/core';
 
 const registry = new ExtensionRegistry();
 
@@ -143,7 +143,7 @@ registry.register({
 Factory function.
 
 ```javascript
-import { createParser } from '@grain/core';
+import { createParser } from '@grain.sh/core';
 
 const parser = createParser({ validate: true });
 ```

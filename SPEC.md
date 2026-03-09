@@ -10,7 +10,7 @@ Every AI tool reinvents its own interaction patterns. Users pay the learning tax
 
 Grain solves this by defining:
 
-1. **Universal Primitives** — The 10 atomic interaction types that compose every AI experience
+1. **Universal Primitives** — 10 core primitives plus companion elements that compose every AI experience
 2. **State Machines** — How each primitive behaves, what events occur, what states are valid
 3. **Grain Language** — A declarative syntax that AI models can output and any frontend can render
 4. **Platform Adapters** — Implementations for web, CLI, chat platforms, MCP, agents, voice
@@ -79,7 +79,7 @@ Current version: **1.0.0-alpha**
 
 # Universal Primitives
 
-Every AI interaction is composed of these 10 atomic primitives:
+Every AI interaction is composed of these 10 core primitives, with companion elements such as `<result>`, `<progress>`, `<warning>`, `<action>`, and `<option>`:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -913,30 +913,30 @@ Renders Grain Language to semantic HTML with CSS classes.
 ```css
 :root {
   /* Colors */
-  --ai-primary: #000000;
-  --ai-secondary: #666666;
-  --ai-background: #ffffff;
-  --ai-surface: #f5f5f5;
-  --ai-border: #e0e0e0;
-  --ai-error: #dc3545;
-  --ai-success: #28a745;
-  --ai-warning: #ffc107;
+  --grain-primary: #000000;
+  --grain-secondary: #666666;
+  --grain-background: #ffffff;
+  --grain-surface: #f5f5f5;
+  --grain-border: #e0e0e0;
+  --grain-error: #dc3545;
+  --grain-success: #28a745;
+  --grain-warning: #ffc107;
   
   /* Spacing */
-  --ai-space-xs: 4px;
-  --ai-space-sm: 8px;
-  --ai-space-md: 16px;
-  --ai-space-lg: 24px;
-  --ai-space-xl: 32px;
+  --grain-space-xs: 4px;
+  --grain-space-sm: 8px;
+  --grain-space-md: 16px;
+  --grain-space-lg: 24px;
+  --grain-space-xl: 32px;
   
   /* Typography */
-  --ai-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --ai-font-mono: 'SF Mono', Monaco, Consolas, monospace;
+  --grain-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --grain-font-mono: 'SF Mono', Monaco, Consolas, monospace;
   
   /* Animation */
-  --ai-duration-fast: 150ms;
-  --ai-duration-normal: 300ms;
-  --ai-ease: ease;
+  --grain-duration-fast: 150ms;
+  --grain-duration-normal: 300ms;
+  --grain-ease: ease;
 }
 ```
 

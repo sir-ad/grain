@@ -1,6 +1,6 @@
 ---
 title: Branch
-description: Conversation forks.
+description: Represent conversation forks, alternate paths, and decision branches inside a single Grain document.
 ---
 # Branch
 
@@ -16,36 +16,7 @@ Show alternative responses, create conversation branches, enable A/B testing.
 
 ## Try it Live
 
-<Playground defaultCode='
-&lt;message role="assistant"&gt;
-  &lt;stream&gt;Here are two approaches to solve this problem:&lt;/stream&gt;
-&lt;/message&gt;
-
-&lt;branch id="recursive" label="Recursive Solution" active="true"&gt;
-  &lt;message role="assistant"&gt;
-    &lt;artifact type="code" language="javascript" title="recursive.js"&gt;
-      function factorial(n) {
-        if (n &lt;= 1) return 1;
-        return n * factorial(n - 1);
-      }
-    &lt;/artifact&gt;
-  &lt;/message&gt;
-&lt;/branch&gt;
-
-&lt;branch id="iterative" label="Iterative Solution"&gt;
-  &lt;message role="assistant"&gt;
-    &lt;artifact type="code" language="javascript" title="iterative.js"&gt;
-      function factorial(n) {
-        let result = 1;
-        for (let i = 2; i &lt;= n; i++) {
-          result *= i;
-        }
-        return result;
-      }
-    &lt;/artifact&gt;
-  &lt;/message&gt;
-&lt;/branch&gt;
-' />
+<Playground />
 
 ---
 

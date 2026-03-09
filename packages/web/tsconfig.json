@@ -16,7 +16,6 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "outDir": "dist",
-        "rootDir": "src",
         "noEmit": false,
         "declaration": true,
         "emitDeclarationOnly": true,

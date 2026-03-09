@@ -1,27 +1,27 @@
 /**
  * Validator
- * Validates AST against specification
+ * Validates AST against the Grain primitive registry.
  */
 
 import { BUILTIN_PRIMITIVES } from './extension-registry';
-import type { ASTNode, ValidationResult, ValidationError, PrimitiveDefinition } from './types';
+import type { ASTNode, PrimitiveDefinition, ValidationError, ValidationResult } from './types';
 
 export class Validator {
-  private primitives: Map<string, PrimitiveDefinition>;
+  private readonly primitives: Map<string, PrimitiveDefinition>;
 
   constructor() {
     this.primitives = new Map(Object.entries(BUILTIN_PRIMITIVES));
   }
 
   /**
-   * Register custom primitive
+   * Register a custom primitive definition.
    */
   registerPrimitive(name: string, definition: PrimitiveDefinition): void {
     this.primitives.set(name, definition);
   }
 
   /**
-   * Validate AST
+   * Validate an AST.
    */
   validate(ast: ASTNode): ValidationResult {
     const errors: ValidationError[] = [];
@@ -31,18 +31,13 @@ export class Validator {
       return { valid: false, errors };
     }
 
-    // Validate document structure
     if (ast.type !== 'document') {
       errors.push({ message: 'Root must be a document node', path: '' });
     }
 
-    // Validate children
-    if (ast.children) {
-      for (let i = 0; i < ast.children.length; i++) {
-        const child = ast.children[i];
-        this.validateNode(child, `children[${i}]`, errors);
-      }
-    }
+    ast.children?.forEach((child, index) => {
+      this.validateNode(child, `children[${index}]`, errors);
+    });
 
     return {
       valid: errors.length === 0,
@@ -51,89 +46,104 @@ export class Validator {
   }
 
   /**
-   * Validate a single node
+   * Validate a single node.
    */
   private validateNode(node: ASTNode, path: string, errors: ValidationError[]): void {
     if (!node.type) {
-      errors.push({ message: 'Node must have a type', path });
+      errors.push({ message: 'Node must have a type', path, position: node.position });
       return;
     }
 
-    // Check if primitive exists
     if (node.type === 'text') {
       return;
     }
 
     const primitive = this.primitives.get(node.type);
     if (!primitive) {
-      // Allow custom elements (they'll be handled by extensions)
       if (!node.type.includes('-')) {
-        errors.push({ message: `Unknown primitive: ${node.type}`, path });
+        errors.push({ message: `Unknown primitive: ${node.type}`, path, position: node.position });
       }
       return;
     }
 
-    // Validate attributes
-    if (node.attributes) {
-      for (const [attrName, attrValue] of Object.entries(node.attributes)) {
-        const attrDef = primitive.attributes[attrName];
+    const attributes = node.attributes ?? {};
 
-        if (!attrDef) {
+    if (!primitive.allowUnknownAttributes) {
+      for (const [attributeName] of Object.entries(attributes)) {
+        if (!(attributeName in primitive.attributes)) {
           errors.push({
-            message: `Unknown attribute: ${attrName}`,
-            path: `${path}.${node.type}.@${attrName}`
-          });
-          continue;
-        }
-
-        // Type check with coercion for string-based attributes
-        const expectedType = attrDef.type;
-        const value = attrValue;
-
-        if (expectedType === 'boolean') {
-          const isBool = typeof value === 'boolean' || value === 'true' || value === 'false';
-          if (!isBool) {
-            errors.push({
-              message: `Attribute ${attrName} must be boolean`,
-              path: `${path}.${node.type}.@${attrName}`
-            });
-          }
-        } else if (expectedType === 'number') {
-          const isNum = typeof value === 'number' || !isNaN(Number(value));
-          if (!isNum) {
-            errors.push({
-              message: `Attribute ${attrName} must be number`,
-              path: `${path}.${node.type}.@${attrName}`
-            });
-          }
-        }
-      }
-
-      // Check required attributes
-      for (const [attrName, attrDef] of Object.entries(primitive.attributes)) {
-        if (attrDef.required && !(attrName in (node.attributes || {}))) {
-          errors.push({
-            message: `Required attribute missing: ${attrName}`,
-            path: `${path}.${node.type}`
+            message: `Unknown attribute: ${attributeName}`,
+            path: `${path}.${node.type}.@${attributeName}`,
+            position: node.position
           });
         }
       }
     }
 
-    // Validate children recursively
-    if (node.children) {
-      for (let i = 0; i < node.children.length; i++) {
-        this.validateNode(node.children[i], `${path}.${node.type}[${i}]`, errors);
+    for (const [attributeName, definition] of Object.entries(primitive.attributes)) {
+      if (definition.required && !(attributeName in attributes)) {
+        errors.push({
+          message: `Required attribute missing: ${attributeName}`,
+          path: `${path}.${node.type}`,
+          position: node.position
+        });
       }
     }
+
+    for (const [attributeName, attributeValue] of Object.entries(attributes)) {
+      const definition = primitive.attributes[attributeName];
+      if (!definition) {
+        continue;
+      }
+
+      if (definition.type === 'boolean' && !['true', 'false'].includes(attributeValue)) {
+        errors.push({
+          message: `Attribute ${attributeName} must be boolean`,
+          path: `${path}.${node.type}.@${attributeName}`,
+          position: node.position
+        });
+      }
+
+      if (definition.type === 'number' && Number.isNaN(Number(attributeValue))) {
+        errors.push({
+          message: `Attribute ${attributeName} must be number`,
+          path: `${path}.${node.type}.@${attributeName}`,
+          position: node.position
+        });
+      }
+    }
+
+    node.children?.forEach((child, index) => {
+      if (child.type === 'text') {
+        if (!primitive.allowText && child.value?.trim()) {
+          errors.push({
+            message: `${node.type} does not allow text content`,
+            path: `${path}.${node.type}[${index}]`,
+            position: child.position
+          });
+        }
+        return;
+      }
+
+      if (primitive.allowedChildren && !primitive.allowedChildren.includes(child.type)) {
+        errors.push({
+          message: `${child.type} is not allowed inside ${node.type}`,
+          path: `${path}.${node.type}[${index}]`,
+          position: child.position
+        });
+      }
+
+      this.validateNode(child, `${path}.${node.type}[${index}]`, errors);
+    });
   }
 
   /**
-   * Validate Grain Language string directly
-   * Note: This is a helper method. In browser, use parser then validate.
+   * Validate Grain Language directly via a parser instance.
    */
-  validateString(grainString: string, parserInstance?: any): ValidationResult {
-    const parser = parserInstance || { parse: () => ({ ast: null, errors: [{ message: 'Parser required for string validation' }] }) };
+  validateString(grainString: string, parserInstance?: { parse: (input: string) => { ast: ASTNode | null; errors: ValidationError[] } }): ValidationResult {
+    const parser = parserInstance ?? {
+      parse: () => ({ ast: null, errors: [{ message: 'Parser required for string validation' }] })
+    };
     const result = parser.parse(grainString);
 
     if (!result.ast) {
@@ -145,7 +155,7 @@ export class Validator {
 }
 
 /**
- * Create a validator instance
+ * Create a validator instance.
  */
 export function createValidator(): Validator {
   return new Validator();

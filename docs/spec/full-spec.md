@@ -399,7 +399,7 @@ Grain Language is a declarative XML-based syntax for describing AI interactions.
 
 ### Grammar (EBNF)
 
-```ebnf
+```txt
 document = { element } ;
 
 element = message | think | stream | tool | artifact | context

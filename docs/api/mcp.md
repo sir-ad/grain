@@ -1,6 +1,6 @@
 ---
 title: MCP API
-description: MCP adapter API reference.
+description: Reference the `@grain.sh/mcp` adapter surface for converting Grain documents to and from MCP payloads.
 ---
 # MCP API
 
@@ -11,7 +11,7 @@ MCP adapter API reference.
 ## MCPAdapter
 
 ```typescript
-import { MCPAdapter } from '@grain/mcp';
+import { MCPAdapter } from '@grain.sh/mcp';
 
 const adapter = new MCPAdapter(options);
 ```
@@ -71,3 +71,5 @@ interface MCPContextAttachment {
   mimeType?: string;
 }
 ```
+
+The adapter currently covers `tool`, `context`, and `approve` payloads.

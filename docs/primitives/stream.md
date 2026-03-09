@@ -1,6 +1,6 @@
 ---
 title: Stream
-description: Real-time text streaming.
+description: Stream partial assistant output, status updates, and incremental responses with user-visible pacing.
 ---
 # Stream
 
@@ -16,13 +16,7 @@ Display AI output as it generates — character by character or chunk by chunk.
 
 ## Try it Live
 
-<Playground defaultCode='
-&lt;message role="assistant"&gt;
-  &lt;stream speed="fast" cursor="true"&gt;
-    Hello! This is a streaming message. Watch the text appear character by character.
-  &lt;/stream&gt;
-&lt;/message&gt;
-' />
+<Playground />
 
 ---
 
@@ -100,9 +94,9 @@ ERROR
 
   This is **bold** and *italic*.
 
-  ```javascript
+  ~~~javascript
   console.log('Hello');
-  ```
+  ~~~
 </stream>
 ```
 

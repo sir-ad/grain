@@ -1,14 +1,14 @@
 ---
 title: Primitives Overview
-description: Grain defines 10 atomic primitives.
+description: Grain defines 10 core primitives plus companion elements.
 ---
 # Primitives Overview
 
-Grain defines **10 atomic primitives**. Every AI interaction composes from these.
+Grain defines **10 core primitives**. Companion elements like `<result>`, `<progress>`, `<warning>`, `<action>`, and `<option>` round out the language contract.
 
 ---
 
-## The 10 Primitives
+## The 10 Core Primitives
 
 | Primitive | Purpose |
 |-----------|---------|

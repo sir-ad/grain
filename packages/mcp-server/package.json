@@ -1,5 +1,5 @@
 {
-  "name": "@grain.sh/mcp-server",
+  "name": "grain-mcp",
   "version": "1.0.0-alpha.1",
   "description": "MCP Server for Grain - Universal AI interaction layer",
   "type": "module",
@@ -13,7 +13,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "@grain.sh/mcp": "workspace:*",

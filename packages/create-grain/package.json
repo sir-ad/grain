@@ -7,16 +7,19 @@
         "create-grain": "dist/index.js",
         "create-grain-app": "dist/index.js"
     },
+    "files": [
+        "dist",
+        "templates"
+    ],
     "scripts": {
         "build": "tsup",
         "dev": "tsup --watch",
-        "test": "vitest run"
+        "test": "vitest run --passWithNoTests"
     },
     "dependencies": {
         "commander": "^11.1.0",
         "inquirer": "^9.2.12",
         "chalk": "^5.3.0",
-        "execa": "^8.0.1",
         "fs-extra": "^11.2.0"
     },
     "devDependencies": {

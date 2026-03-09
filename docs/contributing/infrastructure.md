@@ -206,19 +206,13 @@ jobs:
 
 ## CDN Distribution
 
-### Unpkg
-
-```
-https://unpkg.com/@grain.sh/web@1.0.0/dist/grain-web.js
-https://unpkg.com/@grain.sh/web@1.0.0/dist/grain-web.css
-```
-
 ### jsDelivr
 
 ```
-https://cdn.jsdelivr.net/npm/@grain.sh/web@1.0.0/dist/grain-web.js
-https://cdn.jsdelivr.net/npm/@grain.sh/web@1.0.0/dist/grain-web.css
+https://cdn.jsdelivr.net/npm/@grain.sh/web@latest/dist/index.global.js
 ```
+
+`@grain.sh/web` publishes its browser bundle through npm, so jsDelivr is the zero-maintenance CDN path. `cdnjs` is a viable secondary mirror only after the browser bundle is explicitly mirrored there.
 
 ---
 

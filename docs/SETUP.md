@@ -4,9 +4,9 @@ description: Setup guide for Grain documentation site.
 ---
 # Docs Configuration
 
-## GitHub Pages Setup
+## Deployment Setup
 
-The docs are deployed to GitHub Pages via GitHub Actions.
+The documentation site is currently deployed to GitHub Pages via GitHub Actions. Browser bundles and repo-served assets should use jsDelivr rather than GitHub Pages URLs.
 
 ### To Enable GitHub Pages:
 
@@ -30,13 +30,20 @@ The output will be in `docs/.vitepress/dist` — can be deployed to any static h
 
 Once deployed: `https://sir-ad.github.io/grain`
 
-Update in `docs/vite.config.ts` if using custom domain:
+Update in `docs/.vitepress/config.ts` if using a custom domain:
 ```ts
 export default defineConfig({
   // ...
-  srcDir: '.',
-  outDir: './dist',
   // For custom domain:
   // base: '/grain/'
 })
+```
+
+## CDN Guidance
+
+Prefer jsDelivr for public browser bundles and repo-served installer assets:
+
+```txt
+https://cdn.jsdelivr.net/npm/@grain.sh/web@latest/dist/index.global.js
+https://cdn.jsdelivr.net/gh/sir-ad/grain@main/install.sh
 ```

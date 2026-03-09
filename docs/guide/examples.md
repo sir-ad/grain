@@ -1,6 +1,6 @@
 ---
 title: Examples
-description: Real-world examples of Grain in action.
+description: End-to-end Grain examples for chat, tool execution, artifacts, approvals, and multi-step agent flows.
 ---
 # Examples
 
@@ -14,13 +14,12 @@ Real-world examples of Grain in action.
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.grain.dev/v1/grain-web.css">
 </head>
 <body>
   <div id="chat"></div>
-  <script src="https://cdn.grain.dev/v1/grain-web.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@grain.sh/web@latest/dist/index.global.js"></script>
   <script>
-    const adapter = new AISemantics.WebAdapter();
+    const adapter = new GrainWeb.WebAdapter();
     
     adapter.render(`<message role="assistant">
       <stream>Hello! How can I help?</stream>
@@ -74,13 +73,13 @@ adapter.on('action', (e) => {
 ## Custom Theme
 
 ```javascript
-const adapter = new AISemantics.WebAdapter({
+const adapter = new WebAdapter({
   theme: {
-    '--ai-primary': '#6366f1',
-    '--ai-secondary': '#8b5cf6',
-    '--ai-background': '#0f0f0f',
-    '--ai-surface': '#1a1a1a',
-    '--ai-radius': '12px'
+    '--grain-primary': '#6366f1',
+    '--grain-secondary': '#8b5cf6',
+    '--grain-background': '#0f0f0f',
+    '--grain-surface': '#1a1a1a',
+    '--grain-radius': '12px'
   }
 });
 ```

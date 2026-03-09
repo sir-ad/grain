@@ -1,6 +1,6 @@
 ---
 title: MCP Adapter
-description: Model Context Protocol integration.
+description: Translate Grain documents to and from Model Context Protocol messages for tool-enabled agent runtimes.
 ---
 # MCP Adapter
 
@@ -11,7 +11,7 @@ Model Context Protocol integration.
 ## Installation
 
 ```bash
-npm install @grain/mcp
+npm install @grain.sh/mcp
 ```
 
 ---
@@ -27,7 +27,7 @@ Tools return G-Lang in JSON format. MCP Adapter converts between:
 ## G-Lang to MCP
 
 ```javascript
-import { MCPAdapter } from '@grain/mcp';
+import { MCPAdapter } from '@grain.sh/mcp';
 
 const adapter = new MCPAdapter();
 
@@ -93,26 +93,6 @@ const mcp = adapter.toMCP(`
   "id": "doc-123",
   "name": "spec.pdf"
 }
-```
-
----
-
-## Agent Messages
-
-```javascript
-const mcp = adapter.fromMCP({
-  semantic: 'agent_message',
-  from: 'research_agent',
-  to: 'coordinator',
-  type: 'task_complete',
-  task_id: 'task-456',
-  result: {
-    semantic: 'artifact',
-    type: 'document',
-    title: 'Research Summary',
-    content: '...'
-  }
-});
 ```
 
 ---

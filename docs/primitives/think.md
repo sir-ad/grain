@@ -1,6 +1,6 @@
 ---
 title: Think
-description: AI reasoning display.
+description: Model hidden or visible reasoning traces while preserving a clean public interaction surface.
 ---
 # Think
 
@@ -16,20 +16,7 @@ Show the AI's "thinking" — chain-of-thought, reasoning, internal notes. Can be
 
 ## Try it Live
 
-<Playground defaultCode='
-&lt;message role="assistant"&gt;
-  &lt;think model="chain-of-thought" visible="true"&gt;
-    Let me analyze this step by step:
-    1. First, I need to understand the context
-    2. Then, identify the key variables
-    3. Finally, apply the relevant formula
-  &lt;/think&gt;
-  
-  &lt;stream speed="normal"&gt;
-    Based on my analysis, here is the answer...
-  &lt;/stream&gt;
-&lt;/message&gt;
-' />
+<Playground />
 
 ---
 

@@ -5,7 +5,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
-    "@grain.sh/core": "./dist/index.js"
+    "grain": "./dist/index.js"
   },
   "files": [
     "dist"
@@ -13,12 +13,11 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "vitest run"
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "chalk": "^5.3.0",
     "@grain.sh/core": "workspace:*",
-    "ora": "^7.0.1"
+    "chalk": "^5.3.0"
   },
   "publishConfig": {
     "access": "public"

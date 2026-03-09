@@ -1,6 +1,6 @@
 ---
 title: CLI Adapter
-description: Terminal rendering.
+description: Render Grain documents in the terminal with ANSI output, watch mode, and the `grain` executable.
 ---
 # CLI Adapter
 
@@ -11,7 +11,7 @@ Terminal rendering.
 ## Installation
 
 ```bash
-npm install -g @grain/cli
+npm install -g @grain.sh/cli
 ```
 
 ---
@@ -20,13 +20,13 @@ npm install -g @grain/cli
 
 ```bash
 # Render a G-Lang file
-ai-sem render --input chat.glang
+grain --input chat.glang
 
 # Watch mode
-ai-sem render --input chat.glang --watch
+grain --input chat.glang --watch
 
 # Output to file
-ai-sem render --input chat.glang --output output.txt
+grain --input chat.glang --output output.txt
 ```
 
 ---
@@ -34,7 +34,7 @@ ai-sem render --input chat.glang --output output.txt
 ## Programmatic
 
 ```javascript
-import { CLIAdapter } from '@grain/cli';
+import { CLIAdapter } from '@grain.sh/cli';
 
 const adapter = new CLIAdapter();
 

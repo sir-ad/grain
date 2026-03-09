@@ -1,6 +1,6 @@
 ---
 title: G-Lang Grammar
-description: Complete EBNF specification.
+description: Reference grammar and structural rules for valid Grain documents, core primitives, and companion elements.
 ---
 # G-Lang Grammar
 
@@ -10,7 +10,7 @@ Complete EBNF specification.
 
 ## Document
 
-```ebnf
+```txt
 document     = { element } ;
 ```
 
@@ -18,7 +18,7 @@ document     = { element } ;
 
 ## Elements
 
-```ebnf
+```txt
 element      = message | think | stream | tool | artifact | context 
              | approve | branch | state | error | input | action ;
 ```
@@ -27,7 +27,7 @@ element      = message | think | stream | tool | artifact | context
 
 ## Message
 
-```ebnf
+```txt
 message      = "<message"
                  [ "role=" ( "user" | "assistant" | "system" | "tool" ) ]
                  [ "stream=" ( "true" | "false" ) ]
@@ -39,7 +39,7 @@ message      = "<message"
 
 ## Stream
 
-```ebnf
+```txt
 stream       = "<stream"
                  [ "speed=" ( "fast" | "normal" | "slow" ) ]
                  [ "cursor=" ( "true" | "false" ) ]
@@ -51,7 +51,7 @@ stream       = "<stream"
 
 ## Think
 
-```ebnf
+```txt
 think        = "<think"
                  [ "model=" string ]
                  [ "visible=" ( "true" | "false" ) ]
@@ -63,7 +63,7 @@ think        = "<think"
 
 ## Tool
 
-```ebnf
+```txt
 tool         = "<tool"
                  "name=" string
                  [ "args=" json ]
@@ -78,7 +78,7 @@ tool_content = input | result | progress | error ;
 
 ## Artifact
 
-```ebnf
+```txt
 artifact     = "<artifact"
                  "type=" ( "code" | "image" | "chart" | "document" | "file" | "video" | "audio" )
                  [ "language=" string ]
@@ -93,7 +93,7 @@ artifact     = "<artifact"
 
 ## Context
 
-```ebnf
+```txt
 context      = "<context"
                  "type=" ( "file" | "url" | "memory" | "memory_chip" | "conversation" )
                  "id=" string
@@ -107,7 +107,7 @@ context      = "<context"
 
 ## Approve
 
-```ebnf
+```txt
 approve      = "<approve"
                  "type=" ( "tool_call" | "action" | "delete" | "consent" )
                  "action=" string
@@ -122,7 +122,7 @@ option       = "<option" "label=" string ">" "</option>" ;
 
 ## Branch
 
-```ebnf
+```txt
 branch       = "<branch"
                  "id=" string
                  [ "label=" string ]
@@ -134,7 +134,7 @@ branch       = "<branch"
 
 ## State
 
-```ebnf
+```txt
 state        = "<state"
                  "status=" ( "idle" | "loading" | "thinking" | "streaming" | "error" | "offline" )
                  [ "message=" string ]
@@ -146,7 +146,7 @@ state        = "<state"
 
 ## Error
 
-```ebnf
+```txt
 error        = "<error"
                  "code=" string
                  "message=" string
@@ -158,7 +158,7 @@ error        = "<error"
 
 ## Input
 
-```ebnf
+```txt
 input        = "<input"
                  "type=" ( "text" | "file" | "image" | "voice" | "multimodal" )
                  [ "placeholder=" string ]
@@ -172,7 +172,7 @@ suggestion   = "<suggestion>" content "</suggestion>" ;
 
 ## Action
 
-```ebnf
+```txt
 action       = "<action"
                  "name=" string
                  [ "label=" string ]
@@ -184,7 +184,7 @@ action       = "<action"
 
 ## Data Types
 
-```ebnf
+```txt
 string       = '"' { any_char - '"' } '"' ;
 
 json         = '{' { key ':' value { ',' key ':' value } } '}' ;

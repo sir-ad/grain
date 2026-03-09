@@ -1,6 +1,6 @@
 ---
 title: Tool
-description: Function/tool execution.
+description: Represent tool execution, input payloads, progress updates, and structured results in Grain documents.
 ---
 # Tool
 
@@ -16,23 +16,7 @@ Display AI calling a function — search, API call, calculation — and its resu
 
 ## Try it Live
 
-<Playground defaultCode='
-&lt;message role="assistant"&gt;
-  &lt;stream&gt;Let me check the weather for you...&lt;/stream&gt;
-&lt;/message&gt;
-
-&lt;tool name="get_weather" args=\'{"city": "Mumbai"}\' status="running"&gt;
-  &lt;input&gt;City: Mumbai&lt;/input&gt;
-&lt;/tool&gt;
-
-&lt;tool name="get_weather" status="complete"&gt;
-  &lt;result temperature="28" condition="sunny" humidity="65" /&gt;
-&lt;/tool&gt;
-
-&lt;message role="assistant"&gt;
-  &lt;stream speed="fast"&gt;The weather in Mumbai is 28°C and sunny!&lt;/stream&gt;
-&lt;/message&gt;
-' />
+<Playground />
 
 ---
 

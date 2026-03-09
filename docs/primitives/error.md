@@ -1,6 +1,6 @@
 ---
 title: Error
-description: Error display with recovery.
+description: Surface structured failures, user-facing recovery guidance, and retryable states inside Grain flows.
 ---
 # Error
 

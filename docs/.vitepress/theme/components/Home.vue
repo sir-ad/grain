@@ -11,8 +11,8 @@
       <p class="description">Standard vocabulary for every surface where AI meets humans — or AI meets AI.</p>
       
       <div class="cta-group">
-        <span class="command">curl -fsSL grain.sh | sh</span>
-        <a href="/grain/guide/getting-started" class="primary-btn">Get Started</a>
+        <span class="command">npx create-grain-app my-ai-app</span>
+        <a href="/guide/getting-started" class="primary-btn">Get Started</a>
       </div>
     </div>
   </div>

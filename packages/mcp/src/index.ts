@@ -63,6 +63,8 @@ export class MCPAdapter {
 
   private astToMCP(node: ASTNode): MCPToolResponse | MCPAgentMessage | MCPContextAttachment | MCPApprovalRequest | null {
     switch (node.type) {
+      case 'document':
+        return node.children?.map((child) => this.astToMCP(child)).find((value): value is NonNullable<typeof value> => value !== null) ?? null;
       case 'tool': return this.toolToMCP(node);
       case 'context': return this.contextToMCP(node);
       case 'approve': return this.approveToMCP(node);
@@ -92,7 +94,11 @@ export class MCPAdapter {
     });
 
     if (node.attributes?.args) {
-      try { input = { ...input, ...JSON.parse(node.attributes.args) }; } catch { }
+      try {
+        input = { ...input, ...JSON.parse(node.attributes.args) };
+      } catch {
+        // Invalid JSON args stay as parsed text input.
+      }
     }
 
     return { semantic: 'tool', name, input: Object.keys(input).length ? input : undefined, output, status };
@@ -132,7 +138,13 @@ export class MCPAdapter {
     let content = `<tool name="${mcp.name}" status="${mcp.status}"`;
     if (mcp.input) content += ` args='${JSON.stringify(mcp.input)}'`;
     content += '>';
-    if (mcp.output) content += `<result>${typeof mcp.output === 'object' ? this.objectToAttrs(mcp.output as Record<string, unknown>) : mcp.output}</result>`;
+    if (mcp.output) {
+      if (typeof mcp.output === 'object' && mcp.output !== null) {
+        content += `<result ${this.objectToAttrs(mcp.output as Record<string, unknown>)} />`;
+      } else {
+        content += `<result>${mcp.output}</result>`;
+      }
+    }
     content += '</tool>';
     return content;
   }

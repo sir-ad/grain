@@ -1,6 +1,6 @@
 ---
 title: Demo | Grain
-description: Live demo of Grain Language in action - Code Assistant, Research Agent, and Data Analysis scenarios.
+description: Explore end-to-end Grain interface scenarios for code assistance, research workflows, and data analysis flows.
 ---
 
 # Live Demo
