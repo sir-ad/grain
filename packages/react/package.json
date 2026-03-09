@@ -1,6 +1,6 @@
 {
     "name": "@grain.sh/react",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "description": "True Web Components for interactive Grain primitives in React",
     "type": "module",
     "main": "dist/index.cjs",

@@ -2,32 +2,29 @@
 
 ## Release Title
 
-Grain v1.3.1: Scoped Package Naming Correction
+Grain v1.3.2: npm README Metadata Fix
 
 ## Release Tag
 
-`v1.3.1`
+`v1.3.2`
 
 ## Release Body
 
-This patch release corrects the npm package names introduced in `v1.3.0` so the published distributables stay under the `@grain.sh` scope, matching the rest of the ecosystem and the existing npm organization.
+This patch release fixes npm package presentation by shipping package-local READMEs for every public Grain package, so the npm registry now shows installation and usage guidance instead of blank package pages.
 
 ### Highlights
 
-- Restored the MCP server package name to `@grain.sh/mcp-server`.
-- Restored the app scaffolder package name to `@grain.sh/create-grain-app`.
-- Kept the executable commands unchanged:
-  - `grain-mcp`
-  - `create-grain-app`
-- Corrected README, install guidance, and release metadata to point at the scoped package names.
+- Added package-level READMEs for `@grain.sh/core`, `@grain.sh/web`, `@grain.sh/react`, `@grain.sh/cli`, `@grain.sh/mcp`, `@grain.sh/mcp-server`, `@grain.sh/agent`, and `@grain.sh/create-grain-app`.
+- Documented the real install commands, executable names, and minimal usage examples for each package.
+- Republished the packages at `1.3.2` so npmjs.com can render the package documentation correctly.
 
 ### Versioning Decision
 
-- This release publishes the scoped naming correction as `1.3.1`.
-- The incorrect unscoped package names from `1.3.0` should be treated as deprecated aliases, not canonical distributables.
+- This release publishes the npm metadata fix as `1.3.2`.
+- No runtime APIs changed; the version bump exists so npm can ingest the new package READMEs.
 
 ### Verification
 
 - `pnpm check` passes
-- `pnpm --dir docs build` passes
-- npm package manifests resolve to the `@grain.sh` scope for the MCP server and scaffolder packages
+- `npm pack --dry-run` includes `README.md` for each public package
+- npm package pages render README metadata after publish

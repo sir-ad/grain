@@ -2,6 +2,16 @@
 
 All notable changes to this repository are documented in this file.
 
+## 1.3.2 - 2026-03-09
+
+### Added
+
+- Added package-level npm READMEs for every public Grain package so npmjs.com renders installation, usage, and docs links per package.
+
+### Fixed
+
+- Fixed missing npm README metadata for `@grain.sh/*` packages by publishing package-local `README.md` files instead of relying on the monorepo root README.
+
 ## 1.3.1 - 2026-03-09
 
 ### Fixed
