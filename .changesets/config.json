@@ -7,7 +7,7 @@
     "@grain.sh/web",
     "@grain.sh/cli",
     "@grain.sh/mcp",
-    "@grain.sh/mcp-server"
+    "grain-mcp"
   ],
   "linked": [],
   "access": "public",

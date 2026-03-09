@@ -1,6 +1,6 @@
 {
   "name": "grain-mcp",
-  "version": "1.0.0-alpha.1",
+  "version": "1.3.0",
   "description": "MCP Server for Grain - Universal AI interaction layer",
   "type": "module",
   "main": "./dist/index.js",

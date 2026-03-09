@@ -1,12 +1,12 @@
 # Draft Release
 
-## Suggested Title
+## Release Title
 
-Grain: Production Readiness Hardening
+Grain v1.3.0: Production Readiness Hardening
 
-## Suggested Tag
+## Release Tag
 
-Choose a tag only after versioning is finalized. Do not create a `v*` tag from this draft unchanged, because the current publish workflow will release packages on tag push.
+`v1.3.0`
 
 ## Release Body
 
@@ -36,6 +36,12 @@ This release hardens Grain’s public contract, packaging, docs, and delivery pi
 - `grain-mcp` is the canonical MCP server distributable.
 - `create-grain-app` now ships an actual starter template.
 - One Pages workflow and one npm publish workflow remain; redundant release workflows were removed.
+
+### Versioning Decision
+
+- This release standardizes all public packages on `1.3.0`.
+- Packages previously stuck on `1.0.0-alpha.1` now ship as stable `1.3.0` releases.
+- Newly publishable packages `grain-mcp` and `create-grain-app` also debut at `1.3.0` to keep the monorepo release line coherent.
 
 ### Verification
 
