@@ -1,253 +1,79 @@
 ---
-title: Contributing | Grain
-description: How to contribute to Grain - setup, coding standards, and pull request guidelines.
+title: Contributing to Grain | Setup, Validation, and PR Expectations
+description: Learn how to contribute to Grain with the current repo workflow, validation commands, docs preview flow, and pull request expectations.
 ---
 
 # Contributing to Grain
 
-> Thank you for your interest in contributing!
+Grain treats code, docs, and examples as one product surface. If you change the parser, adapters, packages, or docs, keep the public contract aligned in the same pull request.
 
----
+## Prerequisites
 
-## Code of Conduct
+- Node.js 18 or newer
+- pnpm 8 or newer
+- Git
 
-By participating in this project, you agree to abide by our Code of Conduct.
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- pnpm 8+
-
-### Setup
+## Local Setup
 
 ```bash
-# Clone the repository
 git clone https://github.com/sir-ad/grain.git
 cd grain
-
-# Install dependencies
 pnpm install
-
-# Build all packages
-pnpm build
-
-# Run tests
-pnpm test
+pnpm check
 ```
 
----
+`pnpm check` is the repo-wide validation entry point. It runs lint, builds, and tests across the workspace.
+
+## Docs Workflow
+
+The documentation site is part of the release surface and should be verified when docs, examples, or public behavior change.
+
+```bash
+pnpm docs:build
+pnpm docs:preview
+pnpm docs:preview:smoke
+```
+
+Important preview detail:
+
+- the live site is deployed under the `/grain/` base path
+- the local preview URL is `http://127.0.0.1:<port>/grain/`
+- opening `/` is expected to return `404`
 
 ## Project Structure
 
-```
+```text
 grain/
 ├── packages/
-│   ├── core/        # Core runtime (parser, state machine, etc.)
-│   ├── web/         # Web adapter
-│   ├── cli/         # CLI adapter
-│   └── mcp/         # MCP adapter
-├── docs/            # Documentation
-└── tools/           # Build tools
+│   ├── core/        # parser, validator, state machines
+│   ├── web/         # browser adapter and custom elements
+│   ├── cli/         # grain executable and terminal renderer
+│   ├── mcp/         # adapter library for MCP payloads
+│   ├── mcp-server/  # stdio MCP server package
+│   ├── react/       # React wrapper surface
+│   └── agent/       # agent-oriented communication helpers
+├── docs/            # VitePress documentation site
+├── scripts/         # repo tooling and docs helpers
+└── .github/workflows/
 ```
 
----
+## Change Expectations
 
-## Making Changes
+- keep public docs and package behavior aligned
+- add or update tests when a runtime contract changes
+- prefer small, reviewable commits over mixed concern patches
+- use conventional commit messages when practical
 
-### 1. Create a Branch
+## Pull Request Checklist
 
-```bash
-git checkout -b feature/your-feature-name
-# or
-git checkout -b fix/bug-description
-```
+- `pnpm check` passes locally
+- `pnpm docs:build` passes if docs or examples changed
+- `pnpm docs:preview:smoke` passes if the website or theme changed
+- package READMEs and docs examples stay accurate
+- release notes or changelog entries are updated when behavior changes materially
 
-### 2. Make Your Changes
+## Reporting and Review
 
-Follow these guidelines:
-
-- **Code style**: Use ESLint + Prettier (configured)
-- **Types**: All code must be TypeScript with proper types
-- **Tests**: Add tests for new functionality
-- **Commits**: Use conventional commits
-
-### 3. Commit Format
-
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
-```
-
-Types:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation
-- `style`: Code style (formatting)
-- `refactor`: Code refactoring
-- `test`: Tests
-- `chore`: Maintenance
-
-Example:
-
-```
-feat(core): add new state machine for branch primitive
-
-Add support for conversation branching with merge functionality.
-Includes states: created, expanded, collapsed, active, merged.
-
-Closes #123
-```
-
-### 4. Submit a Pull Request
-
-1. Push your branch
-2. Open a Pull Request
-3. Fill in the PR template
-4. Wait for review
-
----
-
-## Coding Standards
-
-### TypeScript
-
-```typescript
-// Good
-interface User {
-  id: string;
-  name: string;
-}
-
-function getUser(id: string): User | null {
-  // ...
-}
-
-// Avoid
-function getUser(id: string): any {
-  // ...
-}
-```
-
-### Naming
-
-- **Variables**: camelCase
-- **Constants**: UPPER_SNAKE_CASE
-- **Classes**: PascalCase
-- **Files**: kebab-case.ts
-
-### Error Handling
-
-```typescript
-// Good
-try {
-  await doSomething();
-} catch (error) {
-  if (error instanceof SpecificError) {
-    // Handle specific error
-  }
-  // Log and re-throw or handle gracefully
-}
-
-// Avoid
-try {
-  await doSomething();
-} catch (error) {
-  console.log(error); // Don't just log
-}
-```
-
----
-
-## Testing
-
-### Unit Tests
-
-```bash
-# Run tests
-pnpm test
-
-# Watch mode
-pnpm test:watch
-
-# Coverage
-pnpm test:coverage
-```
-
-### Writing Tests
-
-```typescript
-import { describe, it, expect } from 'vitest';
-import { GLangParser } from '../parser';
-
-describe('GLangParser', () => {
-  it('should parse a simple message', () => {
-    const parser = new GLangParser();
-    const result = parser.parse('<message role="assistant">Hello</message>');
-
-    expect(result.errors).toHaveLength(0);
-    expect(result.ast).not.toBeNull();
-  });
-});
-```
-
----
-
-## Documentation
-
-### Updating Docs
-
-- API docs are in `docs/`
-- README files are in each package
-- Keep docs in sync with code changes
-
-### Building Docs
-
-```bash
-pnpm --filter docs build
-```
-
----
-
-## Release Process
-
-### Versioning
-
-We use [Semantic Versioning](https://semver.org/) + [Changesets](https://github.com/changesets/changesets).
-
-### Making a Release
-
-```bash
-# Add a changeset
-pnpm changeset add
-
-# Update version and publish
-pnpm release
-```
-
----
-
-## Getting Help
-
-- **GitHub Issues**: [github.com/sir-ad/grain/issues](https://github.com/sir-ad/grain/issues)
-- **Discussions**: [github.com/sir-ad/grain/discussions](https://github.com/sir-ad/grain/discussions)
-
----
-
-## Recognition
-
-Contributors will be recognized in:
-
-- README.md contributors section
-- Release notes
-- GitHub contributors page
-
----
-
-Thank you for contributing!
+- open issues for bugs, docs mismatches, packaging problems, or feature requests
+- include the affected package, version, and a minimal Grain snippet when relevant
+- call out whether a website issue was observed on the live site or in local preview

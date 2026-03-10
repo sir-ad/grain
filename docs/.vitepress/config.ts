@@ -11,7 +11,7 @@ function canonicalPath(relativePath: string): string {
 export default defineConfig({
   lang: 'en-US',
   title: 'Grain',
-  description: 'Universal interaction layer for AI interfaces',
+  description: 'Spec-first documentation for Grain, the universal interaction layer for AI interfaces across web, CLI, MCP, and agent runtimes.',
   base: '/grain/',
   lastUpdated: true,
   markdown: {
@@ -24,10 +24,16 @@ export default defineConfig({
     hostname: 'https://sir-ad.github.io/grain'
   },
   transformHead({ pageData }) {
+    const canonicalUrl = `https://sir-ad.github.io/grain${canonicalPath(pageData.relativePath)}`;
+
     return [
       ['link', {
         rel: 'canonical',
-        href: `https://sir-ad.github.io/grain${canonicalPath(pageData.relativePath)}`
+        href: canonicalUrl
+      }],
+      ['meta', {
+        property: 'og:url',
+        content: canonicalUrl
       }]
     ];
   },
@@ -36,9 +42,12 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#0f172a' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'Grain' }],
-    ['meta', { property: 'og:description', content: 'Universal interaction layer for AI interfaces' }],
+    ['meta', { property: 'og:description', content: 'Spec-first documentation for Grain across web, CLI, MCP, and agent runtimes.' }],
     ['meta', { property: 'og:image', content: 'https://sir-ad.github.io/grain/og-image.svg' }],
-    ['meta', { name: 'twitter:card', content: 'summary_large_image' }]
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'Grain Documentation' }],
+    ['meta', { name: 'twitter:description', content: 'Spec-first documentation for Grain across web, CLI, MCP, and agent runtimes.' }],
+    ['meta', { name: 'twitter:image', content: 'https://sir-ad.github.io/grain/og-image.svg' }]
   ],
   themeConfig: {
     logo: {

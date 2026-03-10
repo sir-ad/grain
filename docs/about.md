@@ -1,6 +1,6 @@
 ---
-title: About | Grain
-description: About Grain - The universal interaction layer for AI interfaces.
+title: About Grain | Standardizing AI Interface Surfaces
+description: Understand Grain's product vision, why the documentation is treated as the contract, and how the project standardizes AI interaction surfaces.
 ---
 
 # About Grain
@@ -41,6 +41,14 @@ Just as HTML standardized document rendering, **Grain standardizes AI interactio
 
 ---
 
+## What "Spec-First" Means Here
+
+Grain is built around a simple rule: public examples are not decorative. If a parser, renderer, or adapter disagrees with the docs, the implementation is wrong or the docs must be updated in the same change.
+
+That is why the docs site lives alongside the packages and ships with its own build and preview workflow. The language reference, package READMEs, and homepage playground are part of the release surface.
+
+---
+
 ## The Meridian Philosophy
 
 Grain operates on the "Meridian Layer"—the boundary between machine intelligence and human experience.
@@ -72,6 +80,16 @@ We come from backgrounds in:
 - Developer tools
 - Open source software
 - UX design
+
+---
+
+## Current Focus
+
+The current focus is practical production readiness:
+
+1. Keep the Grain language contract aligned with the parser and validators.
+2. Ship stable adapters for web, CLI, and MCP surfaces.
+3. Make the documentation auditable, previewable, and deployable as a first-class product surface.
 
 ---
 

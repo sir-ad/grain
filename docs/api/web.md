@@ -1,10 +1,10 @@
 ---
-title: Web API
-description: Reference the `@grain.sh/web` adapter API, custom elements, rendering methods, and theming surface.
+title: Web API | WebAdapter, Events, and Theme Surface
+description: Reference the @grain.sh/web adapter API, including WebAdapter construction, rendering methods, event hooks, and theme tokens for browser surfaces.
 ---
 # Web API
 
-Web adapter API reference.
+`@grain.sh/web` turns Grain documents into semantic HTML and Web Components. It is the browser adapter used by the docs playground and the quickest path to a rendered interface.
 
 ---
 
@@ -15,6 +15,13 @@ import { WebAdapter } from '@grain.sh/web';
 
 const adapter = new WebAdapter(config);
 ```
+
+## What This Package Owns
+
+- DOM rendering for the documented Grain primitives
+- custom element registration for browser use
+- theme-token driven styling
+- browser event hooks for interactive surfaces
 
 ---
 
@@ -71,3 +78,9 @@ console.log(css);
 // --grain-primary: #000000;
 // --grain-secondary: #666666;
 ```
+
+## Production Notes
+
+- Prefer pinned package versions instead of `@latest` once the interface is in use.
+- Validate model output with `@grain.sh/core` if malformed Grain should fail before it reaches the DOM.
+- Keep the Grain document itself as the source of truth and treat theme settings as presentation concerns.

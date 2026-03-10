@@ -1,5 +1,5 @@
 ---
-title: Contact | Grain
+title: Contact Grain | Issues and Security
 description: Reach the Grain maintainers, report issues, and find the right public channels for technical questions and responsible disclosure.
 ---
 
@@ -18,6 +18,7 @@ Grain is maintained in public. The fastest way to reach the project is through t
 - Use **issues** for bugs, documentation mistakes, packaging problems, and feature requests.
 - Use **discussions in a pull request** for implementation feedback tied to a concrete change.
 - Use **security reporting channels provided by GitHub** if you need to disclose a vulnerability privately.
+- Use **release notes and changelog diffs** when a behavior changed between published versions and you need to confirm whether it was intentional.
 
 ## Include Useful Context
 
@@ -27,6 +28,8 @@ When reporting a problem, include:
 - the Grain document or snippet that triggered the issue
 - the runtime surface involved (`web`, `cli`, `mcp`, or `agent`)
 - reproduction steps and the expected behavior
+
+For website issues, also include whether you were testing the live site or a local preview. The docs preview is intentionally served from `/grain/`, so a blank page at `/` is not a rendering bug.
 
 ## Project Status
 

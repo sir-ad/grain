@@ -1,332 +1,106 @@
 ---
-title: Infrastructure | Grain
-description: Build, CI/CD, deployment, and operations for Grain.
+title: Grain Infrastructure | Build, Deploy, Publish, and Preview
+description: Understand the current Grain infrastructure, including workspace validation, docs deployment, npm publishing, CDN delivery, and GitHub Pages constraints.
 ---
 
 # Infrastructure
 
-> Build, CI/CD, deployment, and operations.
+This page documents the infrastructure that is actually wired into the repository today rather than an aspirational pipeline.
 
----
+## Workspace and Validation
 
-## Repository Setup
+The repository is a pnpm workspace with the docs site included as a first-class package.
 
-### Monorepo Structure
-
-```
-grain/
-├── packages/
-│   ├── core/          # @grain.sh/core
-│   ├── web/           # @grain.sh/web
-│   ├── cli/           # @grain.sh/cli
-│   ├── mcp/           # @grain.sh/mcp
-│   ├── agent/         # @grain.sh/agent
-│   └── react/         # @grain.sh/react (planned)
-├── tools/             # Build tools
-├── docs/              # Documentation site
-└── package.json       # Workspace root
-```
-
-### Package Manager
-
-**pnpm** for monorepo management:
+Primary root commands:
 
 ```bash
-# Install pnpm if needed
-npm install -g pnpm
-
-# Install dependencies
-pnpm install
-
-# Add a dependency to a package
-pnpm add @grain.sh/core --filter @grain.sh/web
+pnpm check
+pnpm docs:build
+pnpm docs:preview
+pnpm docs:preview:smoke
 ```
 
----
+What they do:
 
-## Build System
+- `pnpm check` runs repo-wide lint, build, and test validation
+- `pnpm docs:build` builds the VitePress site and post-processes generated crawl artifacts
+- `pnpm docs:preview` builds the docs, selects a free local port, and starts preview on `127.0.0.1`
+- `pnpm docs:preview:smoke` verifies the `/grain/` base path, homepage shell, and browser hydration behavior when a local Chrome installation is available
 
-### Tooling
+## Docs Site Deployment
 
-| Tool | Purpose |
-|------|---------|
-| **TypeScript** | Type safety |
-| **Vite** | Web packages bundling |
-| **Rollup** | Library bundling |
-| **tsup** | TypeScript bundling |
-| **Changesets** | Versioning & changelog |
+The public docs site is deployed to GitHub Pages as a project site:
 
-### Build Configuration
+- public URL: `https://sir-ad.github.io/grain/`
+- base path: `/grain/`
+- workflow: `.github/workflows/deploy.yml`
 
-```javascript
-// packages/core/tsup.config.ts
-import { defineConfig } from 'tsup';
+The deploy workflow currently:
 
-export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['esm', 'cjs'],
-  dts: true,
-  splitting: false,
-  sourcemap: true,
-  clean: true,
-  external: [],
-  banner: {
-    js: `/**
- * @grain.sh/core ${require('./package.json').version}
- * Grain - Universal interaction layer for AI
- */`
-  }
-});
+1. checks out the repo
+2. installs dependencies with pnpm
+3. runs `pnpm check`
+4. uploads `docs/.vitepress/dist`
+5. deploys that artifact to GitHub Pages
+
+## Local Preview Reliability
+
+The repo uses `scripts/docs-preview.mjs` to make preview behavior explicit:
+
+- builds docs before preview unless `--skip-build` is set
+- detects occupied default ports such as `4173`
+- binds to `127.0.0.1`
+- prints the exact working URL
+- probes `/grain/` instead of `/`
+
+This matters because the most common local "preview is broken" report is actually a stale process on a default port or a user opening the server root instead of the project-site base path.
+
+## Crawl Artifacts
+
+The docs build publishes crawl artifacts under the project-site base:
+
+- `robots.txt` at `/grain/robots.txt`
+- `sitemap.xml` at `/grain/sitemap.xml`
+
+VitePress currently emits sitemap entries that need post-processing for the GitHub Pages project-site base path. The repo corrects that in `scripts/docs-postbuild.mjs`.
+
+## GitHub Pages Constraints
+
+Some issues are hosting-level constraints rather than repo bugs:
+
+- the repository cannot control root-host `robots.txt` for `sir-ad.github.io`
+- GitHub Pages does not honor Netlify-style `_headers` files
+- response-level headers such as CSP or `X-Frame-Options` are host-controlled
+
+Where possible, the docs site uses HTML-level metadata and accessible markup. Host-level warnings that remain after that should be documented, not papered over with brittle client-side workarounds.
+
+## Package Publishing
+
+Package publishing is handled by `.github/workflows/publish.yml`.
+
+Current release model:
+
+- pushing a `v*` tag triggers publish
+- the job uses the `production` environment
+- npm auth comes from `secrets.NPM_TOKEN`
+- publish runs only after `pnpm check` passes
+
+## CDN Delivery
+
+The browser bundle for `@grain.sh/web` is distributed from npm and can be served via jsDelivr:
+
+```text
+https://cdn.jsdelivr.net/npm/@grain.sh/web@<version>/dist/index.global.js
 ```
 
----
+jsDelivr is the canonical zero-maintenance CDN path because it maps directly to the npm package and GitHub repository. `cdnjs` is only relevant if the bundle is explicitly mirrored there.
 
-## CI/CD Pipeline
+## Operational Checklist
 
-### GitHub Actions
+Before shipping a website-facing change:
 
-```yaml
-# .github/workflows/ci.yml
-name: CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - run: pnpm install --frozen-lockfile
-
-      - run: pnpm lint
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-
-      - run: pnpm test
-
-      - uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/lcov.info
-          flags: unittests
-
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - run: pnpm install --frozen-lockfile
-
-      - run: pnpm build
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: packages/*/dist
-```
-
----
-
-## Version Management
-
-### Changesets
-
-```bash
-# Install Changesets CLI
-pnpm add -D @changesets/cli
-pnpm changeset init
-```
-
-### Release Workflow
-
-```yaml
-# .github/workflows/release.yml
-name: Release
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-
-      - run: pnpm install --frozen-lockfile
-
-      - name: Create release pull request
-        run: pnpm changeset version
-
-      - name: Publish to npm
-        run: pnpm publish -r
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-```
-
----
-
-## CDN Distribution
-
-### jsDelivr
-
-```
-https://cdn.jsdelivr.net/npm/@grain.sh/web@latest/dist/index.global.js
-```
-
-`@grain.sh/web` publishes its browser bundle through npm, so jsDelivr is the zero-maintenance CDN path. `cdnjs` is a viable secondary mirror only after the browser bundle is explicitly mirrored there.
-
----
-
-## Local Development
-
-### Setup
-
-```bash
-# Clone repository
-git clone https://github.com/sir-ad/grain.git
-cd grain
-
-# Install dependencies
-pnpm install
-
-# Build all packages
-pnpm build
-
-# Start development
-pnpm dev
-```
-
-### Running Examples
-
-```bash
-# Web example
-pnpm --filter @grain.sh/example-web dev
-
-# CLI example
-pnpm --filter @grain.sh/example-cli dev
-```
-
-### Testing
-
-```bash
-# Run all tests
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Run tests with coverage
-pnpm test:coverage
-
-# Lint
-pnpm lint
-pnpm lint:fix
-```
-
----
-
-## Docker
-
-### Development
-
-```dockerfile
-# Dockerfile.dev
-FROM node:20-alpine
-
-WORKDIR /app
-
-RUN npm install -g pnpm
-
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
-
-COPY . .
-
-EXPOSE 3000
-
-CMD ["pnpm", "dev"]
-```
-
-### Build
-
-```bash
-# Build image
-docker build -f Dockerfile.dev -t grain:dev .
-
-# Run container
-docker run -p 3000:3000 grain:dev
-```
-
----
-
-## Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NODE_ENV` | Environment (development/production) | Yes |
-| `NPM_TOKEN` | npm publishing token | For publish |
-| `SENTRY_DSN` | Sentry error tracking | Optional |
-| `ANALYTICS_ID` | Analytics tracking | Optional |
-
----
-
-## Deployment Checklist
-
-- [ ] All tests passing
-- [ ] TypeScript compilation successful
-- [ ] Bundle size under limits
-- [ ] No security vulnerabilities
-- [ ] Documentation updated
-- [ ] Examples working
-- [ ] Version bumped (if releasing)
-- [ ] Changelog updated
-- [ ] Git tags pushed
-
----
-
-This infrastructure ensures:
-
-- **Reliable builds** via pnpm workspaces
-- **Fast CI** via caching and parallelization
-- **Safe releases** via Changesets
-- **Global delivery** via CDN
-- **Monitoring** via Sentry
+- verify `pnpm check`
+- verify `pnpm docs:build`
+- verify `pnpm docs:preview:smoke`
+- confirm the generated sitemap uses `/grain/`
+- confirm live-site issues are classified as repo-owned or GitHub Pages limitations

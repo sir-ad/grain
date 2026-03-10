@@ -27,6 +27,23 @@ const error = ref<string | null>(null)
 const adapter = ref<WebAdapter | null>(null)
 
 const isClient = ref(false)
+const editorId = 'grain-playground-editor'
+const editorHelpId = 'grain-playground-editor-help'
+const previewStatus = computed(() => {
+  if (error.value) {
+    return error.value
+  }
+
+  if (!isClient.value) {
+    return 'Interactive preview loads after the page hydrates.'
+  }
+
+  if (output.value) {
+    return 'Preview rendered successfully.'
+  }
+
+  return 'Preview is waiting for valid Grain markup.'
+})
 
 onMounted(() => {
   isClient.value = true
@@ -95,10 +112,17 @@ const lines = computed(() => code.value.split('\n').length)
         <div class="line-numbers" :style="{ '--lines': lines }">
           <span v-for="n in lines" :key="n">{{ n }}</span>
         </div>
+        <label :for="editorId" class="sr-only">Grain document editor</label>
+        <p :id="editorHelpId" class="sr-only">
+          Edit the Grain document and inspect the rendered preview beside it.
+        </p>
         <textarea
+          :id="editorId"
           v-model="code"
           spellcheck="false"
           placeholder="Type Grain language here..."
+          aria-label="Grain document editor"
+          :aria-describedby="editorHelpId"
         ></textarea>
       </div>
     </div>
@@ -112,10 +136,21 @@ const lines = computed(() => code.value.split('\n').length)
         <span class="dot green"></span>
         <span class="pane-title">preview</span>
       </div>
-      <div class="preview-content" :key="previewKey">
+      <div
+        class="preview-content"
+        :key="previewKey"
+        role="region"
+        aria-label="Rendered Grain preview"
+        aria-live="polite"
+      >
         <div v-if="error" class="error">{{ error }}</div>
         <div v-else-if="output" class="rendered" v-html="output.outerHTML"></div>
-        <div v-else class="placeholder">Preview will appear here</div>
+        <div v-else class="placeholder">
+          {{ previewStatus }}
+          <span class="placeholder-note">
+            Open the docs preview at <code>/grain/</code>; the site is mounted under the project base path.
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -237,9 +272,23 @@ textarea::placeholder {
   color: rgba(255, 255, 255, 0.3);
   font-size: 0.9rem;
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
   justify-content: center;
+  text-align: center;
   height: 100%;
+}
+
+.placeholder-note {
+  max-width: 24rem;
+  line-height: 1.5;
+}
+
+.placeholder code {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 2px 6px;
 }
 
 .error {

@@ -1,6 +1,6 @@
 ---
-title: Quick Start
-description: Create a Grain app, parse Grain documents, and ship your first interactive AI interface in minutes.
+title: Quick Start | Build a Grain Interface in Minutes
+description: Create a Grain app, render your first Grain documents, and move from a minimal browser demo to production-ready package installs.
 ---
 # Quick Start
 
@@ -36,6 +36,8 @@ The fastest way to start:
 </html>
 ```
 
+Pin a specific package version instead of `@latest` once you move beyond evaluation or demos.
+
 ---
 
 ## With npm
@@ -58,6 +60,8 @@ adapter.render(`<message role="assistant">
 adapter.render(`<tool name="search" args='{"q": "weather"}' status="running" />`);
 ```
 
+Use this path when you want the runtime in your own bundle, stronger version control, and local testing without a CDN dependency.
+
 ---
 
 ## CLI Usage
@@ -69,6 +73,8 @@ grain --input chat.glang
 # Watch mode
 grain --input chat.glang --watch
 ```
+
+The `grain` executable is useful for validating markup, debugging parser behavior, and reviewing rendered output before wiring an adapter into an application.
 
 ---
 
@@ -140,6 +146,19 @@ CSS variables available:
 - `--grain-font-family`
 - `--grain-font-mono`
 - `--grain-radius`
+
+---
+
+## Validate the Docs Surface
+
+If you are working on the documentation site itself, run:
+
+```bash
+pnpm docs:build
+pnpm docs:preview
+```
+
+The preview URL will include `/grain/` because the public site is deployed as a GitHub Pages project site.
 
 ---
 

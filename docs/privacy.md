@@ -1,6 +1,6 @@
 ---
-title: Privacy Policy | Grain
-description: Privacy Policy for Grain Language website and tools.
+title: Privacy Policy | Grain Documentation and Packages
+description: Privacy details for the Grain documentation site, local browser storage, GitHub Pages hosting, and the npm packages published under @grain.sh.
 ---
 
 # Privacy Policy
@@ -21,11 +21,19 @@ This site uses local storage to remember your theme preference (dark/light mode)
 
 ---
 
+## Browser Storage and Preview State
+
+The homepage playground and documentation UI run entirely in the browser. They do not send the example Grain markup you type to a Grain-operated backend.
+
+If you self-host Grain adapters inside your own application, the privacy posture of that application depends on your own runtime, model providers, and tool integrations rather than this documentation site.
+
+---
+
 ## Third-Party Services
 
-This site loads fonts from Google Fonts. Google may collect information according to their privacy policy.
+This documentation site does not include first-party analytics or telemetry. The published `@grain.sh/*` packages also do not ship telemetry.
 
-- [Google Privacy Policy](https://policies.google.com/privacy)
+The public docs are hosted on GitHub Pages, so requests to the live site are handled by GitHub's infrastructure and subject to GitHub's privacy policies.
 
 ---
 
@@ -40,6 +48,14 @@ The documentation site is currently hosted on GitHub Pages. GitHub may collect u
 ## Open Source Packages
 
 Grain packages (@grain.sh/*) are distributed via npm. We do not collect any telemetry or usage data from these packages.
+
+If you use jsDelivr to load the browser bundle, requests for those assets are served by jsDelivr's infrastructure. That distribution path is used for package delivery, not for first-party analytics.
+
+---
+
+## GitHub Pages Limits
+
+Because the site is deployed under the `/grain/` project-site base path on GitHub Pages, some hosting concerns are outside the control of this repository. Response-level security headers and root-host crawl directives are determined by the host, not by client-side JavaScript.
 
 ---
 

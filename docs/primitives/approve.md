@@ -1,6 +1,6 @@
 ---
-title: Approve
-description: Capture human approval checkpoints for sensitive actions, gated tools, and policy-controlled workflows.
+title: Approve Primitive | Human Approval Checkpoints
+description: Capture human approval checkpoints for sensitive actions, gated tools, and policy-controlled workflows with explicit user-facing decisions.
 ---
 # Approve
 
@@ -11,6 +11,8 @@ Human-in-the-loop confirmation.
 ## Purpose
 
 Require user approval for sensitive actions — tool execution, content generation, deletions.
+
+Use `<approve>` whenever a model or workflow is about to cross a policy boundary that should remain explicitly human-controlled.
 
 ---
 
@@ -130,3 +132,9 @@ EXPIRED  DENIED   EXECUTING → COMPLETE
 - [Tool](/primitives/tool) — Tool execution
 - [Error](/primitives/error) — Error handling
 - [Playground](/playground) — Try it live
+
+## Operational Guidance
+
+- Put the risky action in `action` and the user-facing caution in `warning`.
+- Use `<option>` labels that match the real decision, not vague placeholders.
+- Keep approval checkpoints explicit even if the surrounding tool run is otherwise automated.

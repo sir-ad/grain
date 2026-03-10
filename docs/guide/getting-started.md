@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: Getting Started with Grain
 description: Install Grain packages, understand the core primitives, and render your first Grain documents across web, CLI, and MCP surfaces.
 ---
 # Getting Started
@@ -95,6 +95,17 @@ If AI models output G-Lang — and every platform renders G-Lang — you have a 
 That's when any AI can say:
 
 > "Just output G-Lang. The interface handles itself."
+
+---
+
+## What To Install First
+
+- Use `@grain.sh/core` when you need parsing, validation, or state-machine behavior.
+- Use `@grain.sh/web` when you need browser rendering and Web Components.
+- Use `@grain.sh/cli` when you want the `grain` executable for local inspection or terminal rendering.
+- Use `@grain.sh/mcp` and `@grain.sh/mcp-server` when Grain needs to bridge into MCP tooling or server workflows.
+
+If you are evaluating the documentation site itself, the canonical local commands are `pnpm docs:build` and `pnpm docs:preview`.
 
 ---
 

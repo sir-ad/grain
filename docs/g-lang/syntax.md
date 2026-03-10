@@ -1,6 +1,6 @@
 ---
-title: G-Lang Syntax
-description: Learn the XML-like Grain Language syntax, attribute rules, streaming model, and document structure.
+title: G-Lang Syntax | Language Contract
+description: Learn the XML-like Grain Language contract, including valid tags, attribute rules, nesting patterns, and how real adapters interpret documents.
 ---
 # G-Lang Syntax
 

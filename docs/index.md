@@ -1,7 +1,7 @@
 ---
 layout: home
-title: Grain Documentation
-description: Grain is the universal interaction layer for AI interfaces across web, CLI, MCP, and agent runtimes.
+title: Grain Docs | AI Interface Layer
+description: Learn Grain, the spec-first interaction layer for AI interfaces, with guides for web, CLI, MCP, agent runtimes, and production deployment.
 
 hero:
   name: Grain
@@ -46,3 +46,25 @@ features:
   letter-spacing: -0.02em;
 }
 </style>
+
+## Why Grain
+
+Grain gives AI producers and interface surfaces one shared contract. A model, orchestration layer, or tool runner can emit Grain once, and adapters can render the same document consistently in the browser, terminal, MCP surface, or agent runtime.
+
+The documentation site is treated as part of the product contract. If an example on this site stops parsing or rendering, that is a repo bug rather than a low-priority docs mismatch.
+
+## What This Site Covers
+
+- The Grain language contract and core primitives.
+- Reference APIs for the runtime packages and adapters.
+- Production-oriented notes for npm delivery, GitHub Pages deployment, and local preview.
+
+## Local Preview
+
+Use the canonical preview command from the repository root:
+
+```bash
+pnpm docs:preview
+```
+
+The docs site is deployed as a GitHub Pages project site under `/grain/`, so the correct local preview URL is `http://127.0.0.1:<port>/grain/`. Opening `/` is expected to return `404`.

@@ -1,6 +1,6 @@
 ---
-title: Examples
-description: End-to-end Grain examples for chat, tool execution, artifacts, approvals, and multi-step agent flows.
+title: Examples | Chat, Tools, and Artifacts
+description: End-to-end Grain examples for chat, tool execution, artifacts, approvals, and multi-step agent flows across the web adapter.
 ---
 # Examples
 
@@ -45,6 +45,8 @@ setTimeout(() => {
 }, 1500);
 ```
 
+This pattern is useful when you want to stream intent first, then append structured completion output such as `<result>` or `<warning>` after the tool finishes.
+
 ---
 
 ## Interactive Chat
@@ -68,6 +70,8 @@ adapter.on('action', (e) => {
 });
 ```
 
+Because Grain is declarative, the same interaction can later be rendered in another surface, such as the CLI, without redesigning the document structure.
+
 ---
 
 ## Custom Theme
@@ -83,3 +87,9 @@ const adapter = new WebAdapter({
   }
 });
 ```
+
+## Next Moves
+
+- Use [Quick Start](/guide/quick-start) to scaffold a minimal integration.
+- Use [Playground](/playground) to verify snippets against the current parser and renderer.
+- Use [API Reference](/api/core) when you need programmatic control instead of copy-paste examples.

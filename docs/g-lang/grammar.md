@@ -1,6 +1,6 @@
 ---
-title: G-Lang Grammar
-description: Reference grammar and structural rules for valid Grain documents, core primitives, and companion elements.
+title: G-Lang Grammar | Structural Rules
+description: Reference the structural rules for valid Grain documents, including core primitives, companion elements, and the boundaries enforced by the parser.
 ---
 # G-Lang Grammar
 

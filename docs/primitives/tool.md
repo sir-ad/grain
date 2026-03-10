@@ -1,6 +1,6 @@
 ---
-title: Tool
-description: Represent tool execution, input payloads, progress updates, and structured results in Grain documents.
+title: Tool Primitive | Execution, Progress, and Results
+description: Represent tool execution, input payloads, progress updates, structured results, and error states in Grain documents across interactive surfaces.
 ---
 # Tool
 
@@ -11,6 +11,8 @@ Function/tool execution.
 ## Purpose
 
 Display AI calling a function — search, API call, calculation — and its result.
+
+`<tool>` is the bridge between model intent and observable side effects. It lets the interface show what is running, what input was used, and what came back.
 
 ---
 
@@ -84,6 +86,8 @@ CANCELLED  RETRY
 <error code="API_ERROR">Failed to fetch</error>
 ```
 
+These companion elements are part of the public Grain contract and should parse cleanly in documented examples.
+
 ---
 
 ## Events
@@ -145,3 +149,9 @@ CANCELLED  RETRY
 - [Approve](/primitives/approve) — Human approval
 - [Artifact](/primitives/artifact) — Display results
 - [Playground](/playground) — Try it live
+
+## Operational Guidance
+
+- Use `status` changes to describe the execution lifecycle instead of overloading user-facing text.
+- Prefer `<input>` and `<result>` for structured fields that the renderer or adapter may want to inspect later.
+- Pair sensitive or externally visible tool calls with `<approve>` when a human checkpoint is required.

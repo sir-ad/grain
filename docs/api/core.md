@@ -1,10 +1,10 @@
 ---
-title: Core API
-description: Reference the parser, validator, state machine, and helper utilities exposed by `@grain.sh/core`.
+title: Core API | Parser, Validator, and State Machines
+description: Reference the parser, validator, state machine, and helper utilities exposed by @grain.sh/core for production Grain documents.
 ---
 # Core API
 
-Core runtime for Grain.
+`@grain.sh/core` is the contract-enforcing runtime for Grain. It owns parsing, validation, state transitions, and extension registration without requiring a UI adapter.
 
 ---
 
@@ -13,6 +13,8 @@ Core runtime for Grain.
 ```bash
 npm install @grain.sh/core
 ```
+
+Use this package when you need to validate Grain documents in services, CLIs, tests, or middleware without pulling in browser-specific rendering code.
 
 ---
 
@@ -48,6 +50,12 @@ const parser = new GLangParser({
   strict: false     // Strict mode
 });
 ```
+
+## Contract Notes
+
+- The parser accepts XML-like Grain syntax with both single- and double-quoted attributes.
+- Companion elements such as `<result>`, `<progress>`, and `<warning>` are part of the documented language contract.
+- Completed malformed input should fail explicitly rather than silently producing an inconsistent tree.
 
 ---
 
@@ -147,3 +155,9 @@ import { createParser } from '@grain.sh/core';
 
 const parser = createParser({ validate: true });
 ```
+
+## Typical Use Cases
+
+- validate examples copied from docs or model output before rendering
+- normalize Grain documents before storing them in logs or workflow state
+- build adapter-specific integrations without reimplementing the language contract

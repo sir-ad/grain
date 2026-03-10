@@ -1,6 +1,6 @@
 ---
-title: Error
-description: Surface structured failures, user-facing recovery guidance, and retryable states inside Grain flows.
+title: Error Primitive | Failures and Recovery Actions
+description: Surface structured failures, user-facing recovery guidance, and retryable states inside Grain flows with explicit machine-readable error codes.
 ---
 # Error
 
@@ -11,6 +11,8 @@ Error display with recovery.
 ## Purpose
 
 Show failures — API errors, rate limits, invalid input — with recovery options.
+
+Use `<error>` when the interface needs a durable, explicit failure node instead of burying the issue inside conversational text.
 
 ---
 
@@ -63,3 +65,9 @@ VISIBLE → ACKNOWLEDGED
 | `error.occur` | Error occurred |
 | `error.retry` | User retried |
 | `error.dismiss` | User dismissed |
+
+## Usage Notes
+
+- Keep `code` machine-friendly and `message` user-facing.
+- Use nested `<action>` elements when the recovery path is explicit.
+- Pair `<error>` with `<approve>` when a recovery step could trigger a sensitive or irreversible operation.

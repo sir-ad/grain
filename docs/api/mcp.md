@@ -1,10 +1,10 @@
 ---
-title: MCP API
-description: Reference the `@grain.sh/mcp` adapter surface for converting Grain documents to and from MCP payloads.
+title: MCP API | Grain to MCP Adapter Surface
+description: Reference the @grain.sh/mcp adapter surface for converting Grain documents to and from MCP payloads.
 ---
 # MCP API
 
-MCP adapter API reference.
+`@grain.sh/mcp` is the bridge between Grain documents and MCP-shaped payloads. Use it when a tool or orchestration layer needs to translate structured Grain interactions into MCP transport objects and back again.
 
 ---
 
@@ -15,6 +15,12 @@ import { MCPAdapter } from '@grain.sh/mcp';
 
 const adapter = new MCPAdapter(options);
 ```
+
+## What This Covers
+
+- converting supported Grain primitives into MCP payloads
+- reconstructing Grain documents from MCP tool responses and context attachments
+- preserving enough semantic structure for downstream renderers to stay consistent
 
 ---
 
@@ -73,3 +79,9 @@ interface MCPContextAttachment {
 ```
 
 The adapter currently covers `tool`, `context`, and `approve` payloads.
+
+## Integration Notes
+
+- Keep the adapter boundary explicit: Grain is still the higher-level interaction contract.
+- Validate inbound Grain before conversion if malformed model output should fail fast.
+- Use `@grain.sh/mcp-server` when you need a stdio server process rather than only an adapter library.

@@ -1,6 +1,6 @@
 ---
-title: Stream
-description: Stream partial assistant output, status updates, and incremental responses with user-visible pacing.
+title: Stream Primitive | Incremental Assistant Output
+description: Stream partial assistant output, status updates, and incremental responses with user-visible pacing and explicit lifecycle events.
 ---
 # Stream
 
@@ -11,6 +11,8 @@ Real-time text streaming.
 ## Purpose
 
 Display AI output as it generates — character by character or chunk by chunk.
+
+Use `<stream>` when you want users to understand that the response is still in progress rather than reading a completed block that appears all at once.
 
 ---
 
@@ -117,3 +119,9 @@ ERROR
 - [Think](/primitives/think) — Show AI reasoning
 - [Message](/primitives/overview) — Container for stream
 - [Playground](/playground) — Try it live
+
+## Production Guidance
+
+- Keep stream content user-facing. Hidden reasoning belongs in `<think>`, not `<stream>`.
+- Use explicit state transitions so adapters can distinguish active generation, pause, resume, and completion.
+- Pair long-running streams with `<state>` or `<tool>` when the UI should explain why output is delayed.

@@ -1,6 +1,6 @@
 ---
-title: Context
-description: Pass files, URLs, snippets, and prior memory into a Grain interaction as structured context.
+title: Context Primitive | Files, URLs, and Memory Chips
+description: Pass files, URLs, snippets, and prior memory into a Grain interaction as structured context that remains visible and machine-readable.
 ---
 # Context
 
@@ -11,6 +11,8 @@ Files, URLs, memory.
 ## Purpose
 
 Provide AI with context — file attachments, URL references, conversation history chips.
+
+`<context>` keeps supporting material visible and machine-readable instead of forcing attachments and memory into plain text descriptions.
 
 ---
 
@@ -56,3 +58,9 @@ ATTACHED → LOADING → READY
 | `context.load` | Loading started |
 | `context.ready` | Ready for AI |
 | `context.remove` | User removed |
+
+## Usage Notes
+
+- Use `type` to distinguish durable files from softer references such as URLs or memory chips.
+- Keep `id` stable when the same context object may be revisited across updates.
+- Pair `<context>` with `<artifact>` when the referenced object becomes something the user should inspect directly.

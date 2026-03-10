@@ -1,6 +1,6 @@
 ---
-title: Web Adapter
-description: Render Grain documents to semantic HTML with Web Components, theme variables, and browser event hooks.
+title: Web Adapter | Render Grain to Semantic HTML
+description: Render Grain documents to semantic HTML with Web Components, theme variables, browser event hooks, and a production-friendly CDN path.
 ---
 # Web Adapter
 
@@ -13,6 +13,8 @@ Renders G-Lang to semantic HTML.
 ```bash
 npm install @grain.sh/web
 ```
+
+This package is the browser-facing runtime. Use it when you want to mount Grain documents into an existing DOM tree or ship semantic Web Components directly.
 
 ---
 
@@ -38,6 +40,8 @@ adapter.render(`<message role="assistant">
 ```
 
 Pin a concrete package version instead of `@latest` in production.
+
+The docs site and README use jsDelivr because it maps directly to the npm package and GitHub source without requiring separate CDN curation.
 
 ---
 
@@ -153,3 +157,9 @@ Renders as:
 </body>
 </html>
 ```
+
+## Production Notes
+
+- Treat the Grain markup contract as versioned application input, not incidental HTML.
+- Prefer pinned package versions and local bundling for long-lived apps.
+- Use the docs playground or `grain` CLI when you need to validate snippets before shipping them.

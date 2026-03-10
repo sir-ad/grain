@@ -12,6 +12,8 @@ out/
 
 # Testing
 coverage/
+.playwright-cli/
+output/playwright/
 
 # Misc
 .DS_Store

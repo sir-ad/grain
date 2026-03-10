@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev .",
-    "build": "vitepress build .",
-    "preview": "vitepress preview .",
+    "build": "vitepress build . && node ../scripts/docs-postbuild.mjs",
+    "preview": "node ../scripts/docs-preview.mjs --skip-build",
+    "preview:smoke": "node ../scripts/docs-preview.mjs --smoke",
     "docs:build": "pnpm build",
     "docs:preview": "pnpm preview"
   },

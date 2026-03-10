@@ -1,6 +1,6 @@
 ---
-title: Branch
-description: Represent conversation forks, alternate paths, and decision branches inside a single Grain document.
+title: Branch Primitive | Alternate Paths
+description: Represent conversation forks, alternate paths, and decision branches inside a single Grain document while keeping competing outcomes inspectable.
 ---
 # Branch
 
@@ -11,6 +11,8 @@ Conversation forks.
 ## Purpose
 
 Show alternative responses, create conversation branches, enable A/B testing.
+
+Use `<branch>` when multiple valid paths should stay visible inside one interaction instead of being flattened into a single narrative.
 
 ---
 
@@ -139,3 +141,9 @@ MERGED  COLLAPSED  MERGING → ACTIVE
 - [Artifact](/primitives/artifact) — Content display
 - [Message](/primitives/overview) — Container
 - [Playground](/playground) — Try it live
+
+## Usage Notes
+
+- Keep branch labels user-readable so the decision surface is understandable without opening every branch.
+- Use `active` to indicate the current path instead of inferring it from order.
+- Prefer branches when alternatives should remain inspectable; prefer `<stream>` plus final selection when the alternates are only internal.

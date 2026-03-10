@@ -35,6 +35,17 @@ It is the **HTML for AI.**
 
 *Unified documentation site is now available at https://sir-ad.github.io/grain/ (under the `/grain/` base path).*
 
+### Docs Development
+
+The docs site is a VitePress project-site deployment. Build and preview it from the repo root with:
+
+```bash
+pnpm docs:build
+pnpm docs:preview
+```
+
+Open the exact `/grain/` URL printed by the preview command. Opening the server root `/` is expected to return `404`.
+
 ### Quick Start (Web & React)
 
 Create a fully configured Grain application instantly:

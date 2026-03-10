@@ -1,6 +1,6 @@
 ---
-title: Input
-description: Request user input, attachments, and focused follow-up data from the active interface surface.
+title: Input Primitive | User Responses and Attachments
+description: Request user input, attachments, and focused follow-up data from the active interface surface with structured suggestions and explicit input modes.
 ---
 # Input
 
@@ -11,6 +11,8 @@ User input collection.
 ## Purpose
 
 Text fields, file uploads, voice input — collect user input for AI processing.
+
+Use `<input>` when the interface needs to gather structured user responses inside the same Grain document that displays assistant output and approval checkpoints.
 
 ---
 
@@ -67,3 +69,9 @@ EMPTY → TYPING → FILLED → SUBMITTING → SUBMITTED
 | `input.submit` | Form submitted |
 | `input.voice.start` | Voice recording started |
 | `input.suggestion.click` | User clicked suggestion |
+
+## Usage Notes
+
+- Keep the `type` aligned with the actual interaction surface so web, CLI, and other adapters can degrade gracefully.
+- Use `<suggestion>` for common follow-ups rather than burying example prompts in surrounding prose.
+- Pair `<input>` with `<context>` when the user may attach files, URLs, or prior memory.

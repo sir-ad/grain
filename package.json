@@ -19,7 +19,10 @@
     "test": "pnpm -r --if-present test",
     "lint": "eslint .",
     "check": "pnpm lint && pnpm build && pnpm test",
-    "release": "pnpm check && changeset version"
+    "release": "pnpm check && changeset version",
+    "docs:build": "pnpm --dir docs build",
+    "docs:preview": "node scripts/docs-preview.mjs",
+    "docs:preview:smoke": "node scripts/docs-preview.mjs --smoke"
   },
   "devDependencies": {
     "@eslint/js": "^8.57.1",

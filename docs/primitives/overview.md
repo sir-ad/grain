@@ -1,6 +1,6 @@
 ---
-title: Primitives Overview
-description: Grain defines 10 core primitives plus companion elements.
+title: Grain Primitives Overview
+description: Grain defines 10 core primitives plus companion elements for results, warnings, progress, approvals, and structured interaction state.
 ---
 # Primitives Overview
 
@@ -47,6 +47,8 @@ Primitives compose into complex interfaces:
 </message>
 ```
 
+This is the core Grain idea: a model or agent can move between reasoning, streaming, tool execution, and final response without leaving the same document contract.
+
 ---
 
 ## State Machines
@@ -76,6 +78,16 @@ Each primitive emits events:
 - `think.reveal`, `think.hide`
 - `approve.request`, `approve.approve`, `approve.deny`
 
+## Companion Elements
+
+Core primitives often carry smaller semantic companions:
+
+- `<result>` for structured tool output
+- `<progress>` for long-running work
+- `<warning>` for user-facing cautions
+- `<option>` for approval choices
+- `<suggestion>` for input affordances
+
 ---
 
 ## Extending
@@ -87,6 +99,8 @@ adapter.registerPrimitive('my-chart', {
   render: (props) => `<div class="my-chart">...</div>`
 });
 ```
+
+When extending Grain, keep the public contract narrow. The documented primitives should stay stable while custom behavior lives behind explicit extensions.
 
 ---
 

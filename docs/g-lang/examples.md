@@ -1,6 +1,6 @@
 ---
-title: G-Lang Examples
-description: Real Grain Language examples covering messages, tool calls, approvals, artifacts, and branching interactions.
+title: G-Lang Examples | Valid Grain Patterns
+description: Review valid Grain Language examples for messages, tool calls, approvals, artifacts, context, and branching interactions that match the parser contract.
 ---
 # G-Lang Examples
 
