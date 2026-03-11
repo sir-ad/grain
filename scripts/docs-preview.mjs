@@ -2,8 +2,9 @@
 
 import { execFileSync, spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { existsSync } from 'node:fs';
-import { createServer } from 'node:net';
+import { createReadStream, existsSync, statSync } from 'node:fs';
+import { createServer as createHttpServer } from 'node:http';
+import { createServer as createNetServer } from 'node:net';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import process from 'node:process';
@@ -18,8 +19,19 @@ const BASE_PATH = '/grain/';
 const HEALTH_PATH = `${BASE_PATH}`;
 const ROOT_PATH = '/';
 const DEFAULT_PORTS = [4173, 4174];
+const distDir = path.join(docsDir, '.vitepress', 'dist');
 const isSmoke = process.argv.includes('--smoke');
 const skipBuild = process.argv.includes('--skip-build');
+const MIME_TYPES = new Map([
+  ['.css', 'text/css; charset=utf-8'],
+  ['.html', 'text/html; charset=utf-8'],
+  ['.js', 'text/javascript; charset=utf-8'],
+  ['.json', 'application/json; charset=utf-8'],
+  ['.svg', 'image/svg+xml'],
+  ['.txt', 'text/plain; charset=utf-8'],
+  ['.woff2', 'font/woff2'],
+  ['.xml', 'application/xml; charset=utf-8']
+]);
 
 function run(command, args, options = {}) {
   return new Promise((resolve, reject) => {
@@ -61,7 +73,7 @@ function getPortDetails(port) {
 
 function canBind(port) {
   return new Promise((resolve) => {
-    const server = createServer();
+    const server = createNetServer();
 
     server.once('error', () => {
       resolve(false);
@@ -75,7 +87,7 @@ function canBind(port) {
 
 function getEphemeralPort() {
   return new Promise((resolve, reject) => {
-    const server = createServer();
+    const server = createNetServer();
 
     server.once('error', reject);
     server.listen(0, () => {
@@ -109,6 +121,121 @@ async function selectPort() {
     port: await getEphemeralPort(),
     occupied
   };
+}
+
+function getContentType(filePath) {
+  return MIME_TYPES.get(path.extname(filePath).toLowerCase()) ?? 'application/octet-stream';
+}
+
+function resolvePreviewRequest(rawUrl = '/') {
+  const { pathname } = new URL(rawUrl, `http://${HOST}`);
+
+  if (pathname === '/grain') {
+    return { redirect: BASE_PATH };
+  }
+
+  if (pathname === ROOT_PATH) {
+    return {
+      status: 404,
+      body: `The docs preview is mounted at ${BASE_PATH}. Open ${BASE_PATH} instead.`
+    };
+  }
+
+  if (!pathname.startsWith(BASE_PATH)) {
+    return {
+      status: 404,
+      body: `No preview route exists at ${pathname}. The docs base path is ${BASE_PATH}.`
+    };
+  }
+
+  const relativePath = decodeURIComponent(pathname.slice(BASE_PATH.length));
+  const candidates = [];
+
+  if (!relativePath) {
+    candidates.push(path.resolve(distDir, 'index.html'));
+  } else {
+    candidates.push(path.resolve(distDir, relativePath));
+
+    if (relativePath.endsWith('/')) {
+      candidates.push(path.resolve(distDir, relativePath, 'index.html'));
+    }
+
+    if (!path.extname(relativePath)) {
+      candidates.push(path.resolve(distDir, `${relativePath}.html`));
+      candidates.push(path.resolve(distDir, relativePath, 'index.html'));
+    }
+  }
+
+  for (const candidate of candidates) {
+    if (!candidate.startsWith(distDir)) {
+      continue;
+    }
+
+    if (existsSync(candidate) && statSync(candidate).isFile()) {
+      return { filePath: candidate };
+    }
+  }
+
+  return {
+    status: 404,
+    body: `No built docs asset exists for ${pathname}.`
+  };
+}
+
+function startPreviewServer(port) {
+  return new Promise((resolve, reject) => {
+    const server = createHttpServer((request, response) => {
+      const result = resolvePreviewRequest(request.url ?? ROOT_PATH);
+
+      if ('redirect' in result) {
+        response.writeHead(308, {
+          Location: result.redirect,
+          'Cache-Control': 'no-cache'
+        });
+        response.end();
+        return;
+      }
+
+      if ('status' in result) {
+        response.writeHead(result.status, {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'no-cache'
+        });
+        if (request.method !== 'HEAD') {
+          response.end(result.body);
+          return;
+        }
+
+        response.end();
+        return;
+      }
+
+      response.writeHead(200, {
+        'Content-Type': getContentType(result.filePath),
+        'Cache-Control': 'no-cache'
+      });
+
+      if (request.method === 'HEAD') {
+        response.end();
+        return;
+      }
+
+      const stream = createReadStream(result.filePath);
+      stream.on('error', () => {
+        if (!response.headersSent) {
+          response.writeHead(500, {
+            'Content-Type': 'text/plain; charset=utf-8',
+            'Cache-Control': 'no-cache'
+          });
+        }
+        response.end('Failed to read preview asset.');
+      });
+      stream.pipe(response);
+    });
+
+    server.once('error', reject);
+    server.listen(port, HOST, () => resolve(server));
+  });
 }
 
 function hasNpx() {
@@ -263,22 +390,34 @@ async function browserSmokeCheck(baseUrl) {
     const url = process.argv[1];
     const executablePath = process.argv[2];
     const pageErrors = [];
+    const consoleErrors = [];
 
     (async () => {
       const browser = await chromium.launch({ executablePath, headless: true });
       const page = await browser.newPage();
       page.on('pageerror', (error) => pageErrors.push(error.message));
+      page.on('console', (message) => {
+        if (message.type() === 'error' || message.type() === 'warning') {
+          consoleErrors.push(message.text());
+        }
+      });
 
-      await page.goto(url, { waitUntil: 'networkidle' });
-      await page.waitForSelector('.home-playground textarea');
+      await page.goto(url, { waitUntil: 'domcontentloaded' });
+      await page.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => {});
+      await page.waitForTimeout(500);
+      await page.waitForFunction(() => {
+        const editor = document.querySelector('.home-playground textarea');
+        return Boolean(editor);
+      }, { timeout: 30000 });
       await page.waitForFunction(() => {
         const playground = document.querySelector('.home-playground');
         if (!playground) return false;
 
-        const rendered = playground.querySelector('.rendered');
+        const rendered = playground.querySelector('.rendered[data-grain-root], .rendered [data-grain-root]');
         const placeholder = playground.querySelector('.placeholder');
-        return Boolean(rendered) && !placeholder && rendered.textContent.trim().length > 0;
-      }, { timeout: 15000 });
+        const primitives = playground.querySelectorAll('grain-message, grain-tool, grain-stream, grain-result');
+        return Boolean(rendered) && !placeholder && primitives.length > 0;
+      }, { timeout: 30000 });
 
       const hero = await page.evaluate(() => (
         document.querySelector('.VPHero .text')?.textContent ||
@@ -291,6 +430,51 @@ async function browserSmokeCheck(baseUrl) {
 
       if (pageErrors.length > 0) {
         throw new Error('Client-side errors detected: ' + pageErrors.join('; '));
+      }
+
+      const responsiveViewports = [1440, 1024, 820, 768, 540, 390];
+      for (const width of responsiveViewports) {
+        await page.setViewportSize({
+          width,
+          height: width <= 540 ? 1600 : 1300
+        });
+        await page.waitForTimeout(120);
+
+        const metrics = await page.evaluate(() => {
+          const html = document.documentElement;
+          const heroName = document.querySelector('.VPHero .name');
+          const heroText = document.querySelector('.VPHero .text');
+          const heroNameStyles = heroName ? getComputedStyle(heroName) : null;
+          const heroTextRect = heroText?.getBoundingClientRect();
+
+          return {
+            clientWidth: html.clientWidth,
+            scrollWidth: html.scrollWidth,
+            heroLineHeight: heroNameStyles ? Number.parseFloat(heroNameStyles.lineHeight) : 0,
+            heroFontSize: heroNameStyles ? Number.parseFloat(heroNameStyles.fontSize) : 0,
+            heroTextWidth: heroTextRect ? heroTextRect.width : 0
+          };
+        });
+
+        if (metrics.scrollWidth > metrics.clientWidth + 1) {
+          throw new Error(\`Responsive overflow detected at \${width}px: scrollWidth=\${metrics.scrollWidth}, clientWidth=\${metrics.clientWidth}\`);
+        }
+
+        if (metrics.heroLineHeight + 1 < metrics.heroFontSize) {
+          throw new Error(\`Hero wordmark line-height is too small at \${width}px: fontSize=\${metrics.heroFontSize}, lineHeight=\${metrics.heroLineHeight}\`);
+        }
+
+        if (width >= 1024 && metrics.heroTextWidth < 340) {
+          throw new Error(\`Hero copy is too narrow at \${width}px: width=\${metrics.heroTextWidth}\`);
+        }
+      }
+
+      const hydrationWarnings = consoleErrors.filter((message) =>
+        /hydration/i.test(message) || /mismatch/i.test(message)
+      );
+
+      if (hydrationWarnings.length > 0) {
+        throw new Error('Hydration warnings detected: ' + hydrationWarnings.join('; '));
       }
 
       await browser.close();
@@ -323,21 +507,13 @@ async function main() {
     console.log(`Using port ${port} instead.`);
   }
 
-  const previewProcess = spawn(
-    'pnpm',
-    ['--dir', docsDir, 'exec', 'vitepress', 'preview', '--host', HOST, '--port', String(port), '.'],
-    {
-      cwd: projectRoot,
-      stdio: 'inherit',
-      env: process.env
-    }
-  );
-
+  const previewServer = await startPreviewServer(port);
   const baseUrl = `http://${HOST}:${port}${HEALTH_PATH}`;
+  console.log(`Built site served at http://localhost:${port}${BASE_PATH}`);
 
   const terminatePreview = () => {
-    if (!previewProcess.killed) {
-      previewProcess.kill('SIGTERM');
+    if (previewServer.listening) {
+      previewServer.close();
     }
   };
 
@@ -355,14 +531,14 @@ async function main() {
       return;
     }
 
-    await once(previewProcess, 'exit');
+    await once(previewServer, 'close');
   } finally {
-    if (isSmoke && previewProcess.exitCode === null && !previewProcess.killed) {
+    if (isSmoke && previewServer.listening) {
       terminatePreview();
       try {
-        await once(previewProcess, 'exit');
+        await once(previewServer, 'close');
       } catch {
-        // Ignore teardown errors from the preview child process.
+        // Ignore teardown errors from the preview server.
       }
     }
 

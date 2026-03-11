@@ -43,6 +43,7 @@
     "url": "https://github.com/sir-ad/grain.git"
   },
   "devDependencies": {
+    "happy-dom": "^20.0.8",
     "tsup": "^8.5.1",
     "typescript": "^5.3.3",
     "vite": "^7.3.1"

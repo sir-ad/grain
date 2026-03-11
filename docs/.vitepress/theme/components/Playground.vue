@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { WebAdapter } from '@grain.sh/web'
 import { DEFAULT_PLAYGROUND_CODE } from '../playground-sample'
 
@@ -21,10 +21,10 @@ function decodeEntities(value: string): string {
 
 const code = ref(props.defaultCode ? decodeEntities(props.defaultCode) : DEFAULT_PLAYGROUND_CODE)
 
-const previewKey = ref(0)
-const output = ref<HTMLElement | null>(null)
 const error = ref<string | null>(null)
 const adapter = ref<WebAdapter | null>(null)
+const hasRendered = ref(false)
+const previewHost = ref<HTMLDivElement | null>(null)
 
 const isClient = ref(false)
 const editorId = 'grain-playground-editor'
@@ -35,11 +35,11 @@ const previewStatus = computed(() => {
   }
 
   if (!isClient.value) {
-    return 'Interactive preview loads after the page hydrates.'
+    return 'Interactive preview initializes after hydration.'
   }
 
-  if (output.value) {
-    return 'Preview rendered successfully.'
+  if (hasRendered.value) {
+    return 'Preview rendered with live Grain components.'
   }
 
   return 'Preview is waiting for valid Grain markup.'
@@ -50,17 +50,24 @@ onMounted(() => {
   if (typeof window !== 'undefined') {
     adapter.value = new WebAdapter({
       theme: {
-        '--grain-primary': '#ffffff',
-        '--grain-secondary': '#a1a1a6',
-        '--grain-background': 'transparent',
-        '--grain-surface': 'rgba(255, 255, 255, 0.02)',
-        '--grain-border': 'rgba(255, 255, 255, 0.08)',
-        '--grain-font-family': "'Inter', sans-serif",
-        '--grain-font-mono': "'JetBrains Mono', monospace"
+        '--grain-primary': 'var(--grain-ui-accent)',
+        '--grain-secondary': 'var(--grain-ui-muted)',
+        '--grain-background': 'var(--grain-ui-bg)',
+        '--grain-surface': 'var(--grain-ui-panel)',
+        '--grain-surface-strong': 'var(--grain-ui-panel-soft)',
+        '--grain-border': 'var(--grain-ui-border-strong)',
+        '--grain-text': 'var(--grain-ui-text)',
+        '--grain-muted': 'var(--grain-ui-muted)',
+        '--grain-error': 'var(--grain-ui-danger)',
+        '--grain-success': 'var(--grain-ui-success)',
+        '--grain-warning': 'var(--grain-ui-warning)',
+        '--grain-shadow': 'var(--grain-ui-shadow)',
+        '--grain-font-family': 'var(--grain-font-sans)',
+        '--grain-font-mono': 'var(--grain-font-mono)'
       }
     })
     adapter.value.registerCustomElements()
-    renderPreview()
+    void nextTick(renderPreview)
   }
 })
 
@@ -75,24 +82,24 @@ watch(() => props.defaultCode, (value) => {
 })
 
 function renderPreview() {
-  if (!adapter.value) return
+  if (!adapter.value || !previewHost.value) return
   
   error.value = null
   
   try {
-    const container = document.createElement('div')
-    container.id = 'grain-preview-container'
-    
-    const result = adapter.value.render(code.value, { container })
+    previewHost.value.replaceChildren()
+    hasRendered.value = false
+    const result = adapter.value.render(code.value, { container: previewHost.value })
     
     if (result) {
-      output.value = result
-      previewKey.value++
+      result.setAttribute('data-grain-preview-mounted', 'true')
+      hasRendered.value = true
     } else {
       error.value = 'The current Grain document could not be rendered.'
     }
   } catch (e) {
     error.value = e instanceof Error ? e.message : 'Failed to render'
+    hasRendered.value = false
   }
 }
 
@@ -138,18 +145,20 @@ const lines = computed(() => code.value.split('\n').length)
       </div>
       <div
         class="preview-content"
-        :key="previewKey"
         role="region"
         aria-label="Rendered Grain preview"
         aria-live="polite"
       >
+        <p class="preview-status" :class="{ 'is-error': Boolean(error) }">{{ previewStatus }}</p>
         <div v-if="error" class="error">{{ error }}</div>
-        <div v-else-if="output" class="rendered" v-html="output.outerHTML"></div>
-        <div v-else class="placeholder">
+        <div v-else-if="!isClient" class="placeholder">
           {{ previewStatus }}
           <span class="placeholder-note">
             Open the docs preview at <code>/grain/</code>; the site is mounted under the project base path.
           </span>
+        </div>
+        <div v-else class="rendered-frame">
+          <div ref="previewHost" class="rendered"></div>
         </div>
       </div>
     </div>
@@ -160,26 +169,38 @@ const lines = computed(() => code.value.split('\n').length)
 .playground {
   display: flex;
   flex-direction: row;
-  height: 480px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
-  border-radius: 16px;
+  min-height: 32rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.04) 100%),
+    var(--grain-ui-panel);
+  border-radius: 24px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--grain-ui-border-strong);
+  box-shadow: var(--grain-ui-shadow);
 }
 
 .pane {
-  flex: 1;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.editor-pane {
+  flex: 1.06 1 0;
+}
+
+.preview-pane {
+  flex: 0.94 1 0;
 }
 
 .pane-header {
   height: 40px;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--grain-ui-panel);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--grain-ui-border);
   display: flex;
   align-items: center;
   padding: 0 16px;
@@ -197,9 +218,9 @@ const lines = computed(() => code.value.split('\n').length)
 .dot.green { background: #27c93f; }
 
 .pane-title {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--grain-font-mono);
   font-size: 0.75rem;
-  color: #86868b;
+  color: var(--grain-ui-muted);
   margin-left: auto;
   margin-right: auto;
   padding-right: 48px;
@@ -209,6 +230,7 @@ const lines = computed(() => code.value.split('\n').length)
   flex: 1;
   display: flex;
   position: relative;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -216,9 +238,10 @@ const lines = computed(() => code.value.split('\n').length)
   width: 48px;
   padding: 16px 0;
   text-align: right;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--grain-font-mono);
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.2);
+  color: var(--grain-ui-muted);
+  opacity: 0.55;
   user-select: none;
   display: flex;
   flex-direction: column;
@@ -233,9 +256,10 @@ const lines = computed(() => code.value.split('\n').length)
 
 textarea {
   flex: 1;
+  min-height: 22rem;
   background: transparent;
-  color: #fff;
-  font-family: 'JetBrains Mono', monospace;
+  color: var(--grain-ui-text);
+  font-family: var(--grain-font-mono);
   font-size: 0.85rem;
   border: none;
   padding: 16px 16px 16px 0;
@@ -246,30 +270,54 @@ textarea {
 }
 
 textarea::placeholder {
-  color: rgba(255, 255, 255, 0.15);
+  color: var(--grain-ui-muted);
+  opacity: 0.45;
 }
 
 .divider {
   width: 1px;
-  background: rgba(255, 255, 255, 0.08);
+  height: auto;
+  background: var(--grain-ui-border);
 }
 
 .preview-pane {
-  background: rgba(10, 10, 10, 0.6);
+  background: var(--grain-ui-panel-soft);
 }
 
 .preview-content {
   flex: 1;
-  padding: 24px;
+  min-height: 0;
+  padding: 20px 24px 24px;
   overflow: auto;
 }
 
+.preview-status {
+  margin: 0 0 14px;
+  color: var(--grain-ui-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+}
+
+.preview-status.is-error {
+  color: var(--grain-ui-danger);
+}
+
+.rendered-frame {
+  min-height: 22rem;
+  border-radius: 18px;
+  border: 1px solid var(--grain-ui-border);
+  background: var(--grain-ui-panel);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  overflow: hidden;
+}
+
 .rendered {
-  font-family: 'Inter', sans-serif;
+  min-height: 100%;
+  padding: 20px;
 }
 
 .placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--grain-ui-muted);
   font-size: 0.9rem;
   display: flex;
   flex-direction: column;
@@ -286,26 +334,25 @@ textarea::placeholder {
 }
 
 .placeholder code {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(33, 85, 255, 0.1);
   border-radius: 6px;
   padding: 2px 6px;
 }
 
 .error {
-  color: #ef4444;
-  font-family: 'JetBrains Mono', monospace;
+  color: var(--grain-ui-danger);
+  font-family: var(--grain-font-mono);
   font-size: 0.85rem;
   padding: 16px;
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(207, 70, 93, 0.1);
   border-radius: 8px;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  border: 1px solid rgba(207, 70, 93, 0.24);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .playground {
     flex-direction: column;
-    height: auto;
-    min-height: 400px;
+    min-height: 0;
   }
   
   .divider {
@@ -314,7 +361,52 @@ textarea::placeholder {
   }
   
   .pane {
-    min-height: 200px;
+    min-height: 18rem;
+  }
+
+  .editor-pane {
+    min-height: 24rem;
+  }
+
+  .preview-pane {
+    min-height: 22rem;
+  }
+
+  .rendered-frame,
+  textarea {
+    min-height: 20rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .playground {
+    border-radius: 20px;
+  }
+
+  .pane-header {
+    padding: 0 12px;
+  }
+
+  .pane-title {
+    padding-right: 36px;
+  }
+
+  .line-numbers {
+    width: 42px;
+  }
+
+  .line-numbers span {
+    padding-right: 10px;
+  }
+
+  .preview-content,
+  .rendered {
+    padding: 16px;
+  }
+
+  .rendered-frame,
+  textarea {
+    min-height: 18rem;
   }
 }
 </style>

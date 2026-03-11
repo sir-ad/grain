@@ -4,6 +4,7 @@
  */
 
 import { GLangParser, EventBus, type ASTNode } from '@grain.sh/core';
+import { DEFAULT_STYLES, DEFAULT_THEME } from './default-styles';
 import type { WebAdapterConfig, RenderOptions } from './types';
 
 const KNOWN_PRIMITIVES = [
@@ -33,6 +34,8 @@ const KNOWN_PRIMITIVES = [
   'warning'
 ] as const;
 
+const STYLE_ELEMENT_ID = 'grain-web-default-styles';
+
 export class WebAdapter {
   private parser: GLangParser;
   private eventBus: EventBus;
@@ -43,24 +46,7 @@ export class WebAdapter {
     this.eventBus = new EventBus();
     this.config = {
       theme: {
-        '--grain-primary': '#000000',
-        '--grain-secondary': '#666666',
-        '--grain-background': '#ffffff',
-        '--grain-surface': '#f5f5f5',
-        '--grain-border': '#e0e0e0',
-        '--grain-error': '#dc3545',
-        '--grain-success': '#28a745',
-        '--grain-warning': '#ffc107',
-        '--grain-radius': '8px',
-        '--grain-font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        '--grain-font-mono': '"SF Mono", Monaco, Consolas, monospace',
-        '--grain-space-xs': '4px',
-        '--grain-space-sm': '8px',
-        '--grain-space-md': '16px',
-        '--grain-space-lg': '24px',
-        '--grain-space-xl': '32px',
-        '--grain-duration-fast': '150ms',
-        '--grain-duration-normal': '300ms',
+        ...DEFAULT_THEME,
         ...config.theme
       },
       ...config
@@ -89,8 +75,12 @@ export class WebAdapter {
       return null;
     }
 
-    const fragment = document.createDocumentFragment();
-    this.renderAST(result.ast, fragment);
+    const ownerDocument = container.ownerDocument || document;
+    this.ensureDocumentStyles(ownerDocument);
+    this.applyTheme(container as HTMLElement);
+
+    const fragment = ownerDocument.createDocumentFragment();
+    this.renderAST(result.ast, fragment, ownerDocument);
 
     if (options.position === 'prepend') {
       container.prepend(fragment);
@@ -98,9 +88,10 @@ export class WebAdapter {
       container.parentNode?.insertBefore(fragment, container);
     } else if (options.position === 'after') {
       container.parentNode?.insertBefore(fragment, container.nextSibling);
-    } else {
-      container.innerHTML = '';
+    } else if (options.position === 'append') {
       container.appendChild(fragment);
+    } else {
+      container.replaceChildren(fragment);
     }
 
     return container as HTMLElement;
@@ -109,16 +100,24 @@ export class WebAdapter {
   /**
    * Render Grain Language AST to HTML DOM Elements
    */
-  private renderAST(node: ASTNode, documentParent: DocumentFragment | HTMLElement): void {
+  private renderAST(
+    node: ASTNode,
+    documentParent: DocumentFragment | HTMLElement,
+    ownerDocument: Document
+  ): void {
     if (!node) return;
 
     if (node.type === 'document') {
-      node.children?.forEach((child: ASTNode) => this.renderAST(child, documentParent));
+      node.children?.forEach((child: ASTNode) => this.renderAST(child, documentParent, ownerDocument));
       return;
     }
 
     if (node.type === 'text') {
-      documentParent.appendChild(document.createTextNode(node.value || ''));
+      if (!node.value?.trim()) {
+        return;
+      }
+
+      documentParent.appendChild(ownerDocument.createTextNode(node.value));
       return;
     }
 
@@ -128,26 +127,145 @@ export class WebAdapter {
       tagName = `grain-${node.type}`;
     }
 
-    const el = document.createElement(tagName);
+    const el = ownerDocument.createElement(tagName);
+    el.setAttribute('data-grain', 'true');
+    el.setAttribute('data-grain-node', node.type);
 
     // Apply attributes
     if (node.attributes) {
       Object.entries(node.attributes).forEach(([key, value]) => {
         el.setAttribute(key, String(value));
+        el.setAttribute(`data-${key}`, String(value));
       });
     }
 
     // Attach specific behaviors based on type
     if (node.type === 'action' || node.type === 'option') {
       el.classList.add('grain-action');
+      el.setAttribute('role', 'button');
+      el.tabIndex = 0;
+      if (node.attributes?.primary !== undefined) {
+        el.setAttribute('data-primary', 'true');
+      }
+
       const actionName = node.attributes?.name || node.attributes?.label || '';
-      el.addEventListener('click', () => {
+      const activate = () => {
         this.eventBus.emit('action', { action: actionName });
+      };
+
+      el.addEventListener('click', activate);
+      el.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          activate();
+        }
       });
     }
 
+    if (node.type === 'message' && node.attributes?.role) {
+      el.setAttribute('data-role', String(node.attributes.role));
+    }
+
+    if (node.type === 'tool') {
+      const toolName = String(node.attributes?.name || 'Tool');
+      el.setAttribute('data-title', `Tool · ${toolName}`);
+    }
+
+    if (node.type === 'artifact') {
+      const artifactType = String(node.attributes?.type || 'output');
+      el.setAttribute('data-title', `Artifact · ${artifactType}`);
+    }
+
+    if (node.type === 'approve') {
+      const action = String(node.attributes?.action || 'Approval required');
+      el.setAttribute('data-title', action);
+    }
+
+    if (node.type === 'error') {
+      const code = String(node.attributes?.code || 'Runtime error');
+      el.setAttribute('data-title', `Error · ${code}`);
+    }
+
+    if (node.type === 'warning') {
+      el.setAttribute('data-title', 'Warning');
+    }
+
+    if (node.type === 'result') {
+      el.setAttribute('data-title', 'Result');
+    }
+
+    if (node.type === 'input') {
+      const placeholder = String(node.attributes?.placeholder || 'Input');
+      el.setAttribute('data-title', `Input · ${String(node.attributes?.type || 'text')}`);
+      el.setAttribute('data-placeholder', placeholder);
+    }
+
+    if (node.type === 'context') {
+      el.setAttribute('data-title', 'Context');
+    }
+
+    if (node.type === 'layout') {
+      el.setAttribute('data-title', 'Layout');
+    }
+
+    if (node.type === 'table') {
+      el.setAttribute('data-title', 'Table');
+    }
+
+    if (node.type === 'memory') {
+      el.setAttribute('data-title', 'Memory');
+    }
+
+    if (node.type === 'form') {
+      el.setAttribute('data-title', 'Form');
+    }
+
+    if (node.type === 'chart') {
+      el.setAttribute('data-title', 'Chart');
+    }
+
+    if (node.type === 'progress') {
+      const rawValue = Number(node.attributes?.value ?? 0);
+      const rawMax = Number(node.attributes?.max ?? 100);
+      const max = Number.isFinite(rawMax) && rawMax > 0 ? rawMax : 100;
+      const value = Number.isFinite(rawValue) ? rawValue : 0;
+      const percentage = Math.max(0, Math.min(100, (value / max) * 100));
+      el.setAttribute('data-title', `Progress · ${Math.round(percentage)}%`);
+      el.style.setProperty('--grain-progress-scale', String(percentage / 100));
+    }
+
+    if (node.type === 'think') {
+      const initiallyVisible = node.attributes?.visible === 'true';
+
+      if (!initiallyVisible) {
+        el.setAttribute('data-hidden', 'true');
+        el.setAttribute('data-visible', 'false');
+        el.setAttribute('aria-expanded', 'false');
+        el.setAttribute('role', 'button');
+        el.tabIndex = 0;
+
+        const toggle = () => {
+          const nextVisible = el.getAttribute('data-visible') !== 'true';
+          el.setAttribute('data-visible', nextVisible ? 'true' : 'false');
+          el.setAttribute('aria-expanded', nextVisible ? 'true' : 'false');
+          this.eventBus.emit('think:toggle', { visible: nextVisible });
+        };
+
+        el.addEventListener('click', toggle);
+        el.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggle();
+          }
+        });
+      } else {
+        el.setAttribute('data-visible', 'true');
+        el.setAttribute('aria-expanded', 'true');
+      }
+    }
+
     // Recursively append children
-    node.children?.forEach((child: ASTNode) => this.renderAST(child, el));
+    node.children?.forEach((child: ASTNode) => this.renderAST(child, el, ownerDocument));
 
     documentParent.appendChild(el);
   }
@@ -157,17 +275,14 @@ export class WebAdapter {
    */
   public registerCustomElements() {
     if (typeof customElements === 'undefined') return;
+    this.ensureDocumentStyles();
 
     KNOWN_PRIMITIVES.forEach((prim) => {
       const name = `grain-${prim}`;
       if (!customElements.get(name)) {
         customElements.define(name, class extends HTMLElement {
           connectedCallback() {
-            // Internal lifecycle logic can be injected here
-            // e.g. streaming cursors, visibility toggles for 'think'
-            if (prim === 'think' && this.getAttribute('visible') !== 'true') {
-              this.style.display = 'none';
-            }
+            this.setAttribute('data-grain-element', prim);
           }
         });
       }
@@ -182,6 +297,30 @@ export class WebAdapter {
     return Object.entries(this.config.theme || {})
       .map(([key, value]) => `${key}: ${value};`)
       .join('\n');
+  }
+
+  private ensureDocumentStyles(ownerDocument?: Document): void {
+    if (typeof document === 'undefined' && !ownerDocument) {
+      return;
+    }
+
+    const targetDocument = ownerDocument || document;
+    if (targetDocument.getElementById(STYLE_ELEMENT_ID)) {
+      return;
+    }
+
+    const style = targetDocument.createElement('style');
+    style.id = STYLE_ELEMENT_ID;
+    style.textContent = DEFAULT_STYLES;
+    (targetDocument.head || targetDocument.documentElement).appendChild(style);
+  }
+
+  private applyTheme(container: HTMLElement): void {
+    container.setAttribute('data-grain-root', 'true');
+
+    Object.entries(this.config.theme || {}).forEach(([key, value]) => {
+      container.style.setProperty(key, value);
+    });
   }
 }
 

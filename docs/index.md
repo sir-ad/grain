@@ -39,7 +39,7 @@ features:
 <style>
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #646cff 30%, #747bff);
+  --vp-home-hero-name-background: linear-gradient(120deg, #2155ff 18%, #42a7ea 82%);
 }
 .vp-doc h1 {
   font-weight: 700 !important;

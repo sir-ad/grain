@@ -1,8 +1,6 @@
-<script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, watch } from 'vue'
-import { useRoute } from 'vitepress'
+import type { Router } from 'vitepress'
 
-const route = useRoute()
+let initialized = false
 let observer: MutationObserver | null = null
 
 function addRelToken(anchor: HTMLAnchorElement, token: string) {
@@ -47,33 +45,46 @@ function applyEnhancements() {
     logo.setAttribute('height', '24')
     logo.setAttribute('decoding', 'async')
   }
+
+  document.querySelectorAll<HTMLAnchorElement>('.VPSocialLink[aria-label="github"]').forEach((anchor) => {
+    anchor.setAttribute('aria-label', 'GitHub')
+    anchor.setAttribute('title', 'GitHub')
+  })
 }
 
-async function applyAfterRender() {
-  await nextTick()
-  applyEnhancements()
+function scheduleEnhancements() {
+  window.requestAnimationFrame(() => {
+    applyEnhancements()
+  })
 }
 
-onMounted(() => {
-  applyAfterRender()
+export function setupSiteA11y(router: Router) {
+  if (typeof window === 'undefined' || initialized) {
+    return
+  }
+
+  initialized = true
+  scheduleEnhancements()
 
   observer = new MutationObserver(() => {
     applyEnhancements()
   })
 
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  })
-})
+  if (document.body) {
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    })
+  }
 
-watch(() => route.path, () => {
-  applyAfterRender()
-})
+  const previousAfterRouteChange = router.onAfterRouteChange
+  router.onAfterRouteChange = async (to) => {
+    await previousAfterRouteChange?.(to)
+    scheduleEnhancements()
+  }
 
-onBeforeUnmount(() => {
-  observer?.disconnect()
-})
-</script>
-
-<template></template>
+  window.addEventListener('beforeunload', () => {
+    observer?.disconnect()
+    observer = null
+  }, { once: true })
+}

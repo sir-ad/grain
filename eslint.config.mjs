@@ -9,6 +9,7 @@ export default [
       '**/dist/**',
       '**/node_modules/**',
       '**/.turbo/**',
+      'docs/.vitepress/cache/**',
       'docs/.vitepress/dist/**',
       'packages/docs-site/**'
     ]

@@ -1,7 +1,11 @@
 # Grain
 
 [![NPM Version](https://img.shields.io/npm/v/@grain.sh/core?color=000&labelColor=333&style=flat-square)](https://www.npmjs.com/package/@grain.sh/core)
+[![Core Downloads](https://img.shields.io/npm/dm/%40grain.sh%2Fcore?style=flat-square&label=core%20downloads&color=2155ff)](https://www.npmjs.com/package/@grain.sh/core)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/%40grain.sh%2Fcore?style=flat-square&label=core%20size&color=0d8f63)](https://bundlephobia.com/package/@grain.sh/core)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/sir-ad/grain/deploy.yml?branch=main&style=flat-square)](https://github.com/sir-ad/grain/actions)
+[![Docs Live](https://img.shields.io/badge/docs-live-42a7ea?style=flat-square)](https://sir-ad.github.io/grain/)
+[![GitHub Stars](https://img.shields.io/github/stars/sir-ad/grain?style=flat-square&color=c77a12)](https://github.com/sir-ad/grain/stargazers)
 [![License](https://img.shields.io/github/license/sir-ad/grain?style=flat-square)](https://github.com/sir-ad/grain/blob/main/LICENSE)
 [![AI / LLMs](https://img.shields.io/badge/AI%20%2F%20LLMs-Compatible-000000?style=flat-square&logo=openai&logoColor=white)](https://github.com/sir-ad/grain)
 [![Agentic](https://img.shields.io/badge/Agentic-Native-000000?style=flat-square&logo=robot&logoColor=white)](https://github.com/sir-ad/grain)
@@ -67,6 +71,12 @@ npm install -g @grain.sh/mcp-server
 Or use the bootstrap script:
 ```bash
 curl -fsSL https://cdn.jsdelivr.net/gh/sir-ad/grain@main/install.sh | sh
+```
+
+Or fetch the browser bundle directly:
+
+```bash
+curl -fsSL https://cdn.jsdelivr.net/npm/@grain.sh/web@latest/dist/index.global.js -o grain-web.js
 ```
 
 ### Philosophy

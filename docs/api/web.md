@@ -47,7 +47,7 @@ adapter.render(grain: string, options?: RenderOptions): HTMLElement | null
 ```typescript
 interface RenderOptions {
   container?: HTMLElement | string;
-  position?: 'replace' | 'append' | 'prepend';
+  position?: 'replace' | 'append' | 'prepend' | 'before' | 'after';
   animate?: boolean;
 }
 ```
@@ -75,8 +75,42 @@ adapter.on(event: string, callback: (payload: any) => void): () => void
 ```typescript
 const css = adapter.getThemeCSS();
 console.log(css);
-// --grain-primary: #000000;
-// --grain-secondary: #666666;
+// --grain-primary: #2155ff;
+// --grain-secondary: #5c6c87;
+```
+
+## Theme Tokens
+
+`@grain.sh/web` ships a default visual system and applies it through CSS custom properties on the render host.
+
+| Token | Purpose |
+|-------|---------|
+| `--grain-primary` | Primary accent color for actions and emphasis |
+| `--grain-secondary` | Secondary accent for subdued surfaces |
+| `--grain-background` | Host background token |
+| `--grain-surface` | Base card surface |
+| `--grain-surface-strong` | Elevated surface for nested panels |
+| `--grain-border` | Border color across primitives |
+| `--grain-text` | Primary text color |
+| `--grain-muted` | Secondary text and labels |
+| `--grain-error` | Error and destructive state color |
+| `--grain-success` | Success state color |
+| `--grain-warning` | Warning state color |
+| `--grain-shadow` | Shared component shadow |
+| `--grain-radius` | Shared component radius |
+| `--grain-font-family` | Base UI font |
+| `--grain-font-mono` | Monospace font for structured output |
+
+Example:
+
+```typescript
+const adapter = new WebAdapter({
+  theme: {
+    '--grain-primary': 'var(--brand-accent)',
+    '--grain-surface': 'var(--panel-surface)',
+    '--grain-text': 'var(--text-strong)'
+  }
+});
 ```
 
 ## Production Notes
